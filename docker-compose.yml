@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:latest
+    # restart: always
+    environment:
+      - MYSQL_USER=hub
+      - MYSQL_ROOT_PASSWORD=hubadmin
+    volumes:
+      - mysql:/var/lib/docker/volumes/legendmud_mysql/_data
+    ports:
+      - "5432:5432"
+volumes:
+  mysql:

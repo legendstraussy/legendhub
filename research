@@ -1,0 +1,97 @@
+id  name                         str   con   dex   min
+1   a sword of might              5     2
+2   a sword of courage                  5     2
+3   shield of power                     5     5
+
+no sort (id asc)
+----------------
+1   a sword of might              5     2
+2   a sword of courage                  5     2
+3   shield of power                     5     5
+
+name asc
+--------
+2   a sword of courage                  5     2
+1   a sword of might              5     2
+3   shield of power                     5     5
+
+name desc
+---------
+3   shield of power                     5     5
+1   a sword of might              5     2
+2   a sword of courage                  5     2
+
+str asc
+-------
+2   a sword of courage                  5     2
+3   shield of power                     5     5
+1   a sword of might              5     2
+
+str desc
+--------
+1   a sword of might              5     2
+3   shield of power                     5     5
+2   a sword of courage                  5     2
+
+con asc
+-------
+1   a sword of might              5     2
+2   a sword of courage                  5     2
+3   shield of power                     5     5
+
+con desc
+--------
+3   shield of power                     5     5
+2   a sword of courage                  5     2
+1   a sword of might              5     2
+
+dex asc
+-------
+1   a sword of might              5     2
+2   a sword of courage                  5     2
+3   shield of power                     5     5
+
+dex desc
+--------
+3   shield of power                     5     5
+2   a sword of courage                  5     2
+1   a sword of might              5     2
+
+min asc
+-------
+1   a sword of might              5     2
+2   a sword of courage                  5     2
+3   shield of power                     5     5
+
+min desc
+--------
+3   shield of power                     5     5
+2   a sword of courage                  5     2
+1   a sword of might              5     2
+
+
+accounts
+
+account_roles
+roles
+
+account_notifications
+events
+event_types
+
+account_characters
+characters
+
+articles
+
+items
+
+mobs
+mob_items
+
+areas
+
+quests
+quest_mobs
+quest_items
+
