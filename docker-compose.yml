@@ -1,14 +1,33 @@
-version: "3.8"
+version: "3.7"
+
 services:
-  mysql:
+  db:
     image: mysql:latest
-    # restart: always
+    container_name: hub_mysql
+    restart: always
     environment:
-      - MYSQL_USER=hub
-      - MYSQL_ROOT_PASSWORD=hubadmin
-    volumes:
-      - mysql:/var/lib/docker/volumes/legendmud_mysql/_data
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: hub
     ports:
-      - "5432:5432"
+      - 3306:3306
+    volumes:
+      - './db:/var/lib/mysql'
+
+  myphpadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: hub_phpmyadmin
+    restart: always
+    links:
+      - db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - 8080:80
+
+networks:
+  network:
+    driver: bridge
+
 volumes:
-  mysql:
+  db:
+    driver: local
