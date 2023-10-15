@@ -98,6 +98,11 @@ model Account {
   ModifiedAbilities   Ability[]             @relation("ModifiedAbilities")
   CreatedQuests       Quest[]               @relation("CreatedQuests")
   ModifiedQuests      Quest[]               @relation("ModifiedQuests")
+  Article             Article[]
+  ArticleVersion      ArticleVersion[]
+  Tag                 Tag[]
+  Area                Area[]
+  ChangeLog           ChangeLog[]
 
   @@map("account")
 }
@@ -295,6 +300,7 @@ model Item {
   ItemWeapon         ItemWeapon?
   AmmoItem           ItemWeapon[]         @relation("AmmoItem")
   StatModifer        StatModifer?         @relation("ItemSource")
+  ItemTagSource      AppliedTag?          @relation("ItemTagSource")
 
   @@map("items")
 }
@@ -424,6 +430,7 @@ model Quest {
   ModifiedQuests Account          @relation("ModifiedQuests", fields: [modifiedBy], references: [id])
   CharacterQuest CharacterQuest[]
   StatModifer    StatModifer?     @relation("QuestSource")
+  QuestTagSource AppliedTag?      @relation("QuestTagSource")
 
   @@map("quests")
 }
@@ -473,11 +480,13 @@ model StatModifer {
 }
 
 model Article {
-  id             Int              @id @default(autoincrement())
-  createdDate    DateTime         @default(now()) @map("created_date")
-  authorId       Int              @map("author_id")
-  isProtected    Boolean          @default(false) @map("is_protected")
-  ArticleContent ArticleVersion[]
+  id               Int              @id @default(autoincrement())
+  createdDate      DateTime         @default(now()) @map("created_date")
+  authorId         Int              @map("author_id")
+  isProtected      Boolean          @default(false) @map("is_protected")
+  Author           Account          @relation(fields: [authorId], references: [id])
+  ArticleContent   ArticleVersion[]
+  ArticleTagSource AppliedTag?      @relation("ArticleTagSource")
 
   @@map("articles")
 }
@@ -490,39 +499,49 @@ model ArticleVersion {
   content      String   @db.Text
   isCurrent    Boolean  @map("is_current")
   version      String?
+  Editor       Account  @relation(fields: [editorId], references: [id])
   Article      Article  @relation(fields: [articleId], references: [id])
 
   @@map("article_versions")
 }
 
 model Tag {
-  id          Int      @id @default(autoincrement())
-  createdDate DateTime @default(now()) @map("created_date")
-  createdBy   Int      @map("created_by")
+  id          Int          @id @default(autoincrement())
+  createdDate DateTime     @default(now()) @map("created_date")
+  createdBy   Int          @map("created_by")
   tag         String
+  Creator     Account      @relation(fields: [createdBy], references: [id])
+  AppliedTag  AppliedTag[]
 
   @@map("tags")
 }
 
 model AppliedTag {
-  id       Int     @id @default(autoincrement())
-  typeId   TagType @map("type_id")
-  sourceId Int     @map("source_id")
-  tagId    Int     @map("tag_id")
+  id               Int      @id @default(autoincrement())
+  typeId           TagType  @map("type_id")
+  sourceId         Int?     @unique @map("source_id")
+  tagId            Int      @map("tag_id")
+  Tag              Tag      @relation(fields: [tagId], references: [id])
+  ArticleTagSource Article? @relation("ArticleTagSource", fields: [sourceId], references: [id], map: "article_tag_source_fk")
+  ItemTagSource    Item?    @relation("ItemTagSource", fields: [sourceId], references: [id], map: "item_tag_source_fk")
+  MobTagSource     Mob?     @relation("MobTagSource", fields: [sourceId], references: [id], map: "mob_tag_source_fk")
+  QuestTagSource   Quest?   @relation("QuestTagSource", fields: [sourceId], references: [id], map: "quest_tag_source_fk")
 
   @@map("applied_tags")
 }
 
 model Mob {
-  id               Int     @id @default(autoincrement())
-  mudId            Int?    @map("mud_id")
-  areaId           Int?    @map("area_id")
-  shortDescription String  @map("short_description")
-  longDescription  String? @map("long_description")
+  id               Int         @id @default(autoincrement())
+  mudId            Int?        @map("mud_id")
+  areaId           Int?        @map("area_id")
+  shortDescription String      @map("short_description")
+  longDescription  String?     @map("long_description")
   level            Int?
-  isAggressive     Boolean @default(false) @map("is_aggressive")
+  isAggressive     Boolean     @default(false) @map("is_aggressive")
   experience       Int?
   gold             Int?
+  MobTagSource     AppliedTag? @relation("MobTagSource")
+  Area             Area?       @relation(fields: [areaId], references: [id])
 
   @@map("mobs")
 }
@@ -533,6 +552,8 @@ model Area {
   name        String
   authorId    Int?      @map("author_id")
   releaseDate DateTime? @map("release_date")
+  Author      Account?  @relation(fields: [authorId], references: [id])
+  Mob         Mob[]
 
   @@map("areas")
 }
@@ -544,6 +565,7 @@ model ChangeLog {
   content     String?   @db.Text
   version     String?
   releaseDate DateTime? @map("release_date")
+  Creator     Account?  @relation(fields: [createdBy], references: [id])
 
   @@map("change_logs")
 }
