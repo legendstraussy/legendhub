@@ -32,35 +32,68 @@ enum NotificationType {
   SYSTEM
 }
 
+enum Align {
+  GNE
+  GN
+  GE
+  NE
+  G
+  N
+  E
+}
+
+enum WeaponStat {
+  STR
+  DEX
+  CON
+}
+
+enum WeaponType {
+  BLUNT
+  PIERCE
+  SLASH
+}
+
+enum StatModifierType {
+  ABILITITY
+  ITEM
+  POTION
+  QUEST
+  SKILL
+  SPELL
+}
+
+enum TagType {
+  ARTICLE
+  ITEM
+  MOB
+  QUEST
+}
+
 model Account {
-  id               Int                @id @default(autoincrement())
-  mudId            String?            @map("mud_id")
-  createdDate      DateTime           @default(now()) @map("created_date")
-  modifiedDate     DateTime           @updatedAt @map("modified_date")
-  firstName        String?            @map("first_name")
-  lastName         String?            @map("last_name")
-  email            String             @unique
-  NetworkHistory   NetworkHistory[]
-  AccountRole      AccountRole[]
-  NetworkBlacklist NetworkBlacklist[]
-  Notification     Notification[]
+  id                  Int                   @id @default(autoincrement())
+  mudId               String?               @map("mud_id")
+  accountPreferenceId Int                   @map("account_preference_id")
+  createdDate         DateTime              @default(now()) @map("created_date")
+  modifiedDate        DateTime              @updatedAt @map("modified_date")
+  firstName           String?               @map("first_name")
+  lastName            String?               @map("last_name")
+  email               String                @unique
+  AccountPreference   AccountPreference?
+  AccountRole         AccountRole[]
+  AccountNotification AccountNotification[]
+  Character           Character[]
 
   @@map("account")
 }
 
-model AccountPassword {
-  id           Int    @id @default(autoincrement())
-  accountHash  String @map("account_hash")
-  passwordHash String @map("password_hash")
-
-  @@map("account_passwords")
-}
-
 model AccountPreference {
   id                   Int      @id @default(autoincrement())
+  accountId            Int      @unique @map("account_id")
   receiveNotifications String?  @map("receive_notifications")
   defaultTheme         Theme?   @default(WORK) @map("default_theme")
   showSidePanel        Boolean? @default(true) @map("show_side_panel")
+  Account              Account  @relation(fields: [accountId], references: [id])
 
   @@map("account_preferences")
 }
@@ -69,7 +102,7 @@ model AccountRole {
   id        Int     @id @default(autoincrement())
   accountId Int     @map("account_id")
   role      Role    @default(PLAYER)
-  account   Account @relation(fields: [accountId], references: [id])
+  Account   Account @relation(fields: [accountId], references: [id])
 
   @@map("account_roles")
 }
@@ -80,8 +113,17 @@ model AccountNotification {
   notificationId Int       @map("notification_id")
   read           Boolean?  @default(false)
   readDate       DateTime? @map("read_date")
+  Account        Account   @relation(fields: [accountId], references: [id])
 
   @@map("account_notifications")
+}
+
+model AccountPassword {
+  id           Int    @id @default(autoincrement())
+  accountHash  String @map("account_hash")
+  passwordHash String @map("password_hash")
+
+  @@map("account_passwords")
 }
 
 model NetworkHistory {
@@ -90,7 +132,6 @@ model NetworkHistory {
   createdDate DateTime @default(now()) @map("created_date")
   loginDate   DateTime @updatedAt @map("login_date")
   ipAddress   String   @map("ip_address")
-  account     Account  @relation(fields: [accountId], references: [id])
 
   @@map("network_history")
 }
@@ -101,7 +142,6 @@ model NetworkBlacklist {
   issueDate        DateTime @map("issue_date")
   termDate         DateTime @map("term_date")
   issuer           Int
-  account          Account  @relation(fields: [issuer], references: [id])
 
   @@map("network_blacklist")
 }
@@ -114,285 +154,362 @@ model Notification {
   title       String
   description String?
   content     String?          @db.Text
-  account     Account?         @relation(fields: [createdBy], references: [id])
 
   @@map("notifications")
 }
 
-// characters
-//   id
-//   mud_id (from the mud)
-//   created_date
-//   modified_date
-//   name
-//   description
-//   level
+model Character {
+  id               Int                @id @default(autoincrement())
+  mudId            Int?               @map("mud_id")
+  accountId        Int                @map("account_id")
+  createdDate      DateTime           @default(now()) @map("created_date")
+  modifiedDate     DateTime           @updatedAt @map("modified_date")
+  name             String
+  description      String?
+  level            Int?               @default(50)
+  Account          Account            @relation(fields: [accountId], references: [id])
+  CharacterVersion CharacterVersion[]
 
-// character_versions
-//   id
-//   created_date
-//   modified_date
-//   character_id      -> characters.id
-//   version
-//   stats_id          -> character_stats.id
-//   equipment_id      -> equipment.id
-//   hometown
+  @@map("characters")
+}
 
-// character_stats
-//   id
-//   str
-//   min
-//   dex
-//   con
-//   per
-//   spi
-//   str_swap
-//   min_swap
-//   dex_swap
-//   con_swap
-//   per_swap
-//   spi_swap
+model CharacterVersion {
+  id                   Int                 @id @default(autoincrement())
+  characterId          Int                 @map("character_id")
+  equipmentId          Int                 @map("equipment_id")
+  statsId              Int                 @map("stats_id")
+  createdDate          DateTime            @default(now()) @map("created_date")
+  modifiedDate         DateTime            @updatedAt @map("modified_date")
+  version              String
+  hometown             String?
+  Character            Character           @relation(fields: [characterId], references: [id])
+  CharacterStat        CharacterStat?
+  CharacterQuest       CharacterQuest[]
+  CharacterEquipment   CharacterEquipment? @relation(fields: [characterEquipmentId], references: [id])
+  characterEquipmentId Int?
 
-// character_quests
-//   id
-//   character_id      -> characters.id
-//   quest_id          -> quests.id
+  @@map("character_versions")
+}
 
-// character_equipment
-//   id
-//   light     -> item.id
-//   finger_1
-//   finger_2
-//   neck_1
-//   neck_2
-//   body
-//   head
-//   hands
-//   feet
-//   face
-//   arms
-//   legs
-//   about
-//   waist
-//   wrist_1
-//   wrist_2
-//   wield
-//   hold_1
-//   hold_2
-//   hold_3
-//   ear_1
-//   ear_2
-//   arm
-//   amulet
-//   aux
+model CharacterStat {
+  id                 Int              @id @default(autoincrement())
+  characterVersionId Int              @unique @map("character_version_id")
+  str                Int?             @default(50)
+  min                Int?             @default(50)
+  dex                Int?             @default(50)
+  con                Int?             @default(16)
+  per                Int?             @default(16)
+  spi                Int?             @default(16)
+  strSwap            Int?             @default(0) @map("str_swap")
+  minSwap            Int?             @default(0) @map("min_swap")
+  dexSwap            Int?             @default(0) @map("dex_swap")
+  conSwap            Int?             @default(0) @map("con_swap")
+  perSwap            Int?             @default(0) @map("per_swap")
+  spiSwap            Int?             @default(0) @map("spi_swap")
+  CharacterVersion   CharacterVersion @relation(fields: [characterVersionId], references: [id])
 
-// items
-//   id
-//   created_date
-//   created_by        -> account.id
-//   modified_date
-//   modified_by       -> account.id
-//   short_description
-//   long_description
-//   timer
-//   align
-//   rent
-//   preservable
-//   net_stat
-//   notes
-//   weight
-//   slots             -> slots.id, slots.id
-//   is_bonded
-//   is_castable
-//   is_heroic
-//   is_level_required
-//   is_light
-//   is_limited
-//   is_soulbound
-//   is_unique
-//   stat_modifier_id  -> stat_modifiers.id
+  @@map("character_stats")
+}
 
-// item_spells
-//   id
-//   item_id       -> items.id
-//   spell_id      -> spells.id
+model CharacterQuest {
+  id                 Int              @id @default(autoincrement())
+  characterVersionId Int              @map("character_version_id")
+  questId            Int              @map("quest_id")
+  CharacterVersion   CharacterVersion @relation(fields: [characterVersionId], references: [id])
+  Quest              Quest            @relation(fields: [questId], references: [id])
 
-// item_weapons
-//   id
-//   item_id         -> items.id
-//   quality
-//   speed
-//   is_holdable
-//   is_two_handed
-//   ammo_capacity
-//   ammo_type_id    -> items.id
-//   shot_accuracy
-//   max_damage
-//   min_damage
-//   avg_damage
-//   weapon_stat
-//   weapon_type
+  @@map("character_quests")
+}
 
-// slots
-//   id
-//   slot
+model CharacterEquipment {
+  id               Int                @id @default(autoincrement())
+  light            Int?
+  finger1          Int?               @map("finger_1")
+  finger2          Int?               @map("finger_2")
+  neck1            Int?               @map("neck_1")
+  neck2            Int?               @map("neck_2")
+  body             Int?
+  head             Int?
+  hands            Int?
+  feet             Int?
+  face             Int?
+  arms             Int?
+  legs             Int?
+  about            Int?
+  waist            Int?
+  wrist1           Int?               @map("wrist_1")
+  wrist2           Int?               @map("wrist_2")
+  wield            Int?
+  hold1            Int?               @map("hold_1")
+  hold2            Int?               @map("hold_2")
+  hold3            Int?               @map("hold_3")
+  ear1             Int?               @map("ear_1")
+  ear2             Int?               @map("ear_2")
+  arm              Int?
+  amulet           Int?
+  aux              Int?
+  CharacterVersion CharacterVersion[]
+  Item             Item?              @relation(fields: [itemId], references: [id])
+  itemId           Int?
 
-// spells
-//   id
-//   created_date
-//   created_by        -> account.id
-//   modified_date
-//   modified_by       -> account.id
-//   name
-//   description
-//   notes
-//   words
-//   level_requirement
-//   stat_modifier_id  -> stat_modifiers.id
+  @@map("character_equipment")
+}
 
-// potions
-//   id
-//   created_date
-//   created_by        -> account.id
-//   modified_date
-//   modified_by       -> account.id
-//   name
-//   description
-//   notes
-//   duration
-//   stat_modifier_id  -> stat_modifiers.id
+model Item {
+  id                 Int                  @id @default(autoincrement())
+  createdDate        DateTime             @default(now()) @map("created_date")
+  createdBy          Int                  @map("created_by")
+  modifiedDate       DateTime             @updatedAt
+  modifiedBy         Int                  @map("modified_by")
+  shortDescription   String               @map("short_description")
+  longDescription    String?              @map("long_description")
+  timer              Int?                 @default(-1)
+  align              Align?               @default(GNE)
+  rent               Int?
+  preservable        Boolean?             @default(false)
+  netStat            Int?                 @map("net_stat")
+  notes              String?              @db.Text
+  weight             Float?               @default(0.0)
+  slots              String?
+  isBonded           Boolean?             @default(false) @map("is_bonded")
+  isCastable         Boolean?             @default(false) @map("is_castable")
+  isHeroic           Boolean?             @default(false) @map("is_heroic")
+  isLevelRequired    Boolean?             @default(false) @map("is_level_required")
+  isLight            Boolean?             @default(false) @map("is_light")
+  isLimited          Boolean?             @default(false) @map("is_limited")
+  isSoulbound        Boolean?             @default(false) @map("is_soulbound")
+  isUnique           Boolean?             @default(false) @map("is_unique")
+  CharacterEquipment CharacterEquipment[]
+  ItemSpell          ItemSpell[]
+  ItemWeapon         ItemWeapon?
 
-// skills
-//   id
-//   created_date
-//   created_by        -> account.id
-//   modified_date
-//   modified_by       -> account.id
-//   name
-//   description
-//   notes
-//   trainable
-//   level_requirement
-//   stat_modifier_id  -> stat_modifiers.id
+  @@map("items")
+}
 
-// abilities
-//   id
-//   created_date
-//   created_by        -> account.id
-//   modified_date
-//   modified_by       -> account.id
-//   name
-//   description
-//   notes
-//   era_points
-//   stat_modifier_id  -> stat_modifiers.id
+model ItemWeapon {
+  id           Int         @id @default(autoincrement())
+  itemId       Int         @unique @map("item_id")
+  quality      Int?
+  speed        Int?
+  isHoldable   Boolean     @default(false) @map("is_holdable")
+  isTwoHanded  Boolean     @default(false) @map("is_two_handed")
+  ammoCapacity Int?        @map("ammo_capacity")
+  ammoTypeId   Int         @map("ammo_type_id")
+  shotAccuracy Int?        @map("shot_accuracy")
+  maxDamage    Int?        @map("max_damage")
+  minDamage    Int?        @map("min_damage")
+  avgDamage    Int?        @map("avg_damage")
+  stat         WeaponStat?
+  type         WeaponType?
 
-// quests
-//   id
-//   created_date
-//   created_by        -> account.id
-//   modified_date
-//   modified_by       -> account.id
-//   name
-//   description
-//   notes
-//   whoises
-//   pretitle
-//   post_title
-//   experience
-//   stat_modifier_id  -> stat_modifiers.id
+  item Item @relation(fields: [itemId], references: [id])
 
-// modifier_types
-//   id
-//   type
+  @@map("item_weapons")
+}
 
-// stat_modifiers
-//   id
-//   modifier_type_id  -> modifier_types.id
-//   hp
-//   mv
-//   ma
-//   ac
-//   str
-//   min
-//   dex
-//   con
-//   per
-//   spi
-//   hp_regen
-//   mv_regen
-//   ma_regen
-//   damroll
-//   hitroll
-//   mitigation
-//   spell_dam
-//   spell_crit
-//   spell_redux
-//   concentration
-//   shot_accuracy
-//   bonus_accuracy
-//   ammo_limit
-//   parry
-//   str_cap
-//   min_cap
-//   dex_cap
-//   con_cap
-//   per_cap
-//   spi_cap
+model ItemSpell {
+  id      Int @id @default(autoincrement())
+  itemId  Int @map("item_id")
+  spellId Int @map("spell_id")
 
-// articles
-//   id
-//   created_date
-//   created_by
-//   title
+  item  Item  @relation(fields: [itemId], references: [id])
+  spell Spell @relation(fields: [spellId], references: [id])
 
-// article_versions
-//   id
-//   article_id      -> articles.id
-//   modified_date
-//   modified_by
-//   content
-//   is_current
-//   is_protected
-//   version
+  @@map("item_spells")
+}
 
-// tag_types
-//   id
-//   type
+model Spell {
+  id               Int         @id @default(autoincrement())
+  createdDate      DateTime    @default(now()) @map("created_date")
+  createdBy        Int         @map("created_by")
+  modifiedDate     DateTime    @updatedAt
+  modifiedBy       Int         @map("modified_by")
+  name             String
+  description      String?
+  notes            String?     @db.Text
+  words            String?
+  levelRequirement Int?        @default(0) @map("level_requirement")
+  ItemSpell        ItemSpell[]
 
-// tags
-//   id
-//   created_date
-//   created_by
-//   tag
+  @@map("spells")
+}
 
-// applied_tags
-//   id
-//   tag_type_id   -> tag_types.id
-//   source_id     -> articles.id/mobs.id/items.id/quests.id
-//   tag_id        -> tags.id
+model Potion {
+  id           Int      @id @default(autoincrement())
+  createdDate  DateTime @default(now()) @map("created_date")
+  createdBy    Int      @map("created_by")
+  modifiedDate DateTime @updatedAt
+  modifiedBy   Int      @map("modified_by")
+  name         String
+  description  String?
+  notes        String?  @db.Text
+  duration     Int?
 
-// mobs
-//   id
-//   mud_id
-//   short_description
-//   long_description
-//   level
-//   aggressive
-//   experience
-//   gold
-//   area
+  @@map("potions")
+}
 
-// areas
-//   id
-//   name
-//   author
-//   release_date
+model Skill {
+  id               Int      @id @default(autoincrement())
+  createdDate      DateTime @default(now()) @map("created_date")
+  createdBy        Int      @map("created_by")
+  modifiedDate     DateTime @updatedAt @map("modified_date")
+  modifiedBy       Int      @map("modified_by")
+  name             String
+  description      String?
+  notes            String?  @db.Text
+  trainable        Boolean?
+  levelRequirement Int      @map("level_requirement")
 
-// change_logs
-//   id
-//   created_date
-//   created_by      -> accounts.id
-//   content
-//   version
-//   release_date
+  @@map("skills")
+}
+
+model Ability {
+  id               Int      @id @default(autoincrement())
+  createdDate      DateTime @default(now()) @map("created_date")
+  createdBy        Int      @map("created_by")
+  modifiedDate     DateTime @updatedAt
+  modifiedBy       Int      @map("modified_by")
+  name             String
+  description      String?
+  notes            String?  @db.Text
+  firstRankPoints  Int?     @map("first_rank_points")
+  secondRankPoints Int?     @map("second_rank_points")
+  thirdRankPoints  Int?     @map("third_rank_points")
+  fourthRankPoints Int?     @map("fourth_rank_points")
+  fifthRankPoints  Int?     @map("fifth_rank_points")
+  sixthRankPoints  Int?     @map("sixth_rank_points")
+
+  @@map("abilities")
+}
+
+model Quest {
+  id             Int              @id @default(autoincrement())
+  createdDate    DateTime         @default(now()) @map("created_date")
+  createdBy      Int              @map("created_by")
+  modifiedDate   DateTime         @updatedAt
+  modifiedBy     Int              @map("modified_by")
+  name           String
+  description    String?
+  notes          String?          @db.Text
+  whoises        String?
+  pretitles      String?
+  post_titles    String?
+  experience     Int?
+  CharacterQuest CharacterQuest[]
+
+  @@map("quests")
+}
+
+model StatModifer {
+  id            Int              @id @default(autoincrement())
+  type          StatModifierType @unique
+  sourceId      Int              @unique @map("source_id")
+  hp            Int?
+  mv            Int?
+  ma            Int?
+  ac            Int?
+  str           Int?
+  min           Int?
+  dex           Int?
+  con           Int?
+  per           Int?
+  spi           Int?
+  hpRegen       Int?
+  mvRegen       Int?
+  maRegen       Int?
+  damroll       Int?
+  hitroll       Int?
+  mitigation    Int?
+  spellDam      Int?
+  spellCrit     Int?
+  spellRedux    Int?
+  concentration Int?
+  shotAccuracy  Int?
+  bonusAccuracy Int?
+  ammoCapacity  Int?
+  parry         Int?
+  strCap        Int?
+  minCap        Int?
+  dexCap        Int?
+  conCap        Int?
+  perCap        Int?
+  spiCap        Int?
+
+  @@map("stat_modifiers")
+}
+
+model Article {
+  id             Int              @id @default(autoincrement())
+  createdDate    DateTime         @default(now()) @map("created_date")
+  authorId       Int              @map("author_id")
+  isProtected    Boolean          @default(false) @map("is_protected")
+  ArticleContent ArticleVersion[]
+
+  @@map("articles")
+}
+
+model ArticleVersion {
+  id           Int      @id @default(autoincrement())
+  articleId    Int      @map("article_id")
+  modifiedDate DateTime @default(now()) @map("modified_date")
+  editorId     Int      @map("editor_id")
+  content      String   @db.Text
+  isCurrent    Boolean  @map("is_current")
+  version      String?
+  Article      Article  @relation(fields: [articleId], references: [id])
+
+  @@map("article_versions")
+}
+
+model Tag {
+  id          Int      @id @default(autoincrement())
+  createdDate DateTime @default(now()) @map("created_date")
+  createdBy   Int      @map("created_by")
+  tag         String
+
+  @@map("tags")
+}
+
+model AppliedTag {
+  id       Int     @id @default(autoincrement())
+  typeId   TagType @map("type_id")
+  sourceId Int     @map("source_id")
+  tagId    Int     @map("tag_id")
+
+  @@map("applied_tags")
+}
+
+model Mob {
+  id               Int     @id @default(autoincrement())
+  mudId            Int?    @map("mud_id")
+  areaId           Int?    @map("area_id")
+  shortDescription String  @map("short_description")
+  longDescription  String? @map("long_description")
+  level            Int?
+  isAggressive     Boolean @default(false) @map("is_aggressive")
+  experience       Int?
+  gold             Int?
+
+  @@map("mobs")
+}
+
+model Area {
+  id          Int       @id @default(autoincrement())
+  mudId       Int?      @map("mud_id")
+  name        String
+  authorId    Int?      @map("author_id")
+  releaseDate DateTime? @map("release_date")
+
+  @@map("areas")
+}
+
+model ChangeLog {
+  id          Int       @id @default(autoincrement())
+  createdDate DateTime  @map("created_date")
+  createdBy   Int       @map("created_by")
+  content     String?   @db.Text
+  version     String?
+  releaseDate DateTime? @map("release_date")
+
+  @@map("change_logs")
+}
