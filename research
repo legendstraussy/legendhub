@@ -1,3 +1,21 @@
+App routes
+/
+/builder
+/items
+/items/:id
+/mobs
+/mobs/:id
+/quests
+/quests/:id
+/articles
+/articles/:id
+/login
+/signup
+/404
+
+INSERT INTO `account` (`id`, `mud_id`, `created_date`, `modified_date`, `first_name`, `last_name`, `email`, `preferences`) VALUES (NULL, NULL, '2023-10-15 16:42:50.000', '2023-10-15 16:42:50.000', 'Brian', 'Selvaggio', 'straussy@legendmud.org', NULL);
+
+
 id  name                         str   con   dex   min
 1   a sword of might              5     2
 2   a sword of courage                  5     2
