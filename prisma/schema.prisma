@@ -73,7 +73,6 @@ enum TagType {
 model Account {
   id                  Int                   @id @default(autoincrement())
   mudId               String?               @map("mud_id")
-  accountPreferenceId Int                   @map("account_preference_id")
   createdDate         DateTime              @default(now()) @map("created_date")
   modifiedDate        DateTime              @updatedAt @map("modified_date")
   firstName           String?               @map("first_name")
