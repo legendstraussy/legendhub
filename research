@@ -70,7 +70,13 @@ min desc
 1   a sword of might              5     2
 
 
-accounts
+Best Pracs
+-referential integrity
+-migration workflows with db push
+-indices on foreign keys
+
+
+-accounts
   id
   mud_id (from the mud)
   created_date
@@ -79,34 +85,43 @@ accounts
   last_name
   email
 
-account_network
+-network_history
   id
   account_id      -> accounts.id
   ip_address
-  created_date
   last_login_date
+  last_failed_login_date
 
-network_blacklist
+-network_blacklist
   id
-  account_id      -> accounts.id
-  first_name
-  last_name
-  ip_address
+  network_history_id      -> network_history.id
   issue_date
   term_date
+  issuer                  -> accounts.id
 
-account_roles
+-account_roles
   id
   account_id    -> accounts.id
   role_id
   issue_date
   issuer_id     -> accounts.id
 
-roles
+-roles
   id
   type
 
-account_notifications
+-account_passwords
+  id
+  account_hash
+  password_hash
+
+-account_preferences
+  id
+  receive_notifications     -> notification enums[]
+  default_theme
+  show_side_panel
+
+-account_notifications
   id
   account_id        -> accounts.id
   notification_id   -> notifications.id

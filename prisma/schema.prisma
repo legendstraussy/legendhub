@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,9 +7,392 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model accounts {
-  id    Int     @id @default(autoincrement())
-  email String
-  name  String?
-  phone String?
+enum Role {
+  PLAYER
+  EXPLORER
+  SCRIBE
+  ADMIN
+  DEV
 }
+
+enum Theme {
+  WORK
+  LEGEND
+}
+
+enum NotificationType {
+  NEW_ITEM
+  NEW_QUEST
+  NEW_MOB
+  NEW_ARTICLE
+  EDIT_ITEM
+  EDIT_QUEST
+  EDIT_MOB
+  EDIT_ARTICLE
+  SYSTEM
+}
+
+model Account {
+  id               Int                @id @default(autoincrement())
+  mudId            String?            @map("mud_id")
+  createdDate      DateTime           @default(now()) @map("created_date")
+  modifiedDate     DateTime           @updatedAt @map("modified_date")
+  firstName        String?            @map("first_name")
+  lastName         String?            @map("last_name")
+  email            String             @unique
+  NetworkHistory   NetworkHistory[]
+  AccountRole      AccountRole[]
+  NetworkBlacklist NetworkBlacklist[]
+  Notification     Notification[]
+
+  @@map("account")
+}
+
+model AccountPassword {
+  id           Int    @id @default(autoincrement())
+  accountHash  String @map("account_hash")
+  passwordHash String @map("password_hash")
+
+  @@map("account_passwords")
+}
+
+model AccountPreference {
+  id                   Int      @id @default(autoincrement())
+  receiveNotifications String?  @map("receive_notifications")
+  defaultTheme         Theme?   @default(WORK) @map("default_theme")
+  showSidePanel        Boolean? @default(true) @map("show_side_panel")
+
+  @@map("account_preferences")
+}
+
+model AccountRole {
+  id        Int     @id @default(autoincrement())
+  accountId Int     @map("account_id")
+  role      Role    @default(PLAYER)
+  account   Account @relation(fields: [accountId], references: [id])
+
+  @@map("account_roles")
+}
+
+model AccountNotification {
+  id             Int       @id @default(autoincrement())
+  accountId      Int       @map("account_id")
+  notificationId Int       @map("notification_id")
+  read           Boolean?  @default(false)
+  readDate       DateTime? @map("read_date")
+
+  @@map("account_notifications")
+}
+
+model NetworkHistory {
+  id          Int      @id @default(autoincrement())
+  accountId   Int      @map("account_id")
+  createdDate DateTime @default(now()) @map("created_date")
+  loginDate   DateTime @updatedAt @map("login_date")
+  ipAddress   String   @map("ip_address")
+  account     Account  @relation(fields: [accountId], references: [id])
+
+  @@map("network_history")
+}
+
+model NetworkBlacklist {
+  id               Int      @id @default(autoincrement())
+  networkHistoryId Int      @map("network_history_id")
+  issueDate        DateTime @map("issue_date")
+  termDate         DateTime @map("term_date")
+  issuer           Int
+  account          Account  @relation(fields: [issuer], references: [id])
+
+  @@map("network_blacklist")
+}
+
+model Notification {
+  id          Int              @id @default(autoincrement())
+  createdDate DateTime         @map("created_date")
+  createdBy   Int              @map("created_by")
+  type        NotificationType
+  title       String
+  description String?
+  content     String?          @db.Text
+  account     Account?         @relation(fields: [createdBy], references: [id])
+
+  @@map("notifications")
+}
+
+// characters
+//   id
+//   mud_id (from the mud)
+//   created_date
+//   modified_date
+//   name
+//   description
+//   level
+
+// character_versions
+//   id
+//   created_date
+//   modified_date
+//   character_id      -> characters.id
+//   version
+//   stats_id          -> character_stats.id
+//   equipment_id      -> equipment.id
+//   hometown
+
+// character_stats
+//   id
+//   str
+//   min
+//   dex
+//   con
+//   per
+//   spi
+//   str_swap
+//   min_swap
+//   dex_swap
+//   con_swap
+//   per_swap
+//   spi_swap
+
+// character_quests
+//   id
+//   character_id      -> characters.id
+//   quest_id          -> quests.id
+
+// character_equipment
+//   id
+//   light     -> item.id
+//   finger_1
+//   finger_2
+//   neck_1
+//   neck_2
+//   body
+//   head
+//   hands
+//   feet
+//   face
+//   arms
+//   legs
+//   about
+//   waist
+//   wrist_1
+//   wrist_2
+//   wield
+//   hold_1
+//   hold_2
+//   hold_3
+//   ear_1
+//   ear_2
+//   arm
+//   amulet
+//   aux
+
+// items
+//   id
+//   created_date
+//   created_by        -> account.id
+//   modified_date
+//   modified_by       -> account.id
+//   short_description
+//   long_description
+//   timer
+//   align
+//   rent
+//   preservable
+//   net_stat
+//   notes
+//   weight
+//   slots             -> slots.id, slots.id
+//   is_bonded
+//   is_castable
+//   is_heroic
+//   is_level_required
+//   is_light
+//   is_limited
+//   is_soulbound
+//   is_unique
+//   stat_modifier_id  -> stat_modifiers.id
+
+// item_spells
+//   id
+//   item_id       -> items.id
+//   spell_id      -> spells.id
+
+// item_weapons
+//   id
+//   item_id         -> items.id
+//   quality
+//   speed
+//   is_holdable
+//   is_two_handed
+//   ammo_capacity
+//   ammo_type_id    -> items.id
+//   shot_accuracy
+//   max_damage
+//   min_damage
+//   avg_damage
+//   weapon_stat
+//   weapon_type
+
+// slots
+//   id
+//   slot
+
+// spells
+//   id
+//   created_date
+//   created_by        -> account.id
+//   modified_date
+//   modified_by       -> account.id
+//   name
+//   description
+//   notes
+//   words
+//   level_requirement
+//   stat_modifier_id  -> stat_modifiers.id
+
+// potions
+//   id
+//   created_date
+//   created_by        -> account.id
+//   modified_date
+//   modified_by       -> account.id
+//   name
+//   description
+//   notes
+//   duration
+//   stat_modifier_id  -> stat_modifiers.id
+
+// skills
+//   id
+//   created_date
+//   created_by        -> account.id
+//   modified_date
+//   modified_by       -> account.id
+//   name
+//   description
+//   notes
+//   trainable
+//   level_requirement
+//   stat_modifier_id  -> stat_modifiers.id
+
+// abilities
+//   id
+//   created_date
+//   created_by        -> account.id
+//   modified_date
+//   modified_by       -> account.id
+//   name
+//   description
+//   notes
+//   era_points
+//   stat_modifier_id  -> stat_modifiers.id
+
+// quests
+//   id
+//   created_date
+//   created_by        -> account.id
+//   modified_date
+//   modified_by       -> account.id
+//   name
+//   description
+//   notes
+//   whoises
+//   pretitle
+//   post_title
+//   experience
+//   stat_modifier_id  -> stat_modifiers.id
+
+// modifier_types
+//   id
+//   type
+
+// stat_modifiers
+//   id
+//   modifier_type_id  -> modifier_types.id
+//   hp
+//   mv
+//   ma
+//   ac
+//   str
+//   min
+//   dex
+//   con
+//   per
+//   spi
+//   hp_regen
+//   mv_regen
+//   ma_regen
+//   damroll
+//   hitroll
+//   mitigation
+//   spell_dam
+//   spell_crit
+//   spell_redux
+//   concentration
+//   shot_accuracy
+//   bonus_accuracy
+//   ammo_limit
+//   parry
+//   str_cap
+//   min_cap
+//   dex_cap
+//   con_cap
+//   per_cap
+//   spi_cap
+
+// articles
+//   id
+//   created_date
+//   created_by
+//   title
+
+// article_versions
+//   id
+//   article_id      -> articles.id
+//   modified_date
+//   modified_by
+//   content
+//   is_current
+//   is_protected
+//   version
+
+// tag_types
+//   id
+//   type
+
+// tags
+//   id
+//   created_date
+//   created_by
+//   tag
+
+// applied_tags
+//   id
+//   tag_type_id   -> tag_types.id
+//   source_id     -> articles.id/mobs.id/items.id/quests.id
+//   tag_id        -> tags.id
+
+// mobs
+//   id
+//   mud_id
+//   short_description
+//   long_description
+//   level
+//   aggressive
+//   experience
+//   gold
+//   area
+
+// areas
+//   id
+//   name
+//   author
+//   release_date
+
+// change_logs
+//   id
+//   created_date
+//   created_by      -> accounts.id
+//   content
+//   version
+//   release_date
