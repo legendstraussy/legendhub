@@ -86,8 +86,18 @@ model Account {
   NetworkHistory      NetworkHistory[]
   NetworkBlacklist    NetworkBlacklist[]
   Notification        Notification[]
-  CreatedItem         Item[]                @relation("CreatedItem")
-  ModifiedItem        Item[]                @relation("ModifiedItem")
+  CreatedItems        Item[]                @relation("CreatedItems")
+  ModifiedItems       Item[]                @relation("ModifiedItems")
+  CreatedSpells       Spell[]               @relation("CreatedSpells")
+  ModifiedSpells      Spell[]               @relation("ModifiedSpells")
+  CreatedPotions      Potion[]              @relation("CreatedPotions")
+  ModifiedPotions     Potion[]              @relation("ModifiedPotions")
+  CreatedSkills       Skill[]               @relation("CreatedSkills")
+  ModifiedSkills      Skill[]               @relation("ModifiedSkills")
+  CreatedAbilities    Ability[]             @relation("CreatedAbilities")
+  ModifiedAbilities   Ability[]             @relation("ModifiedAbilities")
+  CreatedQuests       Quest[]               @relation("CreatedQuests")
+  ModifiedQuests      Quest[]               @relation("ModifiedQuests")
 
   @@map("account")
 }
@@ -278,11 +288,13 @@ model Item {
   isLimited          Boolean?             @default(false) @map("is_limited")
   isSoulbound        Boolean?             @default(false) @map("is_soulbound")
   isUnique           Boolean?             @default(false) @map("is_unique")
-  CreatedItem        Account              @relation("CreatedItem", fields: [createdBy], references: [id])
-  ModifiedItem       Account?             @relation("ModifiedItem", fields: [modifiedBy], references: [id])
+  CreatedItems       Account              @relation("CreatedItems", fields: [createdBy], references: [id])
+  ModifiedItems      Account?             @relation("ModifiedItems", fields: [modifiedBy], references: [id])
   CharacterEquipment CharacterEquipment[]
   ItemSpell          ItemSpell[]
   ItemWeapon         ItemWeapon?
+  AmmoItem           ItemWeapon[]         @relation("AmmoItem")
+  StatModifer        StatModifer?         @relation("ItemSource")
 
   @@map("items")
 }
@@ -302,8 +314,8 @@ model ItemWeapon {
   avgDamage    Int?        @map("avg_damage")
   stat         WeaponStat?
   type         WeaponType?
-
-  item Item @relation(fields: [itemId], references: [id])
+  Item         Item        @relation(fields: [itemId], references: [id])
+  AmmoItem     Item        @relation("AmmoItem", fields: [ammoTypeId], references: [id])
 
   @@map("item_weapons")
 }
@@ -313,72 +325,84 @@ model ItemSpell {
   itemId  Int @map("item_id")
   spellId Int @map("spell_id")
 
-  item  Item  @relation(fields: [itemId], references: [id])
-  spell Spell @relation(fields: [spellId], references: [id])
+  Item  Item  @relation(fields: [itemId], references: [id])
+  Spell Spell @relation(fields: [spellId], references: [id])
 
   @@map("item_spells")
 }
 
 model Spell {
-  id               Int         @id @default(autoincrement())
-  createdDate      DateTime    @default(now()) @map("created_date")
-  createdBy        Int         @map("created_by")
-  modifiedDate     DateTime    @updatedAt
-  modifiedBy       Int         @map("modified_by")
+  id               Int          @id @default(autoincrement())
+  createdDate      DateTime     @default(now()) @map("created_date")
+  createdBy        Int          @map("created_by")
+  modifiedDate     DateTime     @updatedAt
+  modifiedBy       Int          @map("modified_by")
   name             String
   description      String?
-  notes            String?     @db.Text
+  notes            String?      @db.Text
   words            String?
-  levelRequirement Int?        @default(0) @map("level_requirement")
+  levelRequirement Int?         @default(0) @map("level_requirement")
   ItemSpell        ItemSpell[]
+  CreatedSpells    Account      @relation("CreatedSpells", fields: [createdBy], references: [id])
+  ModifiedSpells   Account      @relation("ModifiedSpells", fields: [modifiedBy], references: [id])
+  StatModifer      StatModifer? @relation("SpellSource")
 
   @@map("spells")
 }
 
 model Potion {
-  id           Int      @id @default(autoincrement())
-  createdDate  DateTime @default(now()) @map("created_date")
-  createdBy    Int      @map("created_by")
-  modifiedDate DateTime @updatedAt
-  modifiedBy   Int      @map("modified_by")
-  name         String
-  description  String?
-  notes        String?  @db.Text
-  duration     Int?
+  id              Int          @id @default(autoincrement())
+  createdDate     DateTime     @default(now()) @map("created_date")
+  createdBy       Int          @map("created_by")
+  modifiedDate    DateTime     @updatedAt
+  modifiedBy      Int          @map("modified_by")
+  name            String
+  description     String?
+  notes           String?      @db.Text
+  duration        Int?
+  CreatedPotions  Account      @relation("CreatedPotions", fields: [createdBy], references: [id])
+  ModifiedPotions Account      @relation("ModifiedPotions", fields: [modifiedBy], references: [id])
+  StatModifer     StatModifer? @relation("PotionSource")
 
   @@map("potions")
 }
 
 model Skill {
-  id               Int      @id @default(autoincrement())
-  createdDate      DateTime @default(now()) @map("created_date")
-  createdBy        Int      @map("created_by")
-  modifiedDate     DateTime @updatedAt @map("modified_date")
-  modifiedBy       Int      @map("modified_by")
+  id               Int          @id @default(autoincrement())
+  createdDate      DateTime     @default(now()) @map("created_date")
+  createdBy        Int          @map("created_by")
+  modifiedDate     DateTime     @updatedAt @map("modified_date")
+  modifiedBy       Int          @map("modified_by")
   name             String
   description      String?
-  notes            String?  @db.Text
+  notes            String?      @db.Text
   trainable        Boolean?
-  levelRequirement Int      @map("level_requirement")
+  levelRequirement Int          @map("level_requirement")
+  CreatedSkills    Account      @relation("CreatedSkills", fields: [createdBy], references: [id])
+  ModifiedSkills   Account      @relation("ModifiedSkills", fields: [modifiedBy], references: [id])
+  StatModifer      StatModifer? @relation("SkillSource")
 
   @@map("skills")
 }
 
 model Ability {
-  id               Int      @id @default(autoincrement())
-  createdDate      DateTime @default(now()) @map("created_date")
-  createdBy        Int      @map("created_by")
-  modifiedDate     DateTime @updatedAt @map("modified_date")
-  modifiedBy       Int      @map("modified_by")
-  name             String
-  description      String?
-  notes            String?  @db.Text
-  firstRankPoints  Int?     @map("first_rank_points")
-  secondRankPoints Int?     @map("second_rank_points")
-  thirdRankPoints  Int?     @map("third_rank_points")
-  fourthRankPoints Int?     @map("fourth_rank_points")
-  fifthRankPoints  Int?     @map("fifth_rank_points")
-  sixthRankPoints  Int?     @map("sixth_rank_points")
+  id                Int          @id @default(autoincrement())
+  createdDate       DateTime     @default(now()) @map("created_date")
+  createdBy         Int          @map("created_by")
+  modifiedDate      DateTime     @updatedAt @map("modified_date")
+  modifiedBy        Int          @map("modified_by")
+  name              String
+  description       String?
+  notes             String?      @db.Text
+  firstRankPoints   Int?         @map("first_rank_points")
+  secondRankPoints  Int?         @map("second_rank_points")
+  thirdRankPoints   Int?         @map("third_rank_points")
+  fourthRankPoints  Int?         @map("fourth_rank_points")
+  fifthRankPoints   Int?         @map("fifth_rank_points")
+  sixthRankPoints   Int?         @map("sixth_rank_points")
+  CreatedAbilities  Account      @relation("CreatedAbilities", fields: [createdBy], references: [id])
+  ModifiedAbilities Account      @relation("ModifiedAbilities", fields: [modifiedBy], references: [id])
+  StatModifer       StatModifer? @relation("AbilitySource")
 
   @@map("abilities")
 }
@@ -396,7 +420,10 @@ model Quest {
   pretitles      String?
   post_titles    String?
   experience     Int?
+  CreatedQuests  Account          @relation("CreatedQuests", fields: [createdBy], references: [id])
+  ModifiedQuests Account          @relation("ModifiedQuests", fields: [modifiedBy], references: [id])
   CharacterQuest CharacterQuest[]
+  StatModifer    StatModifer?     @relation("QuestSource")
 
   @@map("quests")
 }
@@ -435,6 +462,12 @@ model StatModifer {
   conCap        Int?
   perCap        Int?
   spiCap        Int?
+  ItemSource    Item?            @relation("ItemSource", fields: [sourceId], references: [id], map: "item_source_fk")
+  QuestSource   Quest?           @relation("QuestSource", fields: [sourceId], references: [id], map: "quest_source_fk")
+  AbilitySource Ability?         @relation("AbilitySource", fields: [sourceId], references: [id], map: "ability_source_fk")
+  SkillSource   Skill?           @relation("SkillSource", fields: [sourceId], references: [id], map: "skill_source_fk")
+  SpellSource   Spell?           @relation("SpellSource", fields: [sourceId], references: [id], map: "spell_source_fk")
+  PotionSource  Potion?          @relation("PotionSource", fields: [sourceId], references: [id], map: "potion_source_fk")
 
   @@map("stat_modifiers")
 }
