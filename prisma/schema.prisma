@@ -79,23 +79,17 @@ model Account {
   firstName           String?               @map("first_name")
   lastName            String?               @map("last_name")
   email               String                @unique
-  AccountPreference   AccountPreference?
+  preferences         Json?
   AccountRole         AccountRole[]
   AccountNotification AccountNotification[]
   Character           Character[]
+  NetworkHistory      NetworkHistory[]
+  NetworkBlacklist    NetworkBlacklist[]
+  Notification        Notification[]
+  CreatedItem         Item[]                @relation("CreatedItem")
+  ModifiedItem        Item[]                @relation("ModifiedItem")
 
   @@map("account")
-}
-
-model AccountPreference {
-  id                   Int      @id @default(autoincrement())
-  accountId            Int      @unique @map("account_id")
-  receiveNotifications String?  @map("receive_notifications")
-  defaultTheme         Theme?   @default(WORK) @map("default_theme")
-  showSidePanel        Boolean? @default(true) @map("show_side_panel")
-  Account              Account  @relation(fields: [accountId], references: [id])
-
-  @@map("account_preferences")
 }
 
 model AccountRole {
@@ -127,21 +121,25 @@ model AccountPassword {
 }
 
 model NetworkHistory {
-  id          Int      @id @default(autoincrement())
-  accountId   Int      @map("account_id")
-  createdDate DateTime @default(now()) @map("created_date")
-  loginDate   DateTime @updatedAt @map("login_date")
-  ipAddress   String   @map("ip_address")
+  id               Int                @id @default(autoincrement())
+  accountId        Int                @map("account_id")
+  createdDate      DateTime           @default(now()) @map("created_date")
+  loginDate        DateTime           @updatedAt @map("login_date")
+  ipAddress        String             @map("ip_address")
+  Account          Account            @relation(fields: [accountId], references: [id])
+  NetworkBlacklist NetworkBlacklist[]
 
   @@map("network_history")
 }
 
 model NetworkBlacklist {
-  id               Int      @id @default(autoincrement())
-  networkHistoryId Int      @map("network_history_id")
-  issueDate        DateTime @map("issue_date")
-  termDate         DateTime @map("term_date")
+  id               Int            @id @default(autoincrement())
+  networkHistoryId Int            @map("network_history_id")
+  issueDate        DateTime       @map("issue_date")
+  termDate         DateTime       @map("term_date")
   issuer           Int
+  NetworkHistory   NetworkHistory @relation(fields: [networkHistoryId], references: [id])
+  Account          Account        @relation(fields: [issuer], references: [id])
 
   @@map("network_blacklist")
 }
@@ -154,6 +152,7 @@ model Notification {
   title       String
   description String?
   content     String?          @db.Text
+  Account     Account          @relation(fields: [createdBy], references: [id])
 
   @@map("notifications")
 }
@@ -259,8 +258,8 @@ model Item {
   id                 Int                  @id @default(autoincrement())
   createdDate        DateTime             @default(now()) @map("created_date")
   createdBy          Int                  @map("created_by")
-  modifiedDate       DateTime             @updatedAt
-  modifiedBy         Int                  @map("modified_by")
+  modifiedDate       DateTime?            @updatedAt
+  modifiedBy         Int?                 @map("modified_by")
   shortDescription   String               @map("short_description")
   longDescription    String?              @map("long_description")
   timer              Int?                 @default(-1)
@@ -279,6 +278,8 @@ model Item {
   isLimited          Boolean?             @default(false) @map("is_limited")
   isSoulbound        Boolean?             @default(false) @map("is_soulbound")
   isUnique           Boolean?             @default(false) @map("is_unique")
+  CreatedItem        Account              @relation("CreatedItem", fields: [createdBy], references: [id])
+  ModifiedItem       Account?             @relation("ModifiedItem", fields: [modifiedBy], references: [id])
   CharacterEquipment CharacterEquipment[]
   ItemSpell          ItemSpell[]
   ItemWeapon         ItemWeapon?
@@ -367,7 +368,7 @@ model Ability {
   id               Int      @id @default(autoincrement())
   createdDate      DateTime @default(now()) @map("created_date")
   createdBy        Int      @map("created_by")
-  modifiedDate     DateTime @updatedAt
+  modifiedDate     DateTime @updatedAt @map("modified_date")
   modifiedBy       Int      @map("modified_by")
   name             String
   description      String?
