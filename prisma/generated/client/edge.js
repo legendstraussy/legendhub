@@ -553,7 +553,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/brian/Desktop/legendhub/prisma/generated/client",
+      "value": "C:\\Users\\Brian\\Desktop\\legendhub\\prisma\\generated\\client",
       "fromEnvVar": null
     },
     "config": {
@@ -562,7 +562,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
       }
     ],
