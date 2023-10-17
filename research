@@ -13,8 +13,13 @@ App routes
 /signup
 /404
 
-INSERT INTO `account` (`id`, `mud_id`, `created_date`, `modified_date`, `first_name`, `last_name`, `email`, `preferences`) VALUES (NULL, NULL, '2023-10-15 16:42:50.000', '2023-10-15 16:42:50.000', 'Brian', 'Selvaggio', 'straussy@legendmud.org', NULL);
-
+SEEDING
+-set env database var
+-create schema file, point to env database var
+-run npx prisma db pull --schema <schema_name>.prisma to create models
+-run npx prisma generate --schema <schema.name>.prisma to create the prisma client
+-run oldhub sql directly inside of phpmyadmin
+-run npm run seed
 
 id  name                         str   con   dex   min
 1   a sword of might              5     2
