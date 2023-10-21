@@ -134,7 +134,7 @@ exports.Prisma.AccountNotificationScalarFieldEnum = {
 
 exports.Prisma.AccountPasswordScalarFieldEnum = {
   id: 'id',
-  accountHash: 'accountHash',
+  accountId: 'accountId',
   passwordHash: 'passwordHash'
 };
 

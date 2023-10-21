@@ -129,7 +129,7 @@ model AccountNotification {
 
 model AccountPassword {
   id           Int    @id @default(autoincrement())
-  accountHash  String @map("account_hash")
+  accountId    Int    @map("account_id")
   passwordHash String @map("password_hash")
 
   @@map("account_passwords")

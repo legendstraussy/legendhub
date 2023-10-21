@@ -1,19 +1,18 @@
-import { NextResponse } from 'next/server'
-import bcrypt from "bcrypt"
-import prisma from '@/lib/prisma'
+import { NextRequest, NextResponse } from 'next/server'
+import { registerUser } from '@/app/_services/register-service'
 
-export async function POST(req) {
+export async function POST(req: NextRequest) {
   try {
     const { email, password } = await req.json()
-    const hashedPassword = await bcrypt.hash(password, 10)
-    await prisma.account.create({ data: {
-       email,
-    }})
+    
+    await registerUser({ email, password })
 
-    return NextResponse.json({ message: "User registered." }, { status: 201 });
+    return NextResponse.json({ message: 'Account successfully registered!' }, { status: 201 })
   } catch (error) {
+    if (error) return NextResponse.json({ message: error }, { status: 409 })
+
     return NextResponse.json(
-      { message: "An error occurred while registering the user." },
+      { message: 'An error occurred while registering the user.' },
       { status: 500 }
     )
   }

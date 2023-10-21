@@ -7279,27 +7279,29 @@ export namespace Prisma {
 
   export type AccountPasswordAvgAggregateOutputType = {
     id: number | null
+    accountId: number | null
   }
 
   export type AccountPasswordSumAggregateOutputType = {
     id: number | null
+    accountId: number | null
   }
 
   export type AccountPasswordMinAggregateOutputType = {
     id: number | null
-    accountHash: string | null
+    accountId: number | null
     passwordHash: string | null
   }
 
   export type AccountPasswordMaxAggregateOutputType = {
     id: number | null
-    accountHash: string | null
+    accountId: number | null
     passwordHash: string | null
   }
 
   export type AccountPasswordCountAggregateOutputType = {
     id: number
-    accountHash: number
+    accountId: number
     passwordHash: number
     _all: number
   }
@@ -7307,27 +7309,29 @@ export namespace Prisma {
 
   export type AccountPasswordAvgAggregateInputType = {
     id?: true
+    accountId?: true
   }
 
   export type AccountPasswordSumAggregateInputType = {
     id?: true
+    accountId?: true
   }
 
   export type AccountPasswordMinAggregateInputType = {
     id?: true
-    accountHash?: true
+    accountId?: true
     passwordHash?: true
   }
 
   export type AccountPasswordMaxAggregateInputType = {
     id?: true
-    accountHash?: true
+    accountId?: true
     passwordHash?: true
   }
 
   export type AccountPasswordCountAggregateInputType = {
     id?: true
-    accountHash?: true
+    accountId?: true
     passwordHash?: true
     _all?: true
   }
@@ -7420,7 +7424,7 @@ export namespace Prisma {
 
   export type AccountPasswordGroupByOutputType = {
     id: number
-    accountHash: string
+    accountId: number
     passwordHash: string
     _count: AccountPasswordCountAggregateOutputType | null
     _avg: AccountPasswordAvgAggregateOutputType | null
@@ -7445,13 +7449,13 @@ export namespace Prisma {
 
   export type AccountPasswordSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    accountHash?: boolean
+    accountId?: boolean
     passwordHash?: boolean
   }, ExtArgs["result"]["accountPassword"]>
 
   export type AccountPasswordSelectScalar = {
     id?: boolean
-    accountHash?: boolean
+    accountId?: boolean
     passwordHash?: boolean
   }
 
@@ -7461,7 +7465,7 @@ export namespace Prisma {
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: number
-      accountHash: string
+      accountId: number
       passwordHash: string
     }, ExtArgs["result"]["accountPassword"]>
     composites: {}
@@ -7858,7 +7862,7 @@ export namespace Prisma {
    */ 
   interface AccountPasswordFieldRefs {
     readonly id: FieldRef<"AccountPassword", 'Int'>
-    readonly accountHash: FieldRef<"AccountPassword", 'String'>
+    readonly accountId: FieldRef<"AccountPassword", 'Int'>
     readonly passwordHash: FieldRef<"AccountPassword", 'String'>
   }
     
@@ -33901,7 +33905,7 @@ export namespace Prisma {
 
   export const AccountPasswordScalarFieldEnum: {
     id: 'id',
-    accountHash: 'accountHash',
+    accountId: 'accountId',
     passwordHash: 'passwordHash'
   };
 
@@ -34676,13 +34680,13 @@ export namespace Prisma {
     OR?: AccountPasswordWhereInput[]
     NOT?: AccountPasswordWhereInput | AccountPasswordWhereInput[]
     id?: IntFilter<"AccountPassword"> | number
-    accountHash?: StringFilter<"AccountPassword"> | string
+    accountId?: IntFilter<"AccountPassword"> | number
     passwordHash?: StringFilter<"AccountPassword"> | string
   }
 
   export type AccountPasswordOrderByWithRelationInput = {
     id?: SortOrder
-    accountHash?: SortOrder
+    accountId?: SortOrder
     passwordHash?: SortOrder
   }
 
@@ -34691,13 +34695,13 @@ export namespace Prisma {
     AND?: AccountPasswordWhereInput | AccountPasswordWhereInput[]
     OR?: AccountPasswordWhereInput[]
     NOT?: AccountPasswordWhereInput | AccountPasswordWhereInput[]
-    accountHash?: StringFilter<"AccountPassword"> | string
+    accountId?: IntFilter<"AccountPassword"> | number
     passwordHash?: StringFilter<"AccountPassword"> | string
   }, "id">
 
   export type AccountPasswordOrderByWithAggregationInput = {
     id?: SortOrder
-    accountHash?: SortOrder
+    accountId?: SortOrder
     passwordHash?: SortOrder
     _count?: AccountPasswordCountOrderByAggregateInput
     _avg?: AccountPasswordAvgOrderByAggregateInput
@@ -34711,7 +34715,7 @@ export namespace Prisma {
     OR?: AccountPasswordScalarWhereWithAggregatesInput[]
     NOT?: AccountPasswordScalarWhereWithAggregatesInput | AccountPasswordScalarWhereWithAggregatesInput[]
     id?: IntWithAggregatesFilter<"AccountPassword"> | number
-    accountHash?: StringWithAggregatesFilter<"AccountPassword"> | string
+    accountId?: IntWithAggregatesFilter<"AccountPassword"> | number
     passwordHash?: StringWithAggregatesFilter<"AccountPassword"> | string
   }
 
@@ -37100,41 +37104,41 @@ export namespace Prisma {
   }
 
   export type AccountPasswordCreateInput = {
-    accountHash: string
+    accountId: number
     passwordHash: string
   }
 
   export type AccountPasswordUncheckedCreateInput = {
     id?: number
-    accountHash: string
+    accountId: number
     passwordHash: string
   }
 
   export type AccountPasswordUpdateInput = {
-    accountHash?: StringFieldUpdateOperationsInput | string
+    accountId?: IntFieldUpdateOperationsInput | number
     passwordHash?: StringFieldUpdateOperationsInput | string
   }
 
   export type AccountPasswordUncheckedUpdateInput = {
     id?: IntFieldUpdateOperationsInput | number
-    accountHash?: StringFieldUpdateOperationsInput | string
+    accountId?: IntFieldUpdateOperationsInput | number
     passwordHash?: StringFieldUpdateOperationsInput | string
   }
 
   export type AccountPasswordCreateManyInput = {
     id?: number
-    accountHash: string
+    accountId: number
     passwordHash: string
   }
 
   export type AccountPasswordUpdateManyMutationInput = {
-    accountHash?: StringFieldUpdateOperationsInput | string
+    accountId?: IntFieldUpdateOperationsInput | number
     passwordHash?: StringFieldUpdateOperationsInput | string
   }
 
   export type AccountPasswordUncheckedUpdateManyInput = {
     id?: IntFieldUpdateOperationsInput | number
-    accountHash?: StringFieldUpdateOperationsInput | string
+    accountId?: IntFieldUpdateOperationsInput | number
     passwordHash?: StringFieldUpdateOperationsInput | string
   }
 
@@ -39863,28 +39867,30 @@ export namespace Prisma {
 
   export type AccountPasswordCountOrderByAggregateInput = {
     id?: SortOrder
-    accountHash?: SortOrder
+    accountId?: SortOrder
     passwordHash?: SortOrder
   }
 
   export type AccountPasswordAvgOrderByAggregateInput = {
     id?: SortOrder
+    accountId?: SortOrder
   }
 
   export type AccountPasswordMaxOrderByAggregateInput = {
     id?: SortOrder
-    accountHash?: SortOrder
+    accountId?: SortOrder
     passwordHash?: SortOrder
   }
 
   export type AccountPasswordMinOrderByAggregateInput = {
     id?: SortOrder
-    accountHash?: SortOrder
+    accountId?: SortOrder
     passwordHash?: SortOrder
   }
 
   export type AccountPasswordSumOrderByAggregateInput = {
     id?: SortOrder
+    accountId?: SortOrder
   }
 
   export type NetworkHistoryCountOrderByAggregateInput = {
