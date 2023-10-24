@@ -236,8 +236,7 @@ exports.Prisma.CharacterEquipmentScalarFieldEnum = {
   ear2: 'ear2',
   arm: 'arm',
   amulet: 'amulet',
-  aux: 'aux',
-  itemId: 'itemId'
+  aux: 'aux'
 };
 
 exports.Prisma.ItemScalarFieldEnum = {

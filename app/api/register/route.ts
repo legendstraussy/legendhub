@@ -1,19 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { SERVICE_ERRORS } from '@/app/_lib/constants'
 import { registerUser } from '@/app/_services/register-service'
+import { ServiceResponse } from '@/app/_types/service_response'
 
 export async function POST(req: NextRequest) {
   try {
     const { email, password } = await req.json()
     
-    await registerUser({ email, password })
+    const response: ServiceResponse = await registerUser({ email, password })
 
-    return NextResponse.json({ message: 'Account successfully registered!' }, { status: 201 })
-  } catch (error) {
-    if (error) return NextResponse.json({ message: error }, { status: 409 })
+    if (response.errorType === SERVICE_ERRORS.ALREADY_EXISTS) return NextResponse.json(response, { status: 409 })
 
-    return NextResponse.json(
-      { message: 'An error occurred while registering the user.' },
-      { status: 500 }
-    )
+    return NextResponse.json(response, { status: 201 })
+  } catch (errorResponse) {
+    return NextResponse.json(errorResponse, { status: 500 })
   }
 }

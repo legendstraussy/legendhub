@@ -1,5 +1,7 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 import { useState } from 'react'
 
 type status = {
@@ -9,11 +11,12 @@ type status = {
 
 const inputStyles = `border border-solid border-red`
 
-export default function RegisterForm() {
-  const [email, setEmail] = useState<string>('test')
+export default function LoginForm() {
+  const [email, setEmail] = useState<string>('straussy@legendmud.org')
   const [password, setPassword] = useState<string>('test')
   const [confirmPassword, setConfirmPassword] = useState<string>('test')
   const [status, setStatus] = useState<status | null>({ message: '', isSuccess: false })
+  const router = useRouter()
 
   const handleOnSubmit = async (event) => {
     event.preventDefault()
@@ -21,14 +24,18 @@ export default function RegisterForm() {
     if (!email || !password || !confirmPassword) return setStatus({ message: 'please provide required fields.' })
     if (password !== confirmPassword) return setStatus({ message: 'please confirm password.' })
 
-    const { error, success } = await fetch('/api/register', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-    }).then(response => response.json())
+    const response = await signIn('credentials', {
+      email,
+      password,
+      redirect: false
+    })
 
-    if (error) return setStatus({ message: error })
-    
-    return setStatus({ message: success, isSuccess: true })
+    if (!response?.error) {
+      router.push('/')
+      router.refresh()
+    }
+
+    console.log('bingo response', response)
   }
 
   return (
@@ -40,6 +47,6 @@ export default function RegisterForm() {
       <input className={inputStyles} value={password} onChange={event => setPassword(event.target.value)} />
       <p>confirm password*</p>
       <input className={inputStyles} value={confirmPassword} onChange={event => setConfirmPassword(event.target.value)} />
-      <button className="self-end border border-solid px-4" type="submit">register</button>
+      <button className="self-end border border-solid px-4" type="submit">login</button>
     </form>  )
 }

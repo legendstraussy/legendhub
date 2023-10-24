@@ -3184,6 +3184,7 @@ export namespace Prisma {
   export type AccountCountOutputType = {
     AccountRole: number
     AccountNotification: number
+    AccountPassword: number
     Character: number
     NetworkHistory: number
     NetworkBlacklist: number
@@ -3210,6 +3211,7 @@ export namespace Prisma {
   export type AccountCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     AccountRole?: boolean | AccountCountOutputTypeCountAccountRoleArgs
     AccountNotification?: boolean | AccountCountOutputTypeCountAccountNotificationArgs
+    AccountPassword?: boolean | AccountCountOutputTypeCountAccountPasswordArgs
     Character?: boolean | AccountCountOutputTypeCountCharacterArgs
     NetworkHistory?: boolean | AccountCountOutputTypeCountNetworkHistoryArgs
     NetworkBlacklist?: boolean | AccountCountOutputTypeCountNetworkBlacklistArgs
@@ -3259,6 +3261,14 @@ export namespace Prisma {
    */
   export type AccountCountOutputTypeCountAccountNotificationArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: AccountNotificationWhereInput
+  }
+
+
+  /**
+   * AccountCountOutputType without action
+   */
+  export type AccountCountOutputTypeCountAccountPasswordArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: AccountPasswordWhereInput
   }
 
 
@@ -3572,13 +3582,11 @@ export namespace Prisma {
    */
 
   export type ItemCountOutputType = {
-    CharacterEquipment: number
     ItemSpell: number
     AmmoItem: number
   }
 
   export type ItemCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    CharacterEquipment?: boolean | ItemCountOutputTypeCountCharacterEquipmentArgs
     ItemSpell?: boolean | ItemCountOutputTypeCountItemSpellArgs
     AmmoItem?: boolean | ItemCountOutputTypeCountAmmoItemArgs
   }
@@ -3593,14 +3601,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the ItemCountOutputType
      */
     select?: ItemCountOutputTypeSelect<ExtArgs> | null
-  }
-
-
-  /**
-   * ItemCountOutputType without action
-   */
-  export type ItemCountOutputTypeCountCharacterEquipmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: CharacterEquipmentWhereInput
   }
 
 
@@ -4015,6 +4015,7 @@ export namespace Prisma {
     preferences?: boolean
     AccountRole?: boolean | Account$AccountRoleArgs<ExtArgs>
     AccountNotification?: boolean | Account$AccountNotificationArgs<ExtArgs>
+    AccountPassword?: boolean | Account$AccountPasswordArgs<ExtArgs>
     Character?: boolean | Account$CharacterArgs<ExtArgs>
     NetworkHistory?: boolean | Account$NetworkHistoryArgs<ExtArgs>
     NetworkBlacklist?: boolean | Account$NetworkBlacklistArgs<ExtArgs>
@@ -4053,6 +4054,7 @@ export namespace Prisma {
   export type AccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     AccountRole?: boolean | Account$AccountRoleArgs<ExtArgs>
     AccountNotification?: boolean | Account$AccountNotificationArgs<ExtArgs>
+    AccountPassword?: boolean | Account$AccountPasswordArgs<ExtArgs>
     Character?: boolean | Account$CharacterArgs<ExtArgs>
     NetworkHistory?: boolean | Account$NetworkHistoryArgs<ExtArgs>
     NetworkBlacklist?: boolean | Account$NetworkBlacklistArgs<ExtArgs>
@@ -4083,6 +4085,7 @@ export namespace Prisma {
     objects: {
       AccountRole: Prisma.$AccountRolePayload<ExtArgs>[]
       AccountNotification: Prisma.$AccountNotificationPayload<ExtArgs>[]
+      AccountPassword: Prisma.$AccountPasswordPayload<ExtArgs>[]
       Character: Prisma.$CharacterPayload<ExtArgs>[]
       NetworkHistory: Prisma.$NetworkHistoryPayload<ExtArgs>[]
       NetworkBlacklist: Prisma.$NetworkBlacklistPayload<ExtArgs>[]
@@ -4482,6 +4485,8 @@ export namespace Prisma {
     AccountRole<T extends Account$AccountRoleArgs<ExtArgs> = {}>(args?: Subset<T, Account$AccountRoleArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountRolePayload<ExtArgs>, T, 'findMany'> | Null>;
 
     AccountNotification<T extends Account$AccountNotificationArgs<ExtArgs> = {}>(args?: Subset<T, Account$AccountNotificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountNotificationPayload<ExtArgs>, T, 'findMany'> | Null>;
+
+    AccountPassword<T extends Account$AccountPasswordArgs<ExtArgs> = {}>(args?: Subset<T, Account$AccountPasswordArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPasswordPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     Character<T extends Account$CharacterArgs<ExtArgs> = {}>(args?: Subset<T, Account$CharacterArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CharacterPayload<ExtArgs>, T, 'findMany'> | Null>;
 
@@ -4911,6 +4916,27 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: AccountNotificationScalarFieldEnum | AccountNotificationScalarFieldEnum[]
+  }
+
+
+  /**
+   * Account.AccountPassword
+   */
+  export type Account$AccountPasswordArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the AccountPassword
+     */
+    select?: AccountPasswordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountPasswordInclude<ExtArgs> | null
+    where?: AccountPasswordWhereInput
+    orderBy?: AccountPasswordOrderByWithRelationInput | AccountPasswordOrderByWithRelationInput[]
+    cursor?: AccountPasswordWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: AccountPasswordScalarFieldEnum | AccountPasswordScalarFieldEnum[]
   }
 
 
@@ -7451,6 +7477,7 @@ export namespace Prisma {
     id?: boolean
     accountId?: boolean
     passwordHash?: boolean
+    Account?: boolean | AccountDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["accountPassword"]>
 
   export type AccountPasswordSelectScalar = {
@@ -7459,10 +7486,16 @@ export namespace Prisma {
     passwordHash?: boolean
   }
 
+  export type AccountPasswordInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    Account?: boolean | AccountDefaultArgs<ExtArgs>
+  }
+
 
   export type $AccountPasswordPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "AccountPassword"
-    objects: {}
+    objects: {
+      Account: Prisma.$AccountPayload<ExtArgs>
+    }
     scalars: $Extensions.GetPayloadResult<{
       id: number
       accountId: number
@@ -7832,6 +7865,7 @@ export namespace Prisma {
   export interface Prisma__AccountPasswordClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
+    Account<T extends AccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AccountDefaultArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
 
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -7878,6 +7912,10 @@ export namespace Prisma {
      */
     select?: AccountPasswordSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountPasswordInclude<ExtArgs> | null
+    /**
      * Filter, which AccountPassword to fetch.
      */
     where: AccountPasswordWhereUniqueInput
@@ -7893,6 +7931,10 @@ export namespace Prisma {
      */
     select?: AccountPasswordSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountPasswordInclude<ExtArgs> | null
+    /**
      * Filter, which AccountPassword to fetch.
      */
     where: AccountPasswordWhereUniqueInput
@@ -7907,6 +7949,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the AccountPassword
      */
     select?: AccountPasswordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountPasswordInclude<ExtArgs> | null
     /**
      * Filter, which AccountPassword to fetch.
      */
@@ -7953,6 +7999,10 @@ export namespace Prisma {
      */
     select?: AccountPasswordSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountPasswordInclude<ExtArgs> | null
+    /**
      * Filter, which AccountPassword to fetch.
      */
     where?: AccountPasswordWhereInput
@@ -7998,6 +8048,10 @@ export namespace Prisma {
      */
     select?: AccountPasswordSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountPasswordInclude<ExtArgs> | null
+    /**
      * Filter, which AccountPasswords to fetch.
      */
     where?: AccountPasswordWhereInput
@@ -8038,6 +8092,10 @@ export namespace Prisma {
      */
     select?: AccountPasswordSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountPasswordInclude<ExtArgs> | null
+    /**
      * The data needed to create a AccountPassword.
      */
     data: XOR<AccountPasswordCreateInput, AccountPasswordUncheckedCreateInput>
@@ -8064,6 +8122,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the AccountPassword
      */
     select?: AccountPasswordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountPasswordInclude<ExtArgs> | null
     /**
      * The data needed to update a AccountPassword.
      */
@@ -8099,6 +8161,10 @@ export namespace Prisma {
      */
     select?: AccountPasswordSelect<ExtArgs> | null
     /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountPasswordInclude<ExtArgs> | null
+    /**
      * The filter to search for the AccountPassword to update in case it exists.
      */
     where: AccountPasswordWhereUniqueInput
@@ -8121,6 +8187,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the AccountPassword
      */
     select?: AccountPasswordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountPasswordInclude<ExtArgs> | null
     /**
      * Filter which AccountPassword to delete.
      */
@@ -8147,6 +8217,10 @@ export namespace Prisma {
      * Select specific fields to fetch from the AccountPassword
      */
     select?: AccountPasswordSelect<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well.
+     */
+    include?: AccountPasswordInclude<ExtArgs> | null
   }
 
 
@@ -15270,7 +15344,6 @@ export namespace Prisma {
     arm: number | null
     amulet: number | null
     aux: number | null
-    itemId: number | null
   }
 
   export type CharacterEquipmentSumAggregateOutputType = {
@@ -15300,7 +15373,6 @@ export namespace Prisma {
     arm: number | null
     amulet: number | null
     aux: number | null
-    itemId: number | null
   }
 
   export type CharacterEquipmentMinAggregateOutputType = {
@@ -15330,7 +15402,6 @@ export namespace Prisma {
     arm: number | null
     amulet: number | null
     aux: number | null
-    itemId: number | null
   }
 
   export type CharacterEquipmentMaxAggregateOutputType = {
@@ -15360,7 +15431,6 @@ export namespace Prisma {
     arm: number | null
     amulet: number | null
     aux: number | null
-    itemId: number | null
   }
 
   export type CharacterEquipmentCountAggregateOutputType = {
@@ -15390,7 +15460,6 @@ export namespace Prisma {
     arm: number
     amulet: number
     aux: number
-    itemId: number
     _all: number
   }
 
@@ -15422,7 +15491,6 @@ export namespace Prisma {
     arm?: true
     amulet?: true
     aux?: true
-    itemId?: true
   }
 
   export type CharacterEquipmentSumAggregateInputType = {
@@ -15452,7 +15520,6 @@ export namespace Prisma {
     arm?: true
     amulet?: true
     aux?: true
-    itemId?: true
   }
 
   export type CharacterEquipmentMinAggregateInputType = {
@@ -15482,7 +15549,6 @@ export namespace Prisma {
     arm?: true
     amulet?: true
     aux?: true
-    itemId?: true
   }
 
   export type CharacterEquipmentMaxAggregateInputType = {
@@ -15512,7 +15578,6 @@ export namespace Prisma {
     arm?: true
     amulet?: true
     aux?: true
-    itemId?: true
   }
 
   export type CharacterEquipmentCountAggregateInputType = {
@@ -15542,7 +15607,6 @@ export namespace Prisma {
     arm?: true
     amulet?: true
     aux?: true
-    itemId?: true
     _all?: true
   }
 
@@ -15659,7 +15723,6 @@ export namespace Prisma {
     arm: number | null
     amulet: number | null
     aux: number | null
-    itemId: number | null
     _count: CharacterEquipmentCountAggregateOutputType | null
     _avg: CharacterEquipmentAvgAggregateOutputType | null
     _sum: CharacterEquipmentSumAggregateOutputType | null
@@ -15708,9 +15771,7 @@ export namespace Prisma {
     arm?: boolean
     amulet?: boolean
     aux?: boolean
-    itemId?: boolean
     CharacterVersion?: boolean | CharacterEquipment$CharacterVersionArgs<ExtArgs>
-    Item?: boolean | CharacterEquipment$ItemArgs<ExtArgs>
     _count?: boolean | CharacterEquipmentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["characterEquipment"]>
 
@@ -15741,12 +15802,10 @@ export namespace Prisma {
     arm?: boolean
     amulet?: boolean
     aux?: boolean
-    itemId?: boolean
   }
 
   export type CharacterEquipmentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     CharacterVersion?: boolean | CharacterEquipment$CharacterVersionArgs<ExtArgs>
-    Item?: boolean | CharacterEquipment$ItemArgs<ExtArgs>
     _count?: boolean | CharacterEquipmentCountOutputTypeDefaultArgs<ExtArgs>
   }
 
@@ -15755,7 +15814,6 @@ export namespace Prisma {
     name: "CharacterEquipment"
     objects: {
       CharacterVersion: Prisma.$CharacterVersionPayload<ExtArgs>[]
-      Item: Prisma.$ItemPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -15784,7 +15842,6 @@ export namespace Prisma {
       arm: number | null
       amulet: number | null
       aux: number | null
-      itemId: number | null
     }, ExtArgs["result"]["characterEquipment"]>
     composites: {}
   }
@@ -16152,8 +16209,6 @@ export namespace Prisma {
 
     CharacterVersion<T extends CharacterEquipment$CharacterVersionArgs<ExtArgs> = {}>(args?: Subset<T, CharacterEquipment$CharacterVersionArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CharacterVersionPayload<ExtArgs>, T, 'findMany'> | Null>;
 
-    Item<T extends CharacterEquipment$ItemArgs<ExtArgs> = {}>(args?: Subset<T, CharacterEquipment$ItemArgs<ExtArgs>>): Prisma__ItemClient<$Result.GetResult<Prisma.$ItemPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
-
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -16208,7 +16263,6 @@ export namespace Prisma {
     readonly arm: FieldRef<"CharacterEquipment", 'Int'>
     readonly amulet: FieldRef<"CharacterEquipment", 'Int'>
     readonly aux: FieldRef<"CharacterEquipment", 'Int'>
-    readonly itemId: FieldRef<"CharacterEquipment", 'Int'>
   }
     
 
@@ -16538,22 +16592,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: CharacterVersionScalarFieldEnum | CharacterVersionScalarFieldEnum[]
-  }
-
-
-  /**
-   * CharacterEquipment.Item
-   */
-  export type CharacterEquipment$ItemArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the Item
-     */
-    select?: ItemSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: ItemInclude<ExtArgs> | null
-    where?: ItemWhereInput
   }
 
 
@@ -16941,7 +16979,6 @@ export namespace Prisma {
     isUnique?: boolean
     CreatedItems?: boolean | AccountDefaultArgs<ExtArgs>
     ModifiedItems?: boolean | Item$ModifiedItemsArgs<ExtArgs>
-    CharacterEquipment?: boolean | Item$CharacterEquipmentArgs<ExtArgs>
     ItemSpell?: boolean | Item$ItemSpellArgs<ExtArgs>
     ItemWeapon?: boolean | Item$ItemWeaponArgs<ExtArgs>
     AmmoItem?: boolean | Item$AmmoItemArgs<ExtArgs>
@@ -16979,7 +17016,6 @@ export namespace Prisma {
   export type ItemInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     CreatedItems?: boolean | AccountDefaultArgs<ExtArgs>
     ModifiedItems?: boolean | Item$ModifiedItemsArgs<ExtArgs>
-    CharacterEquipment?: boolean | Item$CharacterEquipmentArgs<ExtArgs>
     ItemSpell?: boolean | Item$ItemSpellArgs<ExtArgs>
     ItemWeapon?: boolean | Item$ItemWeaponArgs<ExtArgs>
     AmmoItem?: boolean | Item$AmmoItemArgs<ExtArgs>
@@ -16994,7 +17030,6 @@ export namespace Prisma {
     objects: {
       CreatedItems: Prisma.$AccountPayload<ExtArgs>
       ModifiedItems: Prisma.$AccountPayload<ExtArgs> | null
-      CharacterEquipment: Prisma.$CharacterEquipmentPayload<ExtArgs>[]
       ItemSpell: Prisma.$ItemSpellPayload<ExtArgs>[]
       ItemWeapon: Prisma.$ItemWeaponPayload<ExtArgs> | null
       AmmoItem: Prisma.$ItemWeaponPayload<ExtArgs>[]
@@ -17394,8 +17429,6 @@ export namespace Prisma {
 
     ModifiedItems<T extends Item$ModifiedItemsArgs<ExtArgs> = {}>(args?: Subset<T, Item$ModifiedItemsArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
 
-    CharacterEquipment<T extends Item$CharacterEquipmentArgs<ExtArgs> = {}>(args?: Subset<T, Item$CharacterEquipmentArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CharacterEquipmentPayload<ExtArgs>, T, 'findMany'> | Null>;
-
     ItemSpell<T extends Item$ItemSpellArgs<ExtArgs> = {}>(args?: Subset<T, Item$ItemSpellArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ItemSpellPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     ItemWeapon<T extends Item$ItemWeaponArgs<ExtArgs> = {}>(args?: Subset<T, Item$ItemWeaponArgs<ExtArgs>>): Prisma__ItemWeaponClient<$Result.GetResult<Prisma.$ItemWeaponPayload<ExtArgs>, T, 'findUniqueOrThrow'> | null, null, ExtArgs>;
@@ -17781,27 +17814,6 @@ export namespace Prisma {
      */
     include?: AccountInclude<ExtArgs> | null
     where?: AccountWhereInput
-  }
-
-
-  /**
-   * Item.CharacterEquipment
-   */
-  export type Item$CharacterEquipmentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the CharacterEquipment
-     */
-    select?: CharacterEquipmentSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: CharacterEquipmentInclude<ExtArgs> | null
-    where?: CharacterEquipmentWhereInput
-    orderBy?: CharacterEquipmentOrderByWithRelationInput | CharacterEquipmentOrderByWithRelationInput[]
-    cursor?: CharacterEquipmentWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: CharacterEquipmentScalarFieldEnum | CharacterEquipmentScalarFieldEnum[]
   }
 
 
@@ -34031,8 +34043,7 @@ export namespace Prisma {
     ear2: 'ear2',
     arm: 'arm',
     amulet: 'amulet',
-    aux: 'aux',
-    itemId: 'itemId'
+    aux: 'aux'
   };
 
   export type CharacterEquipmentScalarFieldEnum = (typeof CharacterEquipmentScalarFieldEnum)[keyof typeof CharacterEquipmentScalarFieldEnum]
@@ -34447,6 +34458,7 @@ export namespace Prisma {
     preferences?: JsonNullableFilter<"Account">
     AccountRole?: AccountRoleListRelationFilter
     AccountNotification?: AccountNotificationListRelationFilter
+    AccountPassword?: AccountPasswordListRelationFilter
     Character?: CharacterListRelationFilter
     NetworkHistory?: NetworkHistoryListRelationFilter
     NetworkBlacklist?: NetworkBlacklistListRelationFilter
@@ -34481,6 +34493,7 @@ export namespace Prisma {
     preferences?: SortOrderInput | SortOrder
     AccountRole?: AccountRoleOrderByRelationAggregateInput
     AccountNotification?: AccountNotificationOrderByRelationAggregateInput
+    AccountPassword?: AccountPasswordOrderByRelationAggregateInput
     Character?: CharacterOrderByRelationAggregateInput
     NetworkHistory?: NetworkHistoryOrderByRelationAggregateInput
     NetworkBlacklist?: NetworkBlacklistOrderByRelationAggregateInput
@@ -34518,6 +34531,7 @@ export namespace Prisma {
     preferences?: JsonNullableFilter<"Account">
     AccountRole?: AccountRoleListRelationFilter
     AccountNotification?: AccountNotificationListRelationFilter
+    AccountPassword?: AccountPasswordListRelationFilter
     Character?: CharacterListRelationFilter
     NetworkHistory?: NetworkHistoryListRelationFilter
     NetworkBlacklist?: NetworkBlacklistListRelationFilter
@@ -34682,12 +34696,14 @@ export namespace Prisma {
     id?: IntFilter<"AccountPassword"> | number
     accountId?: IntFilter<"AccountPassword"> | number
     passwordHash?: StringFilter<"AccountPassword"> | string
+    Account?: XOR<AccountRelationFilter, AccountWhereInput>
   }
 
   export type AccountPasswordOrderByWithRelationInput = {
     id?: SortOrder
     accountId?: SortOrder
     passwordHash?: SortOrder
+    Account?: AccountOrderByWithRelationInput
   }
 
   export type AccountPasswordWhereUniqueInput = Prisma.AtLeast<{
@@ -34697,6 +34713,7 @@ export namespace Prisma {
     NOT?: AccountPasswordWhereInput | AccountPasswordWhereInput[]
     accountId?: IntFilter<"AccountPassword"> | number
     passwordHash?: StringFilter<"AccountPassword"> | string
+    Account?: XOR<AccountRelationFilter, AccountWhereInput>
   }, "id">
 
   export type AccountPasswordOrderByWithAggregationInput = {
@@ -35249,9 +35266,7 @@ export namespace Prisma {
     arm?: IntNullableFilter<"CharacterEquipment"> | number | null
     amulet?: IntNullableFilter<"CharacterEquipment"> | number | null
     aux?: IntNullableFilter<"CharacterEquipment"> | number | null
-    itemId?: IntNullableFilter<"CharacterEquipment"> | number | null
     CharacterVersion?: CharacterVersionListRelationFilter
-    Item?: XOR<ItemNullableRelationFilter, ItemWhereInput> | null
   }
 
   export type CharacterEquipmentOrderByWithRelationInput = {
@@ -35281,9 +35296,7 @@ export namespace Prisma {
     arm?: SortOrderInput | SortOrder
     amulet?: SortOrderInput | SortOrder
     aux?: SortOrderInput | SortOrder
-    itemId?: SortOrderInput | SortOrder
     CharacterVersion?: CharacterVersionOrderByRelationAggregateInput
-    Item?: ItemOrderByWithRelationInput
   }
 
   export type CharacterEquipmentWhereUniqueInput = Prisma.AtLeast<{
@@ -35316,9 +35329,7 @@ export namespace Prisma {
     arm?: IntNullableFilter<"CharacterEquipment"> | number | null
     amulet?: IntNullableFilter<"CharacterEquipment"> | number | null
     aux?: IntNullableFilter<"CharacterEquipment"> | number | null
-    itemId?: IntNullableFilter<"CharacterEquipment"> | number | null
     CharacterVersion?: CharacterVersionListRelationFilter
-    Item?: XOR<ItemNullableRelationFilter, ItemWhereInput> | null
   }, "id">
 
   export type CharacterEquipmentOrderByWithAggregationInput = {
@@ -35348,7 +35359,6 @@ export namespace Prisma {
     arm?: SortOrderInput | SortOrder
     amulet?: SortOrderInput | SortOrder
     aux?: SortOrderInput | SortOrder
-    itemId?: SortOrderInput | SortOrder
     _count?: CharacterEquipmentCountOrderByAggregateInput
     _avg?: CharacterEquipmentAvgOrderByAggregateInput
     _max?: CharacterEquipmentMaxOrderByAggregateInput
@@ -35386,7 +35396,6 @@ export namespace Prisma {
     arm?: IntNullableWithAggregatesFilter<"CharacterEquipment"> | number | null
     amulet?: IntNullableWithAggregatesFilter<"CharacterEquipment"> | number | null
     aux?: IntNullableWithAggregatesFilter<"CharacterEquipment"> | number | null
-    itemId?: IntNullableWithAggregatesFilter<"CharacterEquipment"> | number | null
   }
 
   export type ItemWhereInput = {
@@ -35418,7 +35427,6 @@ export namespace Prisma {
     isUnique?: BoolNullableFilter<"Item"> | boolean | null
     CreatedItems?: XOR<AccountRelationFilter, AccountWhereInput>
     ModifiedItems?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
-    CharacterEquipment?: CharacterEquipmentListRelationFilter
     ItemSpell?: ItemSpellListRelationFilter
     ItemWeapon?: XOR<ItemWeaponNullableRelationFilter, ItemWeaponWhereInput> | null
     AmmoItem?: ItemWeaponListRelationFilter
@@ -35452,7 +35460,6 @@ export namespace Prisma {
     isUnique?: SortOrderInput | SortOrder
     CreatedItems?: AccountOrderByWithRelationInput
     ModifiedItems?: AccountOrderByWithRelationInput
-    CharacterEquipment?: CharacterEquipmentOrderByRelationAggregateInput
     ItemSpell?: ItemSpellOrderByRelationAggregateInput
     ItemWeapon?: ItemWeaponOrderByWithRelationInput
     AmmoItem?: ItemWeaponOrderByRelationAggregateInput
@@ -35489,7 +35496,6 @@ export namespace Prisma {
     isUnique?: BoolNullableFilter<"Item"> | boolean | null
     CreatedItems?: XOR<AccountRelationFilter, AccountWhereInput>
     ModifiedItems?: XOR<AccountNullableRelationFilter, AccountWhereInput> | null
-    CharacterEquipment?: CharacterEquipmentListRelationFilter
     ItemSpell?: ItemSpellListRelationFilter
     ItemWeapon?: XOR<ItemWeaponNullableRelationFilter, ItemWeaponWhereInput> | null
     AmmoItem?: ItemWeaponListRelationFilter
@@ -36857,6 +36863,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -36891,6 +36898,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -36924,6 +36932,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -36958,6 +36967,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -37104,8 +37114,8 @@ export namespace Prisma {
   }
 
   export type AccountPasswordCreateInput = {
-    accountId: number
     passwordHash: string
+    Account: AccountCreateNestedOneWithoutAccountPasswordInput
   }
 
   export type AccountPasswordUncheckedCreateInput = {
@@ -37115,8 +37125,8 @@ export namespace Prisma {
   }
 
   export type AccountPasswordUpdateInput = {
-    accountId?: IntFieldUpdateOperationsInput | number
     passwordHash?: StringFieldUpdateOperationsInput | string
+    Account?: AccountUpdateOneRequiredWithoutAccountPasswordNestedInput
   }
 
   export type AccountPasswordUncheckedUpdateInput = {
@@ -37132,7 +37142,6 @@ export namespace Prisma {
   }
 
   export type AccountPasswordUpdateManyMutationInput = {
-    accountId?: IntFieldUpdateOperationsInput | number
     passwordHash?: StringFieldUpdateOperationsInput | string
   }
 
@@ -37659,7 +37668,6 @@ export namespace Prisma {
     amulet?: number | null
     aux?: number | null
     CharacterVersion?: CharacterVersionCreateNestedManyWithoutCharacterEquipmentInput
-    Item?: ItemCreateNestedOneWithoutCharacterEquipmentInput
   }
 
   export type CharacterEquipmentUncheckedCreateInput = {
@@ -37689,7 +37697,6 @@ export namespace Prisma {
     arm?: number | null
     amulet?: number | null
     aux?: number | null
-    itemId?: number | null
     CharacterVersion?: CharacterVersionUncheckedCreateNestedManyWithoutCharacterEquipmentInput
   }
 
@@ -37720,7 +37727,6 @@ export namespace Prisma {
     amulet?: NullableIntFieldUpdateOperationsInput | number | null
     aux?: NullableIntFieldUpdateOperationsInput | number | null
     CharacterVersion?: CharacterVersionUpdateManyWithoutCharacterEquipmentNestedInput
-    Item?: ItemUpdateOneWithoutCharacterEquipmentNestedInput
   }
 
   export type CharacterEquipmentUncheckedUpdateInput = {
@@ -37750,7 +37756,6 @@ export namespace Prisma {
     arm?: NullableIntFieldUpdateOperationsInput | number | null
     amulet?: NullableIntFieldUpdateOperationsInput | number | null
     aux?: NullableIntFieldUpdateOperationsInput | number | null
-    itemId?: NullableIntFieldUpdateOperationsInput | number | null
     CharacterVersion?: CharacterVersionUncheckedUpdateManyWithoutCharacterEquipmentNestedInput
   }
 
@@ -37781,7 +37786,6 @@ export namespace Prisma {
     arm?: number | null
     amulet?: number | null
     aux?: number | null
-    itemId?: number | null
   }
 
   export type CharacterEquipmentUpdateManyMutationInput = {
@@ -37839,7 +37843,6 @@ export namespace Prisma {
     arm?: NullableIntFieldUpdateOperationsInput | number | null
     amulet?: NullableIntFieldUpdateOperationsInput | number | null
     aux?: NullableIntFieldUpdateOperationsInput | number | null
-    itemId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ItemCreateInput = {
@@ -37865,7 +37868,6 @@ export namespace Prisma {
     isUnique?: boolean | null
     CreatedItems: AccountCreateNestedOneWithoutCreatedItemsInput
     ModifiedItems?: AccountCreateNestedOneWithoutModifiedItemsInput
-    CharacterEquipment?: CharacterEquipmentCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponCreateNestedOneWithoutItemInput
     AmmoItem?: ItemWeaponCreateNestedManyWithoutAmmoItemInput
@@ -37897,7 +37899,6 @@ export namespace Prisma {
     isLimited?: boolean | null
     isSoulbound?: boolean | null
     isUnique?: boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellUncheckedCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponUncheckedCreateNestedOneWithoutItemInput
     AmmoItem?: ItemWeaponUncheckedCreateNestedManyWithoutAmmoItemInput
@@ -37928,7 +37929,6 @@ export namespace Prisma {
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
     CreatedItems?: AccountUpdateOneRequiredWithoutCreatedItemsNestedInput
     ModifiedItems?: AccountUpdateOneWithoutModifiedItemsNestedInput
-    CharacterEquipment?: CharacterEquipmentUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUpdateOneWithoutItemNestedInput
     AmmoItem?: ItemWeaponUpdateManyWithoutAmmoItemNestedInput
@@ -37960,7 +37960,6 @@ export namespace Prisma {
     isLimited?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isSoulbound?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUncheckedUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUncheckedUpdateOneWithoutItemNestedInput
     AmmoItem?: ItemWeaponUncheckedUpdateManyWithoutAmmoItemNestedInput
@@ -39450,6 +39449,12 @@ export namespace Prisma {
     none?: AccountNotificationWhereInput
   }
 
+  export type AccountPasswordListRelationFilter = {
+    every?: AccountPasswordWhereInput
+    some?: AccountPasswordWhereInput
+    none?: AccountPasswordWhereInput
+  }
+
   export type CharacterListRelationFilter = {
     every?: CharacterWhereInput
     some?: CharacterWhereInput
@@ -39550,6 +39555,10 @@ export namespace Prisma {
   }
 
   export type AccountNotificationOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type AccountPasswordOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -40311,11 +40320,6 @@ export namespace Prisma {
     questId?: SortOrder
   }
 
-  export type ItemNullableRelationFilter = {
-    is?: ItemWhereInput | null
-    isNot?: ItemWhereInput | null
-  }
-
   export type CharacterEquipmentCountOrderByAggregateInput = {
     id?: SortOrder
     light?: SortOrder
@@ -40343,7 +40347,6 @@ export namespace Prisma {
     arm?: SortOrder
     amulet?: SortOrder
     aux?: SortOrder
-    itemId?: SortOrder
   }
 
   export type CharacterEquipmentAvgOrderByAggregateInput = {
@@ -40373,7 +40376,6 @@ export namespace Prisma {
     arm?: SortOrder
     amulet?: SortOrder
     aux?: SortOrder
-    itemId?: SortOrder
   }
 
   export type CharacterEquipmentMaxOrderByAggregateInput = {
@@ -40403,7 +40405,6 @@ export namespace Prisma {
     arm?: SortOrder
     amulet?: SortOrder
     aux?: SortOrder
-    itemId?: SortOrder
   }
 
   export type CharacterEquipmentMinOrderByAggregateInput = {
@@ -40433,7 +40434,6 @@ export namespace Prisma {
     arm?: SortOrder
     amulet?: SortOrder
     aux?: SortOrder
-    itemId?: SortOrder
   }
 
   export type CharacterEquipmentSumOrderByAggregateInput = {
@@ -40463,7 +40463,6 @@ export namespace Prisma {
     arm?: SortOrder
     amulet?: SortOrder
     aux?: SortOrder
-    itemId?: SortOrder
   }
 
   export type EnumAlignNullableFilter<$PrismaModel = never> = {
@@ -40487,12 +40486,6 @@ export namespace Prisma {
   export type AccountNullableRelationFilter = {
     is?: AccountWhereInput | null
     isNot?: AccountWhereInput | null
-  }
-
-  export type CharacterEquipmentListRelationFilter = {
-    every?: CharacterEquipmentWhereInput
-    some?: CharacterEquipmentWhereInput
-    none?: CharacterEquipmentWhereInput
   }
 
   export type ItemSpellListRelationFilter = {
@@ -40520,10 +40513,6 @@ export namespace Prisma {
   export type AppliedTagNullableRelationFilter = {
     is?: AppliedTagWhereInput | null
     isNot?: AppliedTagWhereInput | null
-  }
-
-  export type CharacterEquipmentOrderByRelationAggregateInput = {
-    _count?: SortOrder
   }
 
   export type ItemSpellOrderByRelationAggregateInput = {
@@ -41119,6 +41108,11 @@ export namespace Prisma {
     not?: NestedEnumStatModifierTypeFilter<$PrismaModel> | $Enums.StatModifierType
   }
 
+  export type ItemNullableRelationFilter = {
+    is?: ItemWhereInput | null
+    isNot?: ItemWhereInput | null
+  }
+
   export type QuestNullableRelationFilter = {
     is?: QuestWhereInput | null
     isNot?: QuestWhereInput | null
@@ -41672,6 +41666,13 @@ export namespace Prisma {
     connect?: AccountNotificationWhereUniqueInput | AccountNotificationWhereUniqueInput[]
   }
 
+  export type AccountPasswordCreateNestedManyWithoutAccountInput = {
+    create?: XOR<AccountPasswordCreateWithoutAccountInput, AccountPasswordUncheckedCreateWithoutAccountInput> | AccountPasswordCreateWithoutAccountInput[] | AccountPasswordUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: AccountPasswordCreateOrConnectWithoutAccountInput | AccountPasswordCreateOrConnectWithoutAccountInput[]
+    createMany?: AccountPasswordCreateManyAccountInputEnvelope
+    connect?: AccountPasswordWhereUniqueInput | AccountPasswordWhereUniqueInput[]
+  }
+
   export type CharacterCreateNestedManyWithoutAccountInput = {
     create?: XOR<CharacterCreateWithoutAccountInput, CharacterUncheckedCreateWithoutAccountInput> | CharacterCreateWithoutAccountInput[] | CharacterUncheckedCreateWithoutAccountInput[]
     connectOrCreate?: CharacterCreateOrConnectWithoutAccountInput | CharacterCreateOrConnectWithoutAccountInput[]
@@ -41831,6 +41832,13 @@ export namespace Prisma {
     connectOrCreate?: AccountNotificationCreateOrConnectWithoutAccountInput | AccountNotificationCreateOrConnectWithoutAccountInput[]
     createMany?: AccountNotificationCreateManyAccountInputEnvelope
     connect?: AccountNotificationWhereUniqueInput | AccountNotificationWhereUniqueInput[]
+  }
+
+  export type AccountPasswordUncheckedCreateNestedManyWithoutAccountInput = {
+    create?: XOR<AccountPasswordCreateWithoutAccountInput, AccountPasswordUncheckedCreateWithoutAccountInput> | AccountPasswordCreateWithoutAccountInput[] | AccountPasswordUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: AccountPasswordCreateOrConnectWithoutAccountInput | AccountPasswordCreateOrConnectWithoutAccountInput[]
+    createMany?: AccountPasswordCreateManyAccountInputEnvelope
+    connect?: AccountPasswordWhereUniqueInput | AccountPasswordWhereUniqueInput[]
   }
 
   export type CharacterUncheckedCreateNestedManyWithoutAccountInput = {
@@ -42018,6 +42026,20 @@ export namespace Prisma {
     update?: AccountNotificationUpdateWithWhereUniqueWithoutAccountInput | AccountNotificationUpdateWithWhereUniqueWithoutAccountInput[]
     updateMany?: AccountNotificationUpdateManyWithWhereWithoutAccountInput | AccountNotificationUpdateManyWithWhereWithoutAccountInput[]
     deleteMany?: AccountNotificationScalarWhereInput | AccountNotificationScalarWhereInput[]
+  }
+
+  export type AccountPasswordUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<AccountPasswordCreateWithoutAccountInput, AccountPasswordUncheckedCreateWithoutAccountInput> | AccountPasswordCreateWithoutAccountInput[] | AccountPasswordUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: AccountPasswordCreateOrConnectWithoutAccountInput | AccountPasswordCreateOrConnectWithoutAccountInput[]
+    upsert?: AccountPasswordUpsertWithWhereUniqueWithoutAccountInput | AccountPasswordUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: AccountPasswordCreateManyAccountInputEnvelope
+    set?: AccountPasswordWhereUniqueInput | AccountPasswordWhereUniqueInput[]
+    disconnect?: AccountPasswordWhereUniqueInput | AccountPasswordWhereUniqueInput[]
+    delete?: AccountPasswordWhereUniqueInput | AccountPasswordWhereUniqueInput[]
+    connect?: AccountPasswordWhereUniqueInput | AccountPasswordWhereUniqueInput[]
+    update?: AccountPasswordUpdateWithWhereUniqueWithoutAccountInput | AccountPasswordUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: AccountPasswordUpdateManyWithWhereWithoutAccountInput | AccountPasswordUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: AccountPasswordScalarWhereInput | AccountPasswordScalarWhereInput[]
   }
 
   export type CharacterUpdateManyWithoutAccountNestedInput = {
@@ -42348,6 +42370,20 @@ export namespace Prisma {
     update?: AccountNotificationUpdateWithWhereUniqueWithoutAccountInput | AccountNotificationUpdateWithWhereUniqueWithoutAccountInput[]
     updateMany?: AccountNotificationUpdateManyWithWhereWithoutAccountInput | AccountNotificationUpdateManyWithWhereWithoutAccountInput[]
     deleteMany?: AccountNotificationScalarWhereInput | AccountNotificationScalarWhereInput[]
+  }
+
+  export type AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput = {
+    create?: XOR<AccountPasswordCreateWithoutAccountInput, AccountPasswordUncheckedCreateWithoutAccountInput> | AccountPasswordCreateWithoutAccountInput[] | AccountPasswordUncheckedCreateWithoutAccountInput[]
+    connectOrCreate?: AccountPasswordCreateOrConnectWithoutAccountInput | AccountPasswordCreateOrConnectWithoutAccountInput[]
+    upsert?: AccountPasswordUpsertWithWhereUniqueWithoutAccountInput | AccountPasswordUpsertWithWhereUniqueWithoutAccountInput[]
+    createMany?: AccountPasswordCreateManyAccountInputEnvelope
+    set?: AccountPasswordWhereUniqueInput | AccountPasswordWhereUniqueInput[]
+    disconnect?: AccountPasswordWhereUniqueInput | AccountPasswordWhereUniqueInput[]
+    delete?: AccountPasswordWhereUniqueInput | AccountPasswordWhereUniqueInput[]
+    connect?: AccountPasswordWhereUniqueInput | AccountPasswordWhereUniqueInput[]
+    update?: AccountPasswordUpdateWithWhereUniqueWithoutAccountInput | AccountPasswordUpdateWithWhereUniqueWithoutAccountInput[]
+    updateMany?: AccountPasswordUpdateManyWithWhereWithoutAccountInput | AccountPasswordUpdateManyWithWhereWithoutAccountInput[]
+    deleteMany?: AccountPasswordScalarWhereInput | AccountPasswordScalarWhereInput[]
   }
 
   export type CharacterUncheckedUpdateManyWithoutAccountNestedInput = {
@@ -42684,6 +42720,20 @@ export namespace Prisma {
     update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutAccountNotificationInput, AccountUpdateWithoutAccountNotificationInput>, AccountUncheckedUpdateWithoutAccountNotificationInput>
   }
 
+  export type AccountCreateNestedOneWithoutAccountPasswordInput = {
+    create?: XOR<AccountCreateWithoutAccountPasswordInput, AccountUncheckedCreateWithoutAccountPasswordInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutAccountPasswordInput
+    connect?: AccountWhereUniqueInput
+  }
+
+  export type AccountUpdateOneRequiredWithoutAccountPasswordNestedInput = {
+    create?: XOR<AccountCreateWithoutAccountPasswordInput, AccountUncheckedCreateWithoutAccountPasswordInput>
+    connectOrCreate?: AccountCreateOrConnectWithoutAccountPasswordInput
+    upsert?: AccountUpsertWithoutAccountPasswordInput
+    connect?: AccountWhereUniqueInput
+    update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutAccountPasswordInput, AccountUpdateWithoutAccountPasswordInput>, AccountUncheckedUpdateWithoutAccountPasswordInput>
+  }
+
   export type AccountCreateNestedOneWithoutNetworkHistoryInput = {
     create?: XOR<AccountCreateWithoutNetworkHistoryInput, AccountUncheckedCreateWithoutNetworkHistoryInput>
     connectOrCreate?: AccountCreateOrConnectWithoutNetworkHistoryInput
@@ -43003,12 +43053,6 @@ export namespace Prisma {
     connect?: CharacterVersionWhereUniqueInput | CharacterVersionWhereUniqueInput[]
   }
 
-  export type ItemCreateNestedOneWithoutCharacterEquipmentInput = {
-    create?: XOR<ItemCreateWithoutCharacterEquipmentInput, ItemUncheckedCreateWithoutCharacterEquipmentInput>
-    connectOrCreate?: ItemCreateOrConnectWithoutCharacterEquipmentInput
-    connect?: ItemWhereUniqueInput
-  }
-
   export type CharacterVersionUncheckedCreateNestedManyWithoutCharacterEquipmentInput = {
     create?: XOR<CharacterVersionCreateWithoutCharacterEquipmentInput, CharacterVersionUncheckedCreateWithoutCharacterEquipmentInput> | CharacterVersionCreateWithoutCharacterEquipmentInput[] | CharacterVersionUncheckedCreateWithoutCharacterEquipmentInput[]
     connectOrCreate?: CharacterVersionCreateOrConnectWithoutCharacterEquipmentInput | CharacterVersionCreateOrConnectWithoutCharacterEquipmentInput[]
@@ -43028,16 +43072,6 @@ export namespace Prisma {
     update?: CharacterVersionUpdateWithWhereUniqueWithoutCharacterEquipmentInput | CharacterVersionUpdateWithWhereUniqueWithoutCharacterEquipmentInput[]
     updateMany?: CharacterVersionUpdateManyWithWhereWithoutCharacterEquipmentInput | CharacterVersionUpdateManyWithWhereWithoutCharacterEquipmentInput[]
     deleteMany?: CharacterVersionScalarWhereInput | CharacterVersionScalarWhereInput[]
-  }
-
-  export type ItemUpdateOneWithoutCharacterEquipmentNestedInput = {
-    create?: XOR<ItemCreateWithoutCharacterEquipmentInput, ItemUncheckedCreateWithoutCharacterEquipmentInput>
-    connectOrCreate?: ItemCreateOrConnectWithoutCharacterEquipmentInput
-    upsert?: ItemUpsertWithoutCharacterEquipmentInput
-    disconnect?: ItemWhereInput | boolean
-    delete?: ItemWhereInput | boolean
-    connect?: ItemWhereUniqueInput
-    update?: XOR<XOR<ItemUpdateToOneWithWhereWithoutCharacterEquipmentInput, ItemUpdateWithoutCharacterEquipmentInput>, ItemUncheckedUpdateWithoutCharacterEquipmentInput>
   }
 
   export type CharacterVersionUncheckedUpdateManyWithoutCharacterEquipmentNestedInput = {
@@ -43064,13 +43098,6 @@ export namespace Prisma {
     create?: XOR<AccountCreateWithoutModifiedItemsInput, AccountUncheckedCreateWithoutModifiedItemsInput>
     connectOrCreate?: AccountCreateOrConnectWithoutModifiedItemsInput
     connect?: AccountWhereUniqueInput
-  }
-
-  export type CharacterEquipmentCreateNestedManyWithoutItemInput = {
-    create?: XOR<CharacterEquipmentCreateWithoutItemInput, CharacterEquipmentUncheckedCreateWithoutItemInput> | CharacterEquipmentCreateWithoutItemInput[] | CharacterEquipmentUncheckedCreateWithoutItemInput[]
-    connectOrCreate?: CharacterEquipmentCreateOrConnectWithoutItemInput | CharacterEquipmentCreateOrConnectWithoutItemInput[]
-    createMany?: CharacterEquipmentCreateManyItemInputEnvelope
-    connect?: CharacterEquipmentWhereUniqueInput | CharacterEquipmentWhereUniqueInput[]
   }
 
   export type ItemSpellCreateNestedManyWithoutItemInput = {
@@ -43103,13 +43130,6 @@ export namespace Prisma {
     create?: XOR<AppliedTagCreateWithoutItemTagSourceInput, AppliedTagUncheckedCreateWithoutItemTagSourceInput>
     connectOrCreate?: AppliedTagCreateOrConnectWithoutItemTagSourceInput
     connect?: AppliedTagWhereUniqueInput
-  }
-
-  export type CharacterEquipmentUncheckedCreateNestedManyWithoutItemInput = {
-    create?: XOR<CharacterEquipmentCreateWithoutItemInput, CharacterEquipmentUncheckedCreateWithoutItemInput> | CharacterEquipmentCreateWithoutItemInput[] | CharacterEquipmentUncheckedCreateWithoutItemInput[]
-    connectOrCreate?: CharacterEquipmentCreateOrConnectWithoutItemInput | CharacterEquipmentCreateOrConnectWithoutItemInput[]
-    createMany?: CharacterEquipmentCreateManyItemInputEnvelope
-    connect?: CharacterEquipmentWhereUniqueInput | CharacterEquipmentWhereUniqueInput[]
   }
 
   export type ItemSpellUncheckedCreateNestedManyWithoutItemInput = {
@@ -43174,20 +43194,6 @@ export namespace Prisma {
     update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutModifiedItemsInput, AccountUpdateWithoutModifiedItemsInput>, AccountUncheckedUpdateWithoutModifiedItemsInput>
   }
 
-  export type CharacterEquipmentUpdateManyWithoutItemNestedInput = {
-    create?: XOR<CharacterEquipmentCreateWithoutItemInput, CharacterEquipmentUncheckedCreateWithoutItemInput> | CharacterEquipmentCreateWithoutItemInput[] | CharacterEquipmentUncheckedCreateWithoutItemInput[]
-    connectOrCreate?: CharacterEquipmentCreateOrConnectWithoutItemInput | CharacterEquipmentCreateOrConnectWithoutItemInput[]
-    upsert?: CharacterEquipmentUpsertWithWhereUniqueWithoutItemInput | CharacterEquipmentUpsertWithWhereUniqueWithoutItemInput[]
-    createMany?: CharacterEquipmentCreateManyItemInputEnvelope
-    set?: CharacterEquipmentWhereUniqueInput | CharacterEquipmentWhereUniqueInput[]
-    disconnect?: CharacterEquipmentWhereUniqueInput | CharacterEquipmentWhereUniqueInput[]
-    delete?: CharacterEquipmentWhereUniqueInput | CharacterEquipmentWhereUniqueInput[]
-    connect?: CharacterEquipmentWhereUniqueInput | CharacterEquipmentWhereUniqueInput[]
-    update?: CharacterEquipmentUpdateWithWhereUniqueWithoutItemInput | CharacterEquipmentUpdateWithWhereUniqueWithoutItemInput[]
-    updateMany?: CharacterEquipmentUpdateManyWithWhereWithoutItemInput | CharacterEquipmentUpdateManyWithWhereWithoutItemInput[]
-    deleteMany?: CharacterEquipmentScalarWhereInput | CharacterEquipmentScalarWhereInput[]
-  }
-
   export type ItemSpellUpdateManyWithoutItemNestedInput = {
     create?: XOR<ItemSpellCreateWithoutItemInput, ItemSpellUncheckedCreateWithoutItemInput> | ItemSpellCreateWithoutItemInput[] | ItemSpellUncheckedCreateWithoutItemInput[]
     connectOrCreate?: ItemSpellCreateOrConnectWithoutItemInput | ItemSpellCreateOrConnectWithoutItemInput[]
@@ -43244,20 +43250,6 @@ export namespace Prisma {
     delete?: AppliedTagWhereInput | boolean
     connect?: AppliedTagWhereUniqueInput
     update?: XOR<XOR<AppliedTagUpdateToOneWithWhereWithoutItemTagSourceInput, AppliedTagUpdateWithoutItemTagSourceInput>, AppliedTagUncheckedUpdateWithoutItemTagSourceInput>
-  }
-
-  export type CharacterEquipmentUncheckedUpdateManyWithoutItemNestedInput = {
-    create?: XOR<CharacterEquipmentCreateWithoutItemInput, CharacterEquipmentUncheckedCreateWithoutItemInput> | CharacterEquipmentCreateWithoutItemInput[] | CharacterEquipmentUncheckedCreateWithoutItemInput[]
-    connectOrCreate?: CharacterEquipmentCreateOrConnectWithoutItemInput | CharacterEquipmentCreateOrConnectWithoutItemInput[]
-    upsert?: CharacterEquipmentUpsertWithWhereUniqueWithoutItemInput | CharacterEquipmentUpsertWithWhereUniqueWithoutItemInput[]
-    createMany?: CharacterEquipmentCreateManyItemInputEnvelope
-    set?: CharacterEquipmentWhereUniqueInput | CharacterEquipmentWhereUniqueInput[]
-    disconnect?: CharacterEquipmentWhereUniqueInput | CharacterEquipmentWhereUniqueInput[]
-    delete?: CharacterEquipmentWhereUniqueInput | CharacterEquipmentWhereUniqueInput[]
-    connect?: CharacterEquipmentWhereUniqueInput | CharacterEquipmentWhereUniqueInput[]
-    update?: CharacterEquipmentUpdateWithWhereUniqueWithoutItemInput | CharacterEquipmentUpdateWithWhereUniqueWithoutItemInput[]
-    updateMany?: CharacterEquipmentUpdateManyWithWhereWithoutItemInput | CharacterEquipmentUpdateManyWithWhereWithoutItemInput[]
-    deleteMany?: CharacterEquipmentScalarWhereInput | CharacterEquipmentScalarWhereInput[]
   }
 
   export type ItemSpellUncheckedUpdateManyWithoutItemNestedInput = {
@@ -44691,6 +44683,25 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type AccountPasswordCreateWithoutAccountInput = {
+    passwordHash: string
+  }
+
+  export type AccountPasswordUncheckedCreateWithoutAccountInput = {
+    id?: number
+    passwordHash: string
+  }
+
+  export type AccountPasswordCreateOrConnectWithoutAccountInput = {
+    where: AccountPasswordWhereUniqueInput
+    create: XOR<AccountPasswordCreateWithoutAccountInput, AccountPasswordUncheckedCreateWithoutAccountInput>
+  }
+
+  export type AccountPasswordCreateManyAccountInputEnvelope = {
+    data: AccountPasswordCreateManyAccountInput | AccountPasswordCreateManyAccountInput[]
+    skipDuplicates?: boolean
+  }
+
   export type CharacterCreateWithoutAccountInput = {
     mudId?: number | null
     createdDate?: Date | string
@@ -44819,7 +44830,6 @@ export namespace Prisma {
     isSoulbound?: boolean | null
     isUnique?: boolean | null
     ModifiedItems?: AccountCreateNestedOneWithoutModifiedItemsInput
-    CharacterEquipment?: CharacterEquipmentCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponCreateNestedOneWithoutItemInput
     AmmoItem?: ItemWeaponCreateNestedManyWithoutAmmoItemInput
@@ -44850,7 +44860,6 @@ export namespace Prisma {
     isLimited?: boolean | null
     isSoulbound?: boolean | null
     isUnique?: boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellUncheckedCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponUncheckedCreateNestedOneWithoutItemInput
     AmmoItem?: ItemWeaponUncheckedCreateNestedManyWithoutAmmoItemInput
@@ -44890,7 +44899,6 @@ export namespace Prisma {
     isSoulbound?: boolean | null
     isUnique?: boolean | null
     CreatedItems: AccountCreateNestedOneWithoutCreatedItemsInput
-    CharacterEquipment?: CharacterEquipmentCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponCreateNestedOneWithoutItemInput
     AmmoItem?: ItemWeaponCreateNestedManyWithoutAmmoItemInput
@@ -44921,7 +44929,6 @@ export namespace Prisma {
     isLimited?: boolean | null
     isSoulbound?: boolean | null
     isUnique?: boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellUncheckedCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponUncheckedCreateNestedOneWithoutItemInput
     AmmoItem?: ItemWeaponUncheckedCreateNestedManyWithoutAmmoItemInput
@@ -45498,6 +45505,31 @@ export namespace Prisma {
     readDate?: DateTimeNullableFilter<"AccountNotification"> | Date | string | null
   }
 
+  export type AccountPasswordUpsertWithWhereUniqueWithoutAccountInput = {
+    where: AccountPasswordWhereUniqueInput
+    update: XOR<AccountPasswordUpdateWithoutAccountInput, AccountPasswordUncheckedUpdateWithoutAccountInput>
+    create: XOR<AccountPasswordCreateWithoutAccountInput, AccountPasswordUncheckedCreateWithoutAccountInput>
+  }
+
+  export type AccountPasswordUpdateWithWhereUniqueWithoutAccountInput = {
+    where: AccountPasswordWhereUniqueInput
+    data: XOR<AccountPasswordUpdateWithoutAccountInput, AccountPasswordUncheckedUpdateWithoutAccountInput>
+  }
+
+  export type AccountPasswordUpdateManyWithWhereWithoutAccountInput = {
+    where: AccountPasswordScalarWhereInput
+    data: XOR<AccountPasswordUpdateManyMutationInput, AccountPasswordUncheckedUpdateManyWithoutAccountInput>
+  }
+
+  export type AccountPasswordScalarWhereInput = {
+    AND?: AccountPasswordScalarWhereInput | AccountPasswordScalarWhereInput[]
+    OR?: AccountPasswordScalarWhereInput[]
+    NOT?: AccountPasswordScalarWhereInput | AccountPasswordScalarWhereInput[]
+    id?: IntFilter<"AccountPassword"> | number
+    accountId?: IntFilter<"AccountPassword"> | number
+    passwordHash?: StringFilter<"AccountPassword"> | string
+  }
+
   export type CharacterUpsertWithWhereUniqueWithoutAccountInput = {
     where: CharacterWhereUniqueInput
     update: XOR<CharacterUpdateWithoutAccountInput, CharacterUncheckedUpdateWithoutAccountInput>
@@ -46062,6 +46094,7 @@ export namespace Prisma {
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -46095,6 +46128,7 @@ export namespace Prisma {
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -46143,6 +46177,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -46176,6 +46211,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -46208,6 +46244,7 @@ export namespace Prisma {
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -46241,6 +46278,7 @@ export namespace Prisma {
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -46289,6 +46327,7 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -46322,6 +46361,157 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
+    Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
+    NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
+    NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
+    Notification?: NotificationUncheckedUpdateManyWithoutAccountNestedInput
+    CreatedItems?: ItemUncheckedUpdateManyWithoutCreatedItemsNestedInput
+    ModifiedItems?: ItemUncheckedUpdateManyWithoutModifiedItemsNestedInput
+    CreatedSpells?: SpellUncheckedUpdateManyWithoutCreatedSpellsNestedInput
+    ModifiedSpells?: SpellUncheckedUpdateManyWithoutModifiedSpellsNestedInput
+    CreatedPotions?: PotionUncheckedUpdateManyWithoutCreatedPotionsNestedInput
+    ModifiedPotions?: PotionUncheckedUpdateManyWithoutModifiedPotionsNestedInput
+    CreatedSkills?: SkillUncheckedUpdateManyWithoutCreatedSkillsNestedInput
+    ModifiedSkills?: SkillUncheckedUpdateManyWithoutModifiedSkillsNestedInput
+    CreatedAbilities?: AbilityUncheckedUpdateManyWithoutCreatedAbilitiesNestedInput
+    ModifiedAbilities?: AbilityUncheckedUpdateManyWithoutModifiedAbilitiesNestedInput
+    CreatedQuests?: QuestUncheckedUpdateManyWithoutCreatedQuestsNestedInput
+    ModifiedQuests?: QuestUncheckedUpdateManyWithoutModifiedQuestsNestedInput
+    Article?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
+    ArticleVersion?: ArticleVersionUncheckedUpdateManyWithoutEditorNestedInput
+    Tag?: TagUncheckedUpdateManyWithoutCreatorNestedInput
+    Area?: AreaUncheckedUpdateManyWithoutAuthorNestedInput
+    ChangeLog?: ChangeLogUncheckedUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type AccountCreateWithoutAccountPasswordInput = {
+    mudId?: string | null
+    createdDate?: Date | string
+    modifiedDate?: Date | string
+    firstName?: string | null
+    lastName?: string | null
+    email: string
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    Character?: CharacterCreateNestedManyWithoutAccountInput
+    NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
+    NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
+    Notification?: NotificationCreateNestedManyWithoutAccountInput
+    CreatedItems?: ItemCreateNestedManyWithoutCreatedItemsInput
+    ModifiedItems?: ItemCreateNestedManyWithoutModifiedItemsInput
+    CreatedSpells?: SpellCreateNestedManyWithoutCreatedSpellsInput
+    ModifiedSpells?: SpellCreateNestedManyWithoutModifiedSpellsInput
+    CreatedPotions?: PotionCreateNestedManyWithoutCreatedPotionsInput
+    ModifiedPotions?: PotionCreateNestedManyWithoutModifiedPotionsInput
+    CreatedSkills?: SkillCreateNestedManyWithoutCreatedSkillsInput
+    ModifiedSkills?: SkillCreateNestedManyWithoutModifiedSkillsInput
+    CreatedAbilities?: AbilityCreateNestedManyWithoutCreatedAbilitiesInput
+    ModifiedAbilities?: AbilityCreateNestedManyWithoutModifiedAbilitiesInput
+    CreatedQuests?: QuestCreateNestedManyWithoutCreatedQuestsInput
+    ModifiedQuests?: QuestCreateNestedManyWithoutModifiedQuestsInput
+    Article?: ArticleCreateNestedManyWithoutAuthorInput
+    ArticleVersion?: ArticleVersionCreateNestedManyWithoutEditorInput
+    Tag?: TagCreateNestedManyWithoutCreatorInput
+    Area?: AreaCreateNestedManyWithoutAuthorInput
+    ChangeLog?: ChangeLogCreateNestedManyWithoutCreatorInput
+  }
+
+  export type AccountUncheckedCreateWithoutAccountPasswordInput = {
+    id?: number
+    mudId?: string | null
+    createdDate?: Date | string
+    modifiedDate?: Date | string
+    firstName?: string | null
+    lastName?: string | null
+    email: string
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
+    NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
+    NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
+    Notification?: NotificationUncheckedCreateNestedManyWithoutAccountInput
+    CreatedItems?: ItemUncheckedCreateNestedManyWithoutCreatedItemsInput
+    ModifiedItems?: ItemUncheckedCreateNestedManyWithoutModifiedItemsInput
+    CreatedSpells?: SpellUncheckedCreateNestedManyWithoutCreatedSpellsInput
+    ModifiedSpells?: SpellUncheckedCreateNestedManyWithoutModifiedSpellsInput
+    CreatedPotions?: PotionUncheckedCreateNestedManyWithoutCreatedPotionsInput
+    ModifiedPotions?: PotionUncheckedCreateNestedManyWithoutModifiedPotionsInput
+    CreatedSkills?: SkillUncheckedCreateNestedManyWithoutCreatedSkillsInput
+    ModifiedSkills?: SkillUncheckedCreateNestedManyWithoutModifiedSkillsInput
+    CreatedAbilities?: AbilityUncheckedCreateNestedManyWithoutCreatedAbilitiesInput
+    ModifiedAbilities?: AbilityUncheckedCreateNestedManyWithoutModifiedAbilitiesInput
+    CreatedQuests?: QuestUncheckedCreateNestedManyWithoutCreatedQuestsInput
+    ModifiedQuests?: QuestUncheckedCreateNestedManyWithoutModifiedQuestsInput
+    Article?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
+    ArticleVersion?: ArticleVersionUncheckedCreateNestedManyWithoutEditorInput
+    Tag?: TagUncheckedCreateNestedManyWithoutCreatorInput
+    Area?: AreaUncheckedCreateNestedManyWithoutAuthorInput
+    ChangeLog?: ChangeLogUncheckedCreateNestedManyWithoutCreatorInput
+  }
+
+  export type AccountCreateOrConnectWithoutAccountPasswordInput = {
+    where: AccountWhereUniqueInput
+    create: XOR<AccountCreateWithoutAccountPasswordInput, AccountUncheckedCreateWithoutAccountPasswordInput>
+  }
+
+  export type AccountUpsertWithoutAccountPasswordInput = {
+    update: XOR<AccountUpdateWithoutAccountPasswordInput, AccountUncheckedUpdateWithoutAccountPasswordInput>
+    create: XOR<AccountCreateWithoutAccountPasswordInput, AccountUncheckedCreateWithoutAccountPasswordInput>
+    where?: AccountWhereInput
+  }
+
+  export type AccountUpdateToOneWithWhereWithoutAccountPasswordInput = {
+    where?: AccountWhereInput
+    data: XOR<AccountUpdateWithoutAccountPasswordInput, AccountUncheckedUpdateWithoutAccountPasswordInput>
+  }
+
+  export type AccountUpdateWithoutAccountPasswordInput = {
+    mudId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    modifiedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    Character?: CharacterUpdateManyWithoutAccountNestedInput
+    NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
+    NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
+    Notification?: NotificationUpdateManyWithoutAccountNestedInput
+    CreatedItems?: ItemUpdateManyWithoutCreatedItemsNestedInput
+    ModifiedItems?: ItemUpdateManyWithoutModifiedItemsNestedInput
+    CreatedSpells?: SpellUpdateManyWithoutCreatedSpellsNestedInput
+    ModifiedSpells?: SpellUpdateManyWithoutModifiedSpellsNestedInput
+    CreatedPotions?: PotionUpdateManyWithoutCreatedPotionsNestedInput
+    ModifiedPotions?: PotionUpdateManyWithoutModifiedPotionsNestedInput
+    CreatedSkills?: SkillUpdateManyWithoutCreatedSkillsNestedInput
+    ModifiedSkills?: SkillUpdateManyWithoutModifiedSkillsNestedInput
+    CreatedAbilities?: AbilityUpdateManyWithoutCreatedAbilitiesNestedInput
+    ModifiedAbilities?: AbilityUpdateManyWithoutModifiedAbilitiesNestedInput
+    CreatedQuests?: QuestUpdateManyWithoutCreatedQuestsNestedInput
+    ModifiedQuests?: QuestUpdateManyWithoutModifiedQuestsNestedInput
+    Article?: ArticleUpdateManyWithoutAuthorNestedInput
+    ArticleVersion?: ArticleVersionUpdateManyWithoutEditorNestedInput
+    Tag?: TagUpdateManyWithoutCreatorNestedInput
+    Area?: AreaUpdateManyWithoutAuthorNestedInput
+    ChangeLog?: ChangeLogUpdateManyWithoutCreatorNestedInput
+  }
+
+  export type AccountUncheckedUpdateWithoutAccountPasswordInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    mudId?: NullableStringFieldUpdateOperationsInput | string | null
+    createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    modifiedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    firstName?: NullableStringFieldUpdateOperationsInput | string | null
+    lastName?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    preferences?: NullableJsonNullValueInput | InputJsonValue
+    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -46355,6 +46545,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
     Notification?: NotificationCreateNestedManyWithoutAccountInput
@@ -46388,6 +46579,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
     Notification?: NotificationUncheckedCreateNestedManyWithoutAccountInput
@@ -46459,6 +46651,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
     Notification?: NotificationUpdateManyWithoutAccountNestedInput
@@ -46492,6 +46685,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
     Notification?: NotificationUncheckedUpdateManyWithoutAccountNestedInput
@@ -46560,6 +46754,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     Notification?: NotificationCreateNestedManyWithoutAccountInput
@@ -46593,6 +46788,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     Notification?: NotificationUncheckedCreateNestedManyWithoutAccountInput
@@ -46667,6 +46863,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     Notification?: NotificationUpdateManyWithoutAccountNestedInput
@@ -46700,6 +46897,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     Notification?: NotificationUncheckedUpdateManyWithoutAccountNestedInput
@@ -46732,6 +46930,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -46765,6 +46964,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -46813,6 +47013,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -46846,6 +47047,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -46878,6 +47080,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
     Notification?: NotificationCreateNestedManyWithoutAccountInput
@@ -46911,6 +47114,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
     Notification?: NotificationUncheckedCreateNestedManyWithoutAccountInput
@@ -46994,6 +47198,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
     Notification?: NotificationUpdateManyWithoutAccountNestedInput
@@ -47027,6 +47232,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
     Notification?: NotificationUncheckedUpdateManyWithoutAccountNestedInput
@@ -47187,7 +47393,6 @@ export namespace Prisma {
     arm?: number | null
     amulet?: number | null
     aux?: number | null
-    Item?: ItemCreateNestedOneWithoutCharacterEquipmentInput
   }
 
   export type CharacterEquipmentUncheckedCreateWithoutCharacterVersionInput = {
@@ -47217,7 +47422,6 @@ export namespace Prisma {
     arm?: number | null
     amulet?: number | null
     aux?: number | null
-    itemId?: number | null
   }
 
   export type CharacterEquipmentCreateOrConnectWithoutCharacterVersionInput = {
@@ -47361,7 +47565,6 @@ export namespace Prisma {
     arm?: NullableIntFieldUpdateOperationsInput | number | null
     amulet?: NullableIntFieldUpdateOperationsInput | number | null
     aux?: NullableIntFieldUpdateOperationsInput | number | null
-    Item?: ItemUpdateOneWithoutCharacterEquipmentNestedInput
   }
 
   export type CharacterEquipmentUncheckedUpdateWithoutCharacterVersionInput = {
@@ -47391,7 +47594,6 @@ export namespace Prisma {
     arm?: NullableIntFieldUpdateOperationsInput | number | null
     amulet?: NullableIntFieldUpdateOperationsInput | number | null
     aux?: NullableIntFieldUpdateOperationsInput | number | null
-    itemId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type CharacterVersionCreateWithoutCharacterStatInput = {
@@ -47643,72 +47845,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type ItemCreateWithoutCharacterEquipmentInput = {
-    createdDate?: Date | string
-    modifiedDate?: Date | string | null
-    shortDescription: string
-    longDescription?: string | null
-    timer?: number | null
-    align?: $Enums.Align | null
-    rent?: number | null
-    preservable?: boolean | null
-    netStat?: number | null
-    notes?: string | null
-    weight?: number | null
-    slots?: string | null
-    isBonded?: boolean | null
-    isCastable?: boolean | null
-    isHeroic?: boolean | null
-    isLevelRequired?: boolean | null
-    isLight?: boolean | null
-    isLimited?: boolean | null
-    isSoulbound?: boolean | null
-    isUnique?: boolean | null
-    CreatedItems: AccountCreateNestedOneWithoutCreatedItemsInput
-    ModifiedItems?: AccountCreateNestedOneWithoutModifiedItemsInput
-    ItemSpell?: ItemSpellCreateNestedManyWithoutItemInput
-    ItemWeapon?: ItemWeaponCreateNestedOneWithoutItemInput
-    AmmoItem?: ItemWeaponCreateNestedManyWithoutAmmoItemInput
-    StatModifer?: StatModiferCreateNestedOneWithoutItemSourceInput
-    ItemTagSource?: AppliedTagCreateNestedOneWithoutItemTagSourceInput
-  }
-
-  export type ItemUncheckedCreateWithoutCharacterEquipmentInput = {
-    id?: number
-    createdDate?: Date | string
-    createdBy: number
-    modifiedDate?: Date | string | null
-    modifiedBy?: number | null
-    shortDescription: string
-    longDescription?: string | null
-    timer?: number | null
-    align?: $Enums.Align | null
-    rent?: number | null
-    preservable?: boolean | null
-    netStat?: number | null
-    notes?: string | null
-    weight?: number | null
-    slots?: string | null
-    isBonded?: boolean | null
-    isCastable?: boolean | null
-    isHeroic?: boolean | null
-    isLevelRequired?: boolean | null
-    isLight?: boolean | null
-    isLimited?: boolean | null
-    isSoulbound?: boolean | null
-    isUnique?: boolean | null
-    ItemSpell?: ItemSpellUncheckedCreateNestedManyWithoutItemInput
-    ItemWeapon?: ItemWeaponUncheckedCreateNestedOneWithoutItemInput
-    AmmoItem?: ItemWeaponUncheckedCreateNestedManyWithoutAmmoItemInput
-    StatModifer?: StatModiferUncheckedCreateNestedOneWithoutItemSourceInput
-    ItemTagSource?: AppliedTagUncheckedCreateNestedOneWithoutItemTagSourceInput
-  }
-
-  export type ItemCreateOrConnectWithoutCharacterEquipmentInput = {
-    where: ItemWhereUniqueInput
-    create: XOR<ItemCreateWithoutCharacterEquipmentInput, ItemUncheckedCreateWithoutCharacterEquipmentInput>
-  }
-
   export type CharacterVersionUpsertWithWhereUniqueWithoutCharacterEquipmentInput = {
     where: CharacterVersionWhereUniqueInput
     update: XOR<CharacterVersionUpdateWithoutCharacterEquipmentInput, CharacterVersionUncheckedUpdateWithoutCharacterEquipmentInput>
@@ -47725,78 +47861,6 @@ export namespace Prisma {
     data: XOR<CharacterVersionUpdateManyMutationInput, CharacterVersionUncheckedUpdateManyWithoutCharacterEquipmentInput>
   }
 
-  export type ItemUpsertWithoutCharacterEquipmentInput = {
-    update: XOR<ItemUpdateWithoutCharacterEquipmentInput, ItemUncheckedUpdateWithoutCharacterEquipmentInput>
-    create: XOR<ItemCreateWithoutCharacterEquipmentInput, ItemUncheckedCreateWithoutCharacterEquipmentInput>
-    where?: ItemWhereInput
-  }
-
-  export type ItemUpdateToOneWithWhereWithoutCharacterEquipmentInput = {
-    where?: ItemWhereInput
-    data: XOR<ItemUpdateWithoutCharacterEquipmentInput, ItemUncheckedUpdateWithoutCharacterEquipmentInput>
-  }
-
-  export type ItemUpdateWithoutCharacterEquipmentInput = {
-    createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    shortDescription?: StringFieldUpdateOperationsInput | string
-    longDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    timer?: NullableIntFieldUpdateOperationsInput | number | null
-    align?: NullableEnumAlignFieldUpdateOperationsInput | $Enums.Align | null
-    rent?: NullableIntFieldUpdateOperationsInput | number | null
-    preservable?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    netStat?: NullableIntFieldUpdateOperationsInput | number | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
-    slots?: NullableStringFieldUpdateOperationsInput | string | null
-    isBonded?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCastable?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isHeroic?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isLevelRequired?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isLight?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isLimited?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isSoulbound?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    CreatedItems?: AccountUpdateOneRequiredWithoutCreatedItemsNestedInput
-    ModifiedItems?: AccountUpdateOneWithoutModifiedItemsNestedInput
-    ItemSpell?: ItemSpellUpdateManyWithoutItemNestedInput
-    ItemWeapon?: ItemWeaponUpdateOneWithoutItemNestedInput
-    AmmoItem?: ItemWeaponUpdateManyWithoutAmmoItemNestedInput
-    StatModifer?: StatModiferUpdateOneWithoutItemSourceNestedInput
-    ItemTagSource?: AppliedTagUpdateOneWithoutItemTagSourceNestedInput
-  }
-
-  export type ItemUncheckedUpdateWithoutCharacterEquipmentInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    createdBy?: IntFieldUpdateOperationsInput | number
-    modifiedDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    modifiedBy?: NullableIntFieldUpdateOperationsInput | number | null
-    shortDescription?: StringFieldUpdateOperationsInput | string
-    longDescription?: NullableStringFieldUpdateOperationsInput | string | null
-    timer?: NullableIntFieldUpdateOperationsInput | number | null
-    align?: NullableEnumAlignFieldUpdateOperationsInput | $Enums.Align | null
-    rent?: NullableIntFieldUpdateOperationsInput | number | null
-    preservable?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    netStat?: NullableIntFieldUpdateOperationsInput | number | null
-    notes?: NullableStringFieldUpdateOperationsInput | string | null
-    weight?: NullableFloatFieldUpdateOperationsInput | number | null
-    slots?: NullableStringFieldUpdateOperationsInput | string | null
-    isBonded?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isCastable?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isHeroic?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isLevelRequired?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isLight?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isLimited?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isSoulbound?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    ItemSpell?: ItemSpellUncheckedUpdateManyWithoutItemNestedInput
-    ItemWeapon?: ItemWeaponUncheckedUpdateOneWithoutItemNestedInput
-    AmmoItem?: ItemWeaponUncheckedUpdateManyWithoutAmmoItemNestedInput
-    StatModifer?: StatModiferUncheckedUpdateOneWithoutItemSourceNestedInput
-    ItemTagSource?: AppliedTagUncheckedUpdateOneWithoutItemTagSourceNestedInput
-  }
-
   export type AccountCreateWithoutCreatedItemsInput = {
     mudId?: string | null
     createdDate?: Date | string
@@ -47807,6 +47871,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -47840,6 +47905,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -47877,6 +47943,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -47910,6 +47977,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -47935,75 +48003,6 @@ export namespace Prisma {
   export type AccountCreateOrConnectWithoutModifiedItemsInput = {
     where: AccountWhereUniqueInput
     create: XOR<AccountCreateWithoutModifiedItemsInput, AccountUncheckedCreateWithoutModifiedItemsInput>
-  }
-
-  export type CharacterEquipmentCreateWithoutItemInput = {
-    light?: number | null
-    finger1?: number | null
-    finger2?: number | null
-    neck1?: number | null
-    neck2?: number | null
-    body?: number | null
-    head?: number | null
-    hands?: number | null
-    feet?: number | null
-    face?: number | null
-    arms?: number | null
-    legs?: number | null
-    about?: number | null
-    waist?: number | null
-    wrist1?: number | null
-    wrist2?: number | null
-    wield?: number | null
-    hold1?: number | null
-    hold2?: number | null
-    hold3?: number | null
-    ear1?: number | null
-    ear2?: number | null
-    arm?: number | null
-    amulet?: number | null
-    aux?: number | null
-    CharacterVersion?: CharacterVersionCreateNestedManyWithoutCharacterEquipmentInput
-  }
-
-  export type CharacterEquipmentUncheckedCreateWithoutItemInput = {
-    id?: number
-    light?: number | null
-    finger1?: number | null
-    finger2?: number | null
-    neck1?: number | null
-    neck2?: number | null
-    body?: number | null
-    head?: number | null
-    hands?: number | null
-    feet?: number | null
-    face?: number | null
-    arms?: number | null
-    legs?: number | null
-    about?: number | null
-    waist?: number | null
-    wrist1?: number | null
-    wrist2?: number | null
-    wield?: number | null
-    hold1?: number | null
-    hold2?: number | null
-    hold3?: number | null
-    ear1?: number | null
-    ear2?: number | null
-    arm?: number | null
-    amulet?: number | null
-    aux?: number | null
-    CharacterVersion?: CharacterVersionUncheckedCreateNestedManyWithoutCharacterEquipmentInput
-  }
-
-  export type CharacterEquipmentCreateOrConnectWithoutItemInput = {
-    where: CharacterEquipmentWhereUniqueInput
-    create: XOR<CharacterEquipmentCreateWithoutItemInput, CharacterEquipmentUncheckedCreateWithoutItemInput>
-  }
-
-  export type CharacterEquipmentCreateManyItemInputEnvelope = {
-    data: CharacterEquipmentCreateManyItemInput | CharacterEquipmentCreateManyItemInput[]
-    skipDuplicates?: boolean
   }
 
   export type ItemSpellCreateWithoutItemInput = {
@@ -48221,6 +48220,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -48254,6 +48254,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -48297,6 +48298,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -48330,6 +48332,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -48350,55 +48353,6 @@ export namespace Prisma {
     Tag?: TagUncheckedUpdateManyWithoutCreatorNestedInput
     Area?: AreaUncheckedUpdateManyWithoutAuthorNestedInput
     ChangeLog?: ChangeLogUncheckedUpdateManyWithoutCreatorNestedInput
-  }
-
-  export type CharacterEquipmentUpsertWithWhereUniqueWithoutItemInput = {
-    where: CharacterEquipmentWhereUniqueInput
-    update: XOR<CharacterEquipmentUpdateWithoutItemInput, CharacterEquipmentUncheckedUpdateWithoutItemInput>
-    create: XOR<CharacterEquipmentCreateWithoutItemInput, CharacterEquipmentUncheckedCreateWithoutItemInput>
-  }
-
-  export type CharacterEquipmentUpdateWithWhereUniqueWithoutItemInput = {
-    where: CharacterEquipmentWhereUniqueInput
-    data: XOR<CharacterEquipmentUpdateWithoutItemInput, CharacterEquipmentUncheckedUpdateWithoutItemInput>
-  }
-
-  export type CharacterEquipmentUpdateManyWithWhereWithoutItemInput = {
-    where: CharacterEquipmentScalarWhereInput
-    data: XOR<CharacterEquipmentUpdateManyMutationInput, CharacterEquipmentUncheckedUpdateManyWithoutItemInput>
-  }
-
-  export type CharacterEquipmentScalarWhereInput = {
-    AND?: CharacterEquipmentScalarWhereInput | CharacterEquipmentScalarWhereInput[]
-    OR?: CharacterEquipmentScalarWhereInput[]
-    NOT?: CharacterEquipmentScalarWhereInput | CharacterEquipmentScalarWhereInput[]
-    id?: IntFilter<"CharacterEquipment"> | number
-    light?: IntNullableFilter<"CharacterEquipment"> | number | null
-    finger1?: IntNullableFilter<"CharacterEquipment"> | number | null
-    finger2?: IntNullableFilter<"CharacterEquipment"> | number | null
-    neck1?: IntNullableFilter<"CharacterEquipment"> | number | null
-    neck2?: IntNullableFilter<"CharacterEquipment"> | number | null
-    body?: IntNullableFilter<"CharacterEquipment"> | number | null
-    head?: IntNullableFilter<"CharacterEquipment"> | number | null
-    hands?: IntNullableFilter<"CharacterEquipment"> | number | null
-    feet?: IntNullableFilter<"CharacterEquipment"> | number | null
-    face?: IntNullableFilter<"CharacterEquipment"> | number | null
-    arms?: IntNullableFilter<"CharacterEquipment"> | number | null
-    legs?: IntNullableFilter<"CharacterEquipment"> | number | null
-    about?: IntNullableFilter<"CharacterEquipment"> | number | null
-    waist?: IntNullableFilter<"CharacterEquipment"> | number | null
-    wrist1?: IntNullableFilter<"CharacterEquipment"> | number | null
-    wrist2?: IntNullableFilter<"CharacterEquipment"> | number | null
-    wield?: IntNullableFilter<"CharacterEquipment"> | number | null
-    hold1?: IntNullableFilter<"CharacterEquipment"> | number | null
-    hold2?: IntNullableFilter<"CharacterEquipment"> | number | null
-    hold3?: IntNullableFilter<"CharacterEquipment"> | number | null
-    ear1?: IntNullableFilter<"CharacterEquipment"> | number | null
-    ear2?: IntNullableFilter<"CharacterEquipment"> | number | null
-    arm?: IntNullableFilter<"CharacterEquipment"> | number | null
-    amulet?: IntNullableFilter<"CharacterEquipment"> | number | null
-    aux?: IntNullableFilter<"CharacterEquipment"> | number | null
-    itemId?: IntNullableFilter<"CharacterEquipment"> | number | null
   }
 
   export type ItemSpellUpsertWithWhereUniqueWithoutItemInput = {
@@ -48637,7 +48591,6 @@ export namespace Prisma {
     isUnique?: boolean | null
     CreatedItems: AccountCreateNestedOneWithoutCreatedItemsInput
     ModifiedItems?: AccountCreateNestedOneWithoutModifiedItemsInput
-    CharacterEquipment?: CharacterEquipmentCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellCreateNestedManyWithoutItemInput
     AmmoItem?: ItemWeaponCreateNestedManyWithoutAmmoItemInput
     StatModifer?: StatModiferCreateNestedOneWithoutItemSourceInput
@@ -48668,7 +48621,6 @@ export namespace Prisma {
     isLimited?: boolean | null
     isSoulbound?: boolean | null
     isUnique?: boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellUncheckedCreateNestedManyWithoutItemInput
     AmmoItem?: ItemWeaponUncheckedCreateNestedManyWithoutAmmoItemInput
     StatModifer?: StatModiferUncheckedCreateNestedOneWithoutItemSourceInput
@@ -48703,7 +48655,6 @@ export namespace Prisma {
     isUnique?: boolean | null
     CreatedItems: AccountCreateNestedOneWithoutCreatedItemsInput
     ModifiedItems?: AccountCreateNestedOneWithoutModifiedItemsInput
-    CharacterEquipment?: CharacterEquipmentCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponCreateNestedOneWithoutItemInput
     StatModifer?: StatModiferCreateNestedOneWithoutItemSourceInput
@@ -48734,7 +48685,6 @@ export namespace Prisma {
     isLimited?: boolean | null
     isSoulbound?: boolean | null
     isUnique?: boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellUncheckedCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponUncheckedCreateNestedOneWithoutItemInput
     StatModifer?: StatModiferUncheckedCreateNestedOneWithoutItemSourceInput
@@ -48780,7 +48730,6 @@ export namespace Prisma {
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
     CreatedItems?: AccountUpdateOneRequiredWithoutCreatedItemsNestedInput
     ModifiedItems?: AccountUpdateOneWithoutModifiedItemsNestedInput
-    CharacterEquipment?: CharacterEquipmentUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUpdateManyWithoutItemNestedInput
     AmmoItem?: ItemWeaponUpdateManyWithoutAmmoItemNestedInput
     StatModifer?: StatModiferUpdateOneWithoutItemSourceNestedInput
@@ -48811,7 +48760,6 @@ export namespace Prisma {
     isLimited?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isSoulbound?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUncheckedUpdateManyWithoutItemNestedInput
     AmmoItem?: ItemWeaponUncheckedUpdateManyWithoutAmmoItemNestedInput
     StatModifer?: StatModiferUncheckedUpdateOneWithoutItemSourceNestedInput
@@ -48852,7 +48800,6 @@ export namespace Prisma {
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
     CreatedItems?: AccountUpdateOneRequiredWithoutCreatedItemsNestedInput
     ModifiedItems?: AccountUpdateOneWithoutModifiedItemsNestedInput
-    CharacterEquipment?: CharacterEquipmentUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUpdateOneWithoutItemNestedInput
     StatModifer?: StatModiferUpdateOneWithoutItemSourceNestedInput
@@ -48883,7 +48830,6 @@ export namespace Prisma {
     isLimited?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isSoulbound?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUncheckedUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUncheckedUpdateOneWithoutItemNestedInput
     StatModifer?: StatModiferUncheckedUpdateOneWithoutItemSourceNestedInput
@@ -48913,7 +48859,6 @@ export namespace Prisma {
     isUnique?: boolean | null
     CreatedItems: AccountCreateNestedOneWithoutCreatedItemsInput
     ModifiedItems?: AccountCreateNestedOneWithoutModifiedItemsInput
-    CharacterEquipment?: CharacterEquipmentCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponCreateNestedOneWithoutItemInput
     AmmoItem?: ItemWeaponCreateNestedManyWithoutAmmoItemInput
     StatModifer?: StatModiferCreateNestedOneWithoutItemSourceInput
@@ -48944,7 +48889,6 @@ export namespace Prisma {
     isLimited?: boolean | null
     isSoulbound?: boolean | null
     isUnique?: boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponUncheckedCreateNestedOneWithoutItemInput
     AmmoItem?: ItemWeaponUncheckedCreateNestedManyWithoutAmmoItemInput
     StatModifer?: StatModiferUncheckedCreateNestedOneWithoutItemSourceInput
@@ -49022,7 +48966,6 @@ export namespace Prisma {
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
     CreatedItems?: AccountUpdateOneRequiredWithoutCreatedItemsNestedInput
     ModifiedItems?: AccountUpdateOneWithoutModifiedItemsNestedInput
-    CharacterEquipment?: CharacterEquipmentUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUpdateOneWithoutItemNestedInput
     AmmoItem?: ItemWeaponUpdateManyWithoutAmmoItemNestedInput
     StatModifer?: StatModiferUpdateOneWithoutItemSourceNestedInput
@@ -49053,7 +48996,6 @@ export namespace Prisma {
     isLimited?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isSoulbound?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUncheckedUpdateOneWithoutItemNestedInput
     AmmoItem?: ItemWeaponUncheckedUpdateManyWithoutAmmoItemNestedInput
     StatModifer?: StatModiferUncheckedUpdateOneWithoutItemSourceNestedInput
@@ -49127,6 +49069,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -49160,6 +49103,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -49197,6 +49141,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -49230,6 +49175,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -49373,6 +49319,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -49406,6 +49353,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -49449,6 +49397,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -49482,6 +49431,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -49599,6 +49549,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -49632,6 +49583,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -49669,6 +49621,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -49702,6 +49655,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -49829,6 +49783,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -49862,6 +49817,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -49905,6 +49861,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -49938,6 +49895,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -50055,6 +50013,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -50088,6 +50047,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -50125,6 +50085,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -50158,6 +50119,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -50285,6 +50247,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -50318,6 +50281,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -50361,6 +50325,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -50394,6 +50359,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -50511,6 +50477,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -50544,6 +50511,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -50581,6 +50549,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -50614,6 +50583,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -50741,6 +50711,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -50774,6 +50745,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -50817,6 +50789,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -50850,6 +50823,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -50967,6 +50941,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -51000,6 +50975,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -51037,6 +51013,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -51070,6 +51047,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -51235,6 +51213,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -51268,6 +51247,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -51311,6 +51291,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -51344,6 +51325,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -51515,7 +51497,6 @@ export namespace Prisma {
     isUnique?: boolean | null
     CreatedItems: AccountCreateNestedOneWithoutCreatedItemsInput
     ModifiedItems?: AccountCreateNestedOneWithoutModifiedItemsInput
-    CharacterEquipment?: CharacterEquipmentCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponCreateNestedOneWithoutItemInput
     AmmoItem?: ItemWeaponCreateNestedManyWithoutAmmoItemInput
@@ -51546,7 +51527,6 @@ export namespace Prisma {
     isLimited?: boolean | null
     isSoulbound?: boolean | null
     isUnique?: boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellUncheckedCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponUncheckedCreateNestedOneWithoutItemInput
     AmmoItem?: ItemWeaponUncheckedCreateNestedManyWithoutAmmoItemInput
@@ -51758,7 +51738,6 @@ export namespace Prisma {
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
     CreatedItems?: AccountUpdateOneRequiredWithoutCreatedItemsNestedInput
     ModifiedItems?: AccountUpdateOneWithoutModifiedItemsNestedInput
-    CharacterEquipment?: CharacterEquipmentUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUpdateOneWithoutItemNestedInput
     AmmoItem?: ItemWeaponUpdateManyWithoutAmmoItemNestedInput
@@ -51789,7 +51768,6 @@ export namespace Prisma {
     isLimited?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isSoulbound?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUncheckedUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUncheckedUpdateOneWithoutItemNestedInput
     AmmoItem?: ItemWeaponUncheckedUpdateManyWithoutAmmoItemNestedInput
@@ -52002,6 +51980,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -52035,6 +52014,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -52129,6 +52109,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -52162,6 +52143,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -52235,6 +52217,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -52268,6 +52251,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -52336,6 +52320,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -52369,6 +52354,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -52427,6 +52413,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -52460,6 +52447,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -52532,6 +52520,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -52565,6 +52554,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -52674,7 +52664,6 @@ export namespace Prisma {
     isUnique?: boolean | null
     CreatedItems: AccountCreateNestedOneWithoutCreatedItemsInput
     ModifiedItems?: AccountCreateNestedOneWithoutModifiedItemsInput
-    CharacterEquipment?: CharacterEquipmentCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponCreateNestedOneWithoutItemInput
     AmmoItem?: ItemWeaponCreateNestedManyWithoutAmmoItemInput
@@ -52705,7 +52694,6 @@ export namespace Prisma {
     isLimited?: boolean | null
     isSoulbound?: boolean | null
     isUnique?: boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedCreateNestedManyWithoutItemInput
     ItemSpell?: ItemSpellUncheckedCreateNestedManyWithoutItemInput
     ItemWeapon?: ItemWeaponUncheckedCreateNestedOneWithoutItemInput
     AmmoItem?: ItemWeaponUncheckedCreateNestedManyWithoutAmmoItemInput
@@ -52867,7 +52855,6 @@ export namespace Prisma {
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
     CreatedItems?: AccountUpdateOneRequiredWithoutCreatedItemsNestedInput
     ModifiedItems?: AccountUpdateOneWithoutModifiedItemsNestedInput
-    CharacterEquipment?: CharacterEquipmentUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUpdateOneWithoutItemNestedInput
     AmmoItem?: ItemWeaponUpdateManyWithoutAmmoItemNestedInput
@@ -52898,7 +52885,6 @@ export namespace Prisma {
     isLimited?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isSoulbound?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUncheckedUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUncheckedUpdateOneWithoutItemNestedInput
     AmmoItem?: ItemWeaponUncheckedUpdateManyWithoutAmmoItemNestedInput
@@ -53083,6 +53069,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -53116,6 +53103,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -53197,6 +53185,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -53230,6 +53219,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -53293,6 +53283,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
@@ -53326,6 +53317,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
+    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
     NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
@@ -53374,6 +53366,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
@@ -53407,6 +53400,7 @@ export namespace Prisma {
     preferences?: NullableJsonNullValueInput | InputJsonValue
     AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
+    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
     NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
@@ -53439,6 +53433,11 @@ export namespace Prisma {
     notificationId: number
     read?: boolean | null
     readDate?: Date | string | null
+  }
+
+  export type AccountPasswordCreateManyAccountInput = {
+    id?: number
+    passwordHash: string
   }
 
   export type CharacterCreateManyAccountInput = {
@@ -53724,6 +53723,20 @@ export namespace Prisma {
     readDate?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
+  export type AccountPasswordUpdateWithoutAccountInput = {
+    passwordHash?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AccountPasswordUncheckedUpdateWithoutAccountInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    passwordHash?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type AccountPasswordUncheckedUpdateManyWithoutAccountInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    passwordHash?: StringFieldUpdateOperationsInput | string
+  }
+
   export type CharacterUpdateWithoutAccountInput = {
     mudId?: NullableIntFieldUpdateOperationsInput | number | null
     createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -53845,7 +53858,6 @@ export namespace Prisma {
     isSoulbound?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
     ModifiedItems?: AccountUpdateOneWithoutModifiedItemsNestedInput
-    CharacterEquipment?: CharacterEquipmentUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUpdateOneWithoutItemNestedInput
     AmmoItem?: ItemWeaponUpdateManyWithoutAmmoItemNestedInput
@@ -53876,7 +53888,6 @@ export namespace Prisma {
     isLimited?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isSoulbound?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUncheckedUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUncheckedUpdateOneWithoutItemNestedInput
     AmmoItem?: ItemWeaponUncheckedUpdateManyWithoutAmmoItemNestedInput
@@ -53931,7 +53942,6 @@ export namespace Prisma {
     isSoulbound?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
     CreatedItems?: AccountUpdateOneRequiredWithoutCreatedItemsNestedInput
-    CharacterEquipment?: CharacterEquipmentUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUpdateOneWithoutItemNestedInput
     AmmoItem?: ItemWeaponUpdateManyWithoutAmmoItemNestedInput
@@ -53962,7 +53972,6 @@ export namespace Prisma {
     isLimited?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isSoulbound?: NullableBoolFieldUpdateOperationsInput | boolean | null
     isUnique?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    CharacterEquipment?: CharacterEquipmentUncheckedUpdateManyWithoutItemNestedInput
     ItemSpell?: ItemSpellUncheckedUpdateManyWithoutItemNestedInput
     ItemWeapon?: ItemWeaponUncheckedUpdateOneWithoutItemNestedInput
     AmmoItem?: ItemWeaponUncheckedUpdateManyWithoutAmmoItemNestedInput
@@ -54658,35 +54667,6 @@ export namespace Prisma {
     hometown?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type CharacterEquipmentCreateManyItemInput = {
-    id?: number
-    light?: number | null
-    finger1?: number | null
-    finger2?: number | null
-    neck1?: number | null
-    neck2?: number | null
-    body?: number | null
-    head?: number | null
-    hands?: number | null
-    feet?: number | null
-    face?: number | null
-    arms?: number | null
-    legs?: number | null
-    about?: number | null
-    waist?: number | null
-    wrist1?: number | null
-    wrist2?: number | null
-    wield?: number | null
-    hold1?: number | null
-    hold2?: number | null
-    hold3?: number | null
-    ear1?: number | null
-    ear2?: number | null
-    arm?: number | null
-    amulet?: number | null
-    aux?: number | null
-  }
-
   export type ItemSpellCreateManyItemInput = {
     id?: number
     spellId: number
@@ -54706,94 +54686,6 @@ export namespace Prisma {
     avgDamage?: number | null
     stat?: $Enums.WeaponStat | null
     type?: $Enums.WeaponType | null
-  }
-
-  export type CharacterEquipmentUpdateWithoutItemInput = {
-    light?: NullableIntFieldUpdateOperationsInput | number | null
-    finger1?: NullableIntFieldUpdateOperationsInput | number | null
-    finger2?: NullableIntFieldUpdateOperationsInput | number | null
-    neck1?: NullableIntFieldUpdateOperationsInput | number | null
-    neck2?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: NullableIntFieldUpdateOperationsInput | number | null
-    head?: NullableIntFieldUpdateOperationsInput | number | null
-    hands?: NullableIntFieldUpdateOperationsInput | number | null
-    feet?: NullableIntFieldUpdateOperationsInput | number | null
-    face?: NullableIntFieldUpdateOperationsInput | number | null
-    arms?: NullableIntFieldUpdateOperationsInput | number | null
-    legs?: NullableIntFieldUpdateOperationsInput | number | null
-    about?: NullableIntFieldUpdateOperationsInput | number | null
-    waist?: NullableIntFieldUpdateOperationsInput | number | null
-    wrist1?: NullableIntFieldUpdateOperationsInput | number | null
-    wrist2?: NullableIntFieldUpdateOperationsInput | number | null
-    wield?: NullableIntFieldUpdateOperationsInput | number | null
-    hold1?: NullableIntFieldUpdateOperationsInput | number | null
-    hold2?: NullableIntFieldUpdateOperationsInput | number | null
-    hold3?: NullableIntFieldUpdateOperationsInput | number | null
-    ear1?: NullableIntFieldUpdateOperationsInput | number | null
-    ear2?: NullableIntFieldUpdateOperationsInput | number | null
-    arm?: NullableIntFieldUpdateOperationsInput | number | null
-    amulet?: NullableIntFieldUpdateOperationsInput | number | null
-    aux?: NullableIntFieldUpdateOperationsInput | number | null
-    CharacterVersion?: CharacterVersionUpdateManyWithoutCharacterEquipmentNestedInput
-  }
-
-  export type CharacterEquipmentUncheckedUpdateWithoutItemInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    light?: NullableIntFieldUpdateOperationsInput | number | null
-    finger1?: NullableIntFieldUpdateOperationsInput | number | null
-    finger2?: NullableIntFieldUpdateOperationsInput | number | null
-    neck1?: NullableIntFieldUpdateOperationsInput | number | null
-    neck2?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: NullableIntFieldUpdateOperationsInput | number | null
-    head?: NullableIntFieldUpdateOperationsInput | number | null
-    hands?: NullableIntFieldUpdateOperationsInput | number | null
-    feet?: NullableIntFieldUpdateOperationsInput | number | null
-    face?: NullableIntFieldUpdateOperationsInput | number | null
-    arms?: NullableIntFieldUpdateOperationsInput | number | null
-    legs?: NullableIntFieldUpdateOperationsInput | number | null
-    about?: NullableIntFieldUpdateOperationsInput | number | null
-    waist?: NullableIntFieldUpdateOperationsInput | number | null
-    wrist1?: NullableIntFieldUpdateOperationsInput | number | null
-    wrist2?: NullableIntFieldUpdateOperationsInput | number | null
-    wield?: NullableIntFieldUpdateOperationsInput | number | null
-    hold1?: NullableIntFieldUpdateOperationsInput | number | null
-    hold2?: NullableIntFieldUpdateOperationsInput | number | null
-    hold3?: NullableIntFieldUpdateOperationsInput | number | null
-    ear1?: NullableIntFieldUpdateOperationsInput | number | null
-    ear2?: NullableIntFieldUpdateOperationsInput | number | null
-    arm?: NullableIntFieldUpdateOperationsInput | number | null
-    amulet?: NullableIntFieldUpdateOperationsInput | number | null
-    aux?: NullableIntFieldUpdateOperationsInput | number | null
-    CharacterVersion?: CharacterVersionUncheckedUpdateManyWithoutCharacterEquipmentNestedInput
-  }
-
-  export type CharacterEquipmentUncheckedUpdateManyWithoutItemInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    light?: NullableIntFieldUpdateOperationsInput | number | null
-    finger1?: NullableIntFieldUpdateOperationsInput | number | null
-    finger2?: NullableIntFieldUpdateOperationsInput | number | null
-    neck1?: NullableIntFieldUpdateOperationsInput | number | null
-    neck2?: NullableIntFieldUpdateOperationsInput | number | null
-    body?: NullableIntFieldUpdateOperationsInput | number | null
-    head?: NullableIntFieldUpdateOperationsInput | number | null
-    hands?: NullableIntFieldUpdateOperationsInput | number | null
-    feet?: NullableIntFieldUpdateOperationsInput | number | null
-    face?: NullableIntFieldUpdateOperationsInput | number | null
-    arms?: NullableIntFieldUpdateOperationsInput | number | null
-    legs?: NullableIntFieldUpdateOperationsInput | number | null
-    about?: NullableIntFieldUpdateOperationsInput | number | null
-    waist?: NullableIntFieldUpdateOperationsInput | number | null
-    wrist1?: NullableIntFieldUpdateOperationsInput | number | null
-    wrist2?: NullableIntFieldUpdateOperationsInput | number | null
-    wield?: NullableIntFieldUpdateOperationsInput | number | null
-    hold1?: NullableIntFieldUpdateOperationsInput | number | null
-    hold2?: NullableIntFieldUpdateOperationsInput | number | null
-    hold3?: NullableIntFieldUpdateOperationsInput | number | null
-    ear1?: NullableIntFieldUpdateOperationsInput | number | null
-    ear2?: NullableIntFieldUpdateOperationsInput | number | null
-    arm?: NullableIntFieldUpdateOperationsInput | number | null
-    amulet?: NullableIntFieldUpdateOperationsInput | number | null
-    aux?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type ItemSpellUpdateWithoutItemInput = {

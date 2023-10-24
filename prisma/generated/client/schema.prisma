@@ -82,6 +82,7 @@ model Account {
   preferences         Json?
   AccountRole         AccountRole[]
   AccountNotification AccountNotification[]
+  AccountPassword     AccountPassword[]
   Character           Character[]
   NetworkHistory      NetworkHistory[]
   NetworkBlacklist    NetworkBlacklist[]
@@ -104,7 +105,7 @@ model Account {
   Area                Area[]
   ChangeLog           ChangeLog[]
 
-  @@map("account")
+  @@map("accounts")
 }
 
 model AccountRole {
@@ -122,15 +123,16 @@ model AccountNotification {
   notificationId Int       @map("notification_id")
   read           Boolean?  @default(false)
   readDate       DateTime? @map("read_date")
-  Account        Account   @relation(fields: [accountId], references: [id])
+  Account        Account   @relation(fields: [accountId], references: [id], onDelete: Cascade)
 
   @@map("account_notifications")
 }
 
 model AccountPassword {
-  id           Int    @id @default(autoincrement())
-  accountId    Int    @map("account_id")
-  passwordHash String @map("password_hash")
+  id           Int     @id @default(autoincrement())
+  accountId    Int     @map("account_id")
+  passwordHash String  @map("password_hash")
+  Account      Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
 
   @@map("account_passwords")
 }
@@ -263,44 +265,41 @@ model CharacterEquipment {
   amulet           Int?
   aux              Int?
   CharacterVersion CharacterVersion[]
-  Item             Item?              @relation(fields: [itemId], references: [id])
-  itemId           Int?
 
   @@map("character_equipment")
 }
 
 model Item {
-  id                 Int                  @id @default(autoincrement())
-  createdDate        DateTime             @default(now()) @map("created_date")
-  createdBy          Int                  @map("created_by")
-  modifiedDate       DateTime?            @updatedAt
-  modifiedBy         Int?                 @map("modified_by")
-  shortDescription   String               @map("short_description")
-  longDescription    String?              @map("long_description")
-  timer              Int?                 @default(-1)
-  align              Align?               @default(GNE)
-  rent               Int?
-  preservable        Boolean?             @default(false)
-  netStat            Int?                 @map("net_stat")
-  notes              String?              @db.Text
-  weight             Float?               @default(0.0)
-  slots              String?
-  isBonded           Boolean?             @default(false) @map("is_bonded")
-  isCastable         Boolean?             @default(false) @map("is_castable")
-  isHeroic           Boolean?             @default(false) @map("is_heroic")
-  isLevelRequired    Boolean?             @default(false) @map("is_level_required")
-  isLight            Boolean?             @default(false) @map("is_light")
-  isLimited          Boolean?             @default(false) @map("is_limited")
-  isSoulbound        Boolean?             @default(false) @map("is_soulbound")
-  isUnique           Boolean?             @default(false) @map("is_unique")
-  CreatedItems       Account              @relation("CreatedItems", fields: [createdBy], references: [id])
-  ModifiedItems      Account?             @relation("ModifiedItems", fields: [modifiedBy], references: [id])
-  CharacterEquipment CharacterEquipment[]
-  ItemSpell          ItemSpell[]
-  ItemWeapon         ItemWeapon?
-  AmmoItem           ItemWeapon[]         @relation("AmmoItem")
-  StatModifer        StatModifer?         @relation("ItemSource")
-  ItemTagSource      AppliedTag?          @relation("ItemTagSource")
+  id               Int          @id @default(autoincrement())
+  createdDate      DateTime     @default(now()) @map("created_date")
+  createdBy        Int          @map("created_by")
+  modifiedDate     DateTime?    @updatedAt
+  modifiedBy       Int?         @map("modified_by")
+  shortDescription String       @map("short_description")
+  longDescription  String?      @map("long_description")
+  timer            Int?         @default(-1)
+  align            Align?       @default(GNE)
+  rent             Int?
+  preservable      Boolean?     @default(false)
+  netStat          Int?         @map("net_stat")
+  notes            String?      @db.Text
+  weight           Float?       @default(0.0)
+  slots            String?
+  isBonded         Boolean?     @default(false) @map("is_bonded")
+  isCastable       Boolean?     @default(false) @map("is_castable")
+  isHeroic         Boolean?     @default(false) @map("is_heroic")
+  isLevelRequired  Boolean?     @default(false) @map("is_level_required")
+  isLight          Boolean?     @default(false) @map("is_light")
+  isLimited        Boolean?     @default(false) @map("is_limited")
+  isSoulbound      Boolean?     @default(false) @map("is_soulbound")
+  isUnique         Boolean?     @default(false) @map("is_unique")
+  CreatedItems     Account      @relation("CreatedItems", fields: [createdBy], references: [id])
+  ModifiedItems    Account?     @relation("ModifiedItems", fields: [modifiedBy], references: [id])
+  ItemSpell        ItemSpell[]
+  ItemWeapon       ItemWeapon?
+  AmmoItem         ItemWeapon[] @relation("AmmoItem")
+  StatModifer      StatModifer? @relation("ItemSource")
+  ItemTagSource    AppliedTag?  @relation("ItemTagSource")
 
   @@map("items")
 }
