@@ -1,7 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import { getServerSession } from 'next-auth'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,11 +15,10 @@ type RootProps = {
 
 export default async function RootLayout(props: RootProps) {
   const { children } = props
-  const session = await getServerSession()
+
   return (
     <html lang="en">
       <body className={inter.className}>
-        {session && <div>BINGO SESSION!</div>}
         {children}
       </body>
     </html>

@@ -19,28 +19,33 @@ export const authOptions: AuthOptions = {
       },
       async authorize (credentials, _req) {
         const { email, password = '' } = credentials
-        const existingAccount = await prisma.account.findUnique({
-          where: {
-            email
+
+        try {
+          const existingAccount = await prisma.account.findUnique({
+            where: {
+              email
+            }
+          })
+
+          const existingAccountPassword = await prisma.accountPassword.findFirst({
+            where: {
+              accountId: existingAccount?.id
+            }
+          })
+
+          const existingPassword = password ?? ''
+          const existingHash = existingAccountPassword?.passwordHash ?? ''
+
+          const passwordMatch = await compare(existingPassword, existingHash)
+
+          if (passwordMatch) {
+            return { id: existingAccount.id, email, password }
           }
-        })
 
-        const existingAccountPassword = await prisma.accountPassword.findFirst({
-          where: {
-            accountId: existingAccount?.id
-          }
-        })
-
-        const existingPassword = password ?? ''
-        const existingHash = existingAccountPassword?.passwordHash ?? ''
-
-        const passwordMatch = await compare(existingPassword, existingHash)
-
-        if (passwordMatch) {
-          return { id: existingAccount.id, email, password }
+          throw new Error('invalid password or account email.')
+        } catch {
+          throw new Error('invalid password or account email.')
         }
-
-        return null
       }
     })
   ],
