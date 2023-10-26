@@ -20,7 +20,7 @@ export default async function HeaderLayout(props: HeaderLayoutProps) {
         <Link href="/quests">quests</Link>
         <Link href="/articles">articles</Link>
         <Link href="/dashboard">dashboard</Link>
-        <LoginButton session={session} />
+        <LoginButton />
       </div>
       {children}
     </>

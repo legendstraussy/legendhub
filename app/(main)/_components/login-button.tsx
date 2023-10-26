@@ -1,12 +1,16 @@
 'use client'
 
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import Link from 'next/link'
 
-export default function LoginButton({ session }) {
+export default function LoginButton() {
+  const session = useSession()
+
+  console.log('bingo', session)
+
   return (
     <>
-      {session 
+      {session.data
         ? <button onClick={() => signOut()}>logoff</button> 
         : (
           <span>

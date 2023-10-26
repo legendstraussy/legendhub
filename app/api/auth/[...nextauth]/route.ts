@@ -2,10 +2,12 @@ import NextAuth, { AuthOptions } from 'next-auth'
 import { compare } from 'bcrypt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import prisma from '@/app/_lib/prisma'
+import { Account } from '@/app/_types/account'
 
 declare module 'next-auth' {
-  interface User {
+  interface User extends Account {
     id: number
+    email: string
   }
 }
 
@@ -39,7 +41,7 @@ export const authOptions: AuthOptions = {
           const passwordMatch = await compare(existingPassword, existingHash)
 
           if (passwordMatch) {
-            return { id: existingAccount.id, email, password }
+            return existingAccount
           }
 
           throw new Error('invalid password or account email.')
@@ -49,6 +51,18 @@ export const authOptions: AuthOptions = {
       }
     })
   ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.user = user
+      }
+      return token
+    },
+    async session({ session, token }) {
+      session.user = token.user
+      return session
+    }
+  },
   session: { 
     strategy: 'jwt',
     // maxAge: 10, // test
