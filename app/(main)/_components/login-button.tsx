@@ -6,8 +6,6 @@ import Link from 'next/link'
 export default function LoginButton() {
   const session = useSession()
 
-  console.log('bingo', session)
-
   return (
     <>
       {session.data
