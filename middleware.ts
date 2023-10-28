@@ -1,14 +1,11 @@
 import { withAuth } from 'next-auth/middleware'
 import { NextResponse } from 'next/server'
 
+const LIMITED_ROUTES = ['/login', '/register']
+
 export default withAuth((req) => {
-  if ( req.nextUrl.pathname.startsWith('/register') ) {
-    if (req.nextauth.token) {
-      return NextResponse.redirect(new URL('/', req.url))
-    }
-  }
-  
-  if ( req.nextUrl.pathname.startsWith('/login') ) {
+  const { pathname } = req.nextUrl
+  if (LIMITED_ROUTES.includes(pathname)) {
     if (req.nextauth.token) {
       return NextResponse.redirect(new URL('/', req.url))
     }
@@ -17,13 +14,9 @@ export default withAuth((req) => {
 {
   callbacks: {
     authorized: async ({ req, token }) => {
-      const pathname = req.nextUrl.pathname
+      const { pathname } = req.nextUrl
 
-      if (pathname === '/register') {
-        if (!token) return true
-      }
-
-      if (pathname === '/login') {
+      if (LIMITED_ROUTES.includes(pathname)) {
         if (!token) return true
       }
     }
