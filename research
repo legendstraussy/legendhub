@@ -1,3 +1,11 @@
+TODO
+[] create backup of hub db into sql file
+[] run sql to make sure it seeds db
+[] create a seed script to run seed file on start
+[] create initial seed file that ports old hub db into new hub db
+[] add cron job container to docker compose, run cron job for various sql maintenance
+
+
 App routes
 /
 /builder

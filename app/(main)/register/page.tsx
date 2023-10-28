@@ -1,6 +1,10 @@
-import RegisterForm from "@/app/(main)/register/_components/register-form";
+import RegisterForm from '@/app/(main)/register/_components/register-form'
+import { headers } from 'next/headers'
 
-export default function RegisterPage() {
+const headersList = headers()
+
+export default async function RegisterPage() {
+
   return (
     <main>
       <h3>Register!</h3> 

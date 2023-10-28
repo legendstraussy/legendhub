@@ -8,14 +8,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Role {
-  PLAYER
-  EXPLORER
-  SCRIBE
-  ADMIN
-  DEV
-}
-
 enum Theme {
   WORK
   LEGEND
@@ -80,7 +72,7 @@ model Account {
   lastName            String?               @map("last_name")
   email               String                @unique
   preferences         Json?
-  AccountRole         AccountRole[]
+  roles               Json?                 @default("[{ }]")
   AccountNotification AccountNotification[]
   AccountPassword     AccountPassword[]
   Character           Character[]
@@ -106,15 +98,6 @@ model Account {
   ChangeLog           ChangeLog[]
 
   @@map("accounts")
-}
-
-model AccountRole {
-  id        Int     @id @default(autoincrement())
-  accountId Int     @map("account_id")
-  role      Role    @default(PLAYER)
-  Account   Account @relation(fields: [accountId], references: [id])
-
-  @@map("account_roles")
 }
 
 model AccountNotification {

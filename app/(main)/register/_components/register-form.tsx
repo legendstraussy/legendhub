@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import { redirect } from 'next/navigation'
 
 type status = {
   message: string,
@@ -31,9 +30,7 @@ export default function RegisterForm() {
     
     if (success) {
       setStatus({ message: success, isSuccess: true })
-      redirect('/login')
     }
-
   }
 
   return (

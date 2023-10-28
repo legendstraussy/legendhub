@@ -19,11 +19,6 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type Account = $Result.DefaultSelection<Prisma.$AccountPayload>
 /**
- * Model AccountRole
- * 
- */
-export type AccountRole = $Result.DefaultSelection<Prisma.$AccountRolePayload>
-/**
  * Model AccountNotification
  * 
  */
@@ -158,18 +153,7 @@ export type ChangeLog = $Result.DefaultSelection<Prisma.$ChangeLogPayload>
  * Enums
  */
 export namespace $Enums {
-  export const Role: {
-  PLAYER: 'PLAYER',
-  EXPLORER: 'EXPLORER',
-  SCRIBE: 'SCRIBE',
-  ADMIN: 'ADMIN',
-  DEV: 'DEV'
-};
-
-export type Role = (typeof Role)[keyof typeof Role]
-
-
-export const NotificationType: {
+  export const NotificationType: {
   NEW_ITEM: 'NEW_ITEM',
   NEW_QUEST: 'NEW_QUEST',
   NEW_MOB: 'NEW_MOB',
@@ -237,10 +221,6 @@ export const TagType: {
 export type TagType = (typeof TagType)[keyof typeof TagType]
 
 }
-
-export type Role = $Enums.Role
-
-export const Role: typeof $Enums.Role
 
 export type NotificationType = $Enums.NotificationType
 
@@ -397,16 +377,6 @@ export class PrismaClient<
     * ```
     */
   get account(): Prisma.AccountDelegate<ExtArgs>;
-
-  /**
-   * `prisma.accountRole`: Exposes CRUD operations for the **AccountRole** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more AccountRoles
-    * const accountRoles = await prisma.accountRole.findMany()
-    * ```
-    */
-  get accountRole(): Prisma.AccountRoleDelegate<ExtArgs>;
 
   /**
    * `prisma.accountNotification`: Exposes CRUD operations for the **AccountNotification** model.
@@ -1138,7 +1108,6 @@ export namespace Prisma {
 
   export const ModelName: {
     Account: 'Account',
-    AccountRole: 'AccountRole',
     AccountNotification: 'AccountNotification',
     AccountPassword: 'AccountPassword',
     NetworkHistory: 'NetworkHistory',
@@ -1181,7 +1150,7 @@ export namespace Prisma {
 
   export type TypeMap<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     meta: {
-      modelProps: 'account' | 'accountRole' | 'accountNotification' | 'accountPassword' | 'networkHistory' | 'networkBlacklist' | 'notification' | 'character' | 'characterVersion' | 'characterStat' | 'characterQuest' | 'characterEquipment' | 'item' | 'itemWeapon' | 'itemSpell' | 'spell' | 'potion' | 'skill' | 'ability' | 'quest' | 'statModifer' | 'article' | 'articleVersion' | 'tag' | 'appliedTag' | 'mob' | 'area' | 'changeLog'
+      modelProps: 'account' | 'accountNotification' | 'accountPassword' | 'networkHistory' | 'networkBlacklist' | 'notification' | 'character' | 'characterVersion' | 'characterStat' | 'characterQuest' | 'characterEquipment' | 'item' | 'itemWeapon' | 'itemSpell' | 'spell' | 'potion' | 'skill' | 'ability' | 'quest' | 'statModifer' | 'article' | 'articleVersion' | 'tag' | 'appliedTag' | 'mob' | 'area' | 'changeLog'
       txIsolationLevel: Prisma.TransactionIsolationLevel
     },
     model: {
@@ -1248,72 +1217,6 @@ export namespace Prisma {
           count: {
             args: Prisma.AccountCountArgs<ExtArgs>,
             result: $Utils.Optional<AccountCountAggregateOutputType> | number
-          }
-        }
-      }
-      AccountRole: {
-        payload: Prisma.$AccountRolePayload<ExtArgs>
-        fields: Prisma.AccountRoleFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.AccountRoleFindUniqueArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$AccountRolePayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.AccountRoleFindUniqueOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$AccountRolePayload>
-          }
-          findFirst: {
-            args: Prisma.AccountRoleFindFirstArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$AccountRolePayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.AccountRoleFindFirstOrThrowArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$AccountRolePayload>
-          }
-          findMany: {
-            args: Prisma.AccountRoleFindManyArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$AccountRolePayload>[]
-          }
-          create: {
-            args: Prisma.AccountRoleCreateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$AccountRolePayload>
-          }
-          createMany: {
-            args: Prisma.AccountRoleCreateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          delete: {
-            args: Prisma.AccountRoleDeleteArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$AccountRolePayload>
-          }
-          update: {
-            args: Prisma.AccountRoleUpdateArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$AccountRolePayload>
-          }
-          deleteMany: {
-            args: Prisma.AccountRoleDeleteManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          updateMany: {
-            args: Prisma.AccountRoleUpdateManyArgs<ExtArgs>,
-            result: Prisma.BatchPayload
-          }
-          upsert: {
-            args: Prisma.AccountRoleUpsertArgs<ExtArgs>,
-            result: $Utils.PayloadToResult<Prisma.$AccountRolePayload>
-          }
-          aggregate: {
-            args: Prisma.AccountRoleAggregateArgs<ExtArgs>,
-            result: $Utils.Optional<AggregateAccountRole>
-          }
-          groupBy: {
-            args: Prisma.AccountRoleGroupByArgs<ExtArgs>,
-            result: $Utils.Optional<AccountRoleGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.AccountRoleCountArgs<ExtArgs>,
-            result: $Utils.Optional<AccountRoleCountAggregateOutputType> | number
           }
         }
       }
@@ -3182,7 +3085,6 @@ export namespace Prisma {
    */
 
   export type AccountCountOutputType = {
-    AccountRole: number
     AccountNotification: number
     AccountPassword: number
     Character: number
@@ -3209,7 +3111,6 @@ export namespace Prisma {
   }
 
   export type AccountCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    AccountRole?: boolean | AccountCountOutputTypeCountAccountRoleArgs
     AccountNotification?: boolean | AccountCountOutputTypeCountAccountNotificationArgs
     AccountPassword?: boolean | AccountCountOutputTypeCountAccountPasswordArgs
     Character?: boolean | AccountCountOutputTypeCountCharacterArgs
@@ -3245,14 +3146,6 @@ export namespace Prisma {
      * Select specific fields to fetch from the AccountCountOutputType
      */
     select?: AccountCountOutputTypeSelect<ExtArgs> | null
-  }
-
-
-  /**
-   * AccountCountOutputType without action
-   */
-  export type AccountCountOutputTypeCountAccountRoleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AccountRoleWhereInput
   }
 
 
@@ -3844,6 +3737,7 @@ export namespace Prisma {
     lastName: number
     email: number
     preferences: number
+    roles: number
     _all: number
   }
 
@@ -3885,6 +3779,7 @@ export namespace Prisma {
     lastName?: true
     email?: true
     preferences?: true
+    roles?: true
     _all?: true
   }
 
@@ -3983,6 +3878,7 @@ export namespace Prisma {
     lastName: string | null
     email: string
     preferences: JsonValue | null
+    roles: JsonValue | null
     _count: AccountCountAggregateOutputType | null
     _avg: AccountAvgAggregateOutputType | null
     _sum: AccountSumAggregateOutputType | null
@@ -4013,7 +3909,7 @@ export namespace Prisma {
     lastName?: boolean
     email?: boolean
     preferences?: boolean
-    AccountRole?: boolean | Account$AccountRoleArgs<ExtArgs>
+    roles?: boolean
     AccountNotification?: boolean | Account$AccountNotificationArgs<ExtArgs>
     AccountPassword?: boolean | Account$AccountPasswordArgs<ExtArgs>
     Character?: boolean | Account$CharacterArgs<ExtArgs>
@@ -4049,10 +3945,10 @@ export namespace Prisma {
     lastName?: boolean
     email?: boolean
     preferences?: boolean
+    roles?: boolean
   }
 
   export type AccountInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    AccountRole?: boolean | Account$AccountRoleArgs<ExtArgs>
     AccountNotification?: boolean | Account$AccountNotificationArgs<ExtArgs>
     AccountPassword?: boolean | Account$AccountPasswordArgs<ExtArgs>
     Character?: boolean | Account$CharacterArgs<ExtArgs>
@@ -4083,7 +3979,6 @@ export namespace Prisma {
   export type $AccountPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Account"
     objects: {
-      AccountRole: Prisma.$AccountRolePayload<ExtArgs>[]
       AccountNotification: Prisma.$AccountNotificationPayload<ExtArgs>[]
       AccountPassword: Prisma.$AccountPasswordPayload<ExtArgs>[]
       Character: Prisma.$CharacterPayload<ExtArgs>[]
@@ -4117,6 +4012,7 @@ export namespace Prisma {
       lastName: string | null
       email: string
       preferences: Prisma.JsonValue | null
+      roles: Prisma.JsonValue | null
     }, ExtArgs["result"]["account"]>
     composites: {}
   }
@@ -4482,8 +4378,6 @@ export namespace Prisma {
   export interface Prisma__AccountClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: 'PrismaPromise';
 
-    AccountRole<T extends Account$AccountRoleArgs<ExtArgs> = {}>(args?: Subset<T, Account$AccountRoleArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountRolePayload<ExtArgs>, T, 'findMany'> | Null>;
-
     AccountNotification<T extends Account$AccountNotificationArgs<ExtArgs> = {}>(args?: Subset<T, Account$AccountNotificationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountNotificationPayload<ExtArgs>, T, 'findMany'> | Null>;
 
     AccountPassword<T extends Account$AccountPasswordArgs<ExtArgs> = {}>(args?: Subset<T, Account$AccountPasswordArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPasswordPayload<ExtArgs>, T, 'findMany'> | Null>;
@@ -4566,6 +4460,7 @@ export namespace Prisma {
     readonly lastName: FieldRef<"Account", 'String'>
     readonly email: FieldRef<"Account", 'String'>
     readonly preferences: FieldRef<"Account", 'Json'>
+    readonly roles: FieldRef<"Account", 'Json'>
   }
     
 
@@ -4874,27 +4769,6 @@ export namespace Prisma {
      * Filter which Accounts to delete
      */
     where?: AccountWhereInput
-  }
-
-
-  /**
-   * Account.AccountRole
-   */
-  export type Account$AccountRoleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountRole
-     */
-    select?: AccountRoleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: AccountRoleInclude<ExtArgs> | null
-    where?: AccountRoleWhereInput
-    orderBy?: AccountRoleOrderByWithRelationInput | AccountRoleOrderByWithRelationInput[]
-    cursor?: AccountRoleWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: AccountRoleScalarFieldEnum | AccountRoleScalarFieldEnum[]
   }
 
 
@@ -5393,940 +5267,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well.
      */
     include?: AccountInclude<ExtArgs> | null
-  }
-
-
-
-  /**
-   * Model AccountRole
-   */
-
-  export type AggregateAccountRole = {
-    _count: AccountRoleCountAggregateOutputType | null
-    _avg: AccountRoleAvgAggregateOutputType | null
-    _sum: AccountRoleSumAggregateOutputType | null
-    _min: AccountRoleMinAggregateOutputType | null
-    _max: AccountRoleMaxAggregateOutputType | null
-  }
-
-  export type AccountRoleAvgAggregateOutputType = {
-    id: number | null
-    accountId: number | null
-  }
-
-  export type AccountRoleSumAggregateOutputType = {
-    id: number | null
-    accountId: number | null
-  }
-
-  export type AccountRoleMinAggregateOutputType = {
-    id: number | null
-    accountId: number | null
-    role: $Enums.Role | null
-  }
-
-  export type AccountRoleMaxAggregateOutputType = {
-    id: number | null
-    accountId: number | null
-    role: $Enums.Role | null
-  }
-
-  export type AccountRoleCountAggregateOutputType = {
-    id: number
-    accountId: number
-    role: number
-    _all: number
-  }
-
-
-  export type AccountRoleAvgAggregateInputType = {
-    id?: true
-    accountId?: true
-  }
-
-  export type AccountRoleSumAggregateInputType = {
-    id?: true
-    accountId?: true
-  }
-
-  export type AccountRoleMinAggregateInputType = {
-    id?: true
-    accountId?: true
-    role?: true
-  }
-
-  export type AccountRoleMaxAggregateInputType = {
-    id?: true
-    accountId?: true
-    role?: true
-  }
-
-  export type AccountRoleCountAggregateInputType = {
-    id?: true
-    accountId?: true
-    role?: true
-    _all?: true
-  }
-
-  export type AccountRoleAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AccountRole to aggregate.
-     */
-    where?: AccountRoleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AccountRoles to fetch.
-     */
-    orderBy?: AccountRoleOrderByWithRelationInput | AccountRoleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: AccountRoleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AccountRoles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AccountRoles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned AccountRoles
-    **/
-    _count?: true | AccountRoleCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to average
-    **/
-    _avg?: AccountRoleAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: AccountRoleSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: AccountRoleMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: AccountRoleMaxAggregateInputType
-  }
-
-  export type GetAccountRoleAggregateType<T extends AccountRoleAggregateArgs> = {
-        [P in keyof T & keyof AggregateAccountRole]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregateAccountRole[P]>
-      : GetScalarType<T[P], AggregateAccountRole[P]>
-  }
-
-
-
-
-  export type AccountRoleGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: AccountRoleWhereInput
-    orderBy?: AccountRoleOrderByWithAggregationInput | AccountRoleOrderByWithAggregationInput[]
-    by: AccountRoleScalarFieldEnum[] | AccountRoleScalarFieldEnum
-    having?: AccountRoleScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: AccountRoleCountAggregateInputType | true
-    _avg?: AccountRoleAvgAggregateInputType
-    _sum?: AccountRoleSumAggregateInputType
-    _min?: AccountRoleMinAggregateInputType
-    _max?: AccountRoleMaxAggregateInputType
-  }
-
-  export type AccountRoleGroupByOutputType = {
-    id: number
-    accountId: number
-    role: $Enums.Role
-    _count: AccountRoleCountAggregateOutputType | null
-    _avg: AccountRoleAvgAggregateOutputType | null
-    _sum: AccountRoleSumAggregateOutputType | null
-    _min: AccountRoleMinAggregateOutputType | null
-    _max: AccountRoleMaxAggregateOutputType | null
-  }
-
-  type GetAccountRoleGroupByPayload<T extends AccountRoleGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<AccountRoleGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof AccountRoleGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], AccountRoleGroupByOutputType[P]>
-            : GetScalarType<T[P], AccountRoleGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type AccountRoleSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    id?: boolean
-    accountId?: boolean
-    role?: boolean
-    Account?: boolean | AccountDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["accountRole"]>
-
-  export type AccountRoleSelectScalar = {
-    id?: boolean
-    accountId?: boolean
-    role?: boolean
-  }
-
-  export type AccountRoleInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    Account?: boolean | AccountDefaultArgs<ExtArgs>
-  }
-
-
-  export type $AccountRolePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "AccountRole"
-    objects: {
-      Account: Prisma.$AccountPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      id: number
-      accountId: number
-      role: $Enums.Role
-    }, ExtArgs["result"]["accountRole"]>
-    composites: {}
-  }
-
-
-  type AccountRoleGetPayload<S extends boolean | null | undefined | AccountRoleDefaultArgs> = $Result.GetResult<Prisma.$AccountRolePayload, S>
-
-  type AccountRoleCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = 
-    Omit<AccountRoleFindManyArgs, 'select' | 'include'> & {
-      select?: AccountRoleCountAggregateInputType | true
-    }
-
-  export interface AccountRoleDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['AccountRole'], meta: { name: 'AccountRole' } }
-    /**
-     * Find zero or one AccountRole that matches the filter.
-     * @param {AccountRoleFindUniqueArgs} args - Arguments to find a AccountRole
-     * @example
-     * // Get one AccountRole
-     * const accountRole = await prisma.accountRole.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUnique<T extends AccountRoleFindUniqueArgs<ExtArgs>>(
-      args: SelectSubset<T, AccountRoleFindUniqueArgs<ExtArgs>>
-    ): Prisma__AccountRoleClient<$Result.GetResult<Prisma.$AccountRolePayload<ExtArgs>, T, 'findUnique'> | null, null, ExtArgs>
-
-    /**
-     * Find one AccountRole that matches the filter or throw an error  with `error.code='P2025'` 
-     *     if no matches were found.
-     * @param {AccountRoleFindUniqueOrThrowArgs} args - Arguments to find a AccountRole
-     * @example
-     * // Get one AccountRole
-     * const accountRole = await prisma.accountRole.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findUniqueOrThrow<T extends AccountRoleFindUniqueOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, AccountRoleFindUniqueOrThrowArgs<ExtArgs>>
-    ): Prisma__AccountRoleClient<$Result.GetResult<Prisma.$AccountRolePayload<ExtArgs>, T, 'findUniqueOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find the first AccountRole that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountRoleFindFirstArgs} args - Arguments to find a AccountRole
-     * @example
-     * // Get one AccountRole
-     * const accountRole = await prisma.accountRole.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirst<T extends AccountRoleFindFirstArgs<ExtArgs>>(
-      args?: SelectSubset<T, AccountRoleFindFirstArgs<ExtArgs>>
-    ): Prisma__AccountRoleClient<$Result.GetResult<Prisma.$AccountRolePayload<ExtArgs>, T, 'findFirst'> | null, null, ExtArgs>
-
-    /**
-     * Find the first AccountRole that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountRoleFindFirstOrThrowArgs} args - Arguments to find a AccountRole
-     * @example
-     * // Get one AccountRole
-     * const accountRole = await prisma.accountRole.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-    **/
-    findFirstOrThrow<T extends AccountRoleFindFirstOrThrowArgs<ExtArgs>>(
-      args?: SelectSubset<T, AccountRoleFindFirstOrThrowArgs<ExtArgs>>
-    ): Prisma__AccountRoleClient<$Result.GetResult<Prisma.$AccountRolePayload<ExtArgs>, T, 'findFirstOrThrow'>, never, ExtArgs>
-
-    /**
-     * Find zero or more AccountRoles that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountRoleFindManyArgs=} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all AccountRoles
-     * const accountRoles = await prisma.accountRole.findMany()
-     * 
-     * // Get first 10 AccountRoles
-     * const accountRoles = await prisma.accountRole.findMany({ take: 10 })
-     * 
-     * // Only select the `id`
-     * const accountRoleWithIdOnly = await prisma.accountRole.findMany({ select: { id: true } })
-     * 
-    **/
-    findMany<T extends AccountRoleFindManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, AccountRoleFindManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountRolePayload<ExtArgs>, T, 'findMany'>>
-
-    /**
-     * Create a AccountRole.
-     * @param {AccountRoleCreateArgs} args - Arguments to create a AccountRole.
-     * @example
-     * // Create one AccountRole
-     * const AccountRole = await prisma.accountRole.create({
-     *   data: {
-     *     // ... data to create a AccountRole
-     *   }
-     * })
-     * 
-    **/
-    create<T extends AccountRoleCreateArgs<ExtArgs>>(
-      args: SelectSubset<T, AccountRoleCreateArgs<ExtArgs>>
-    ): Prisma__AccountRoleClient<$Result.GetResult<Prisma.$AccountRolePayload<ExtArgs>, T, 'create'>, never, ExtArgs>
-
-    /**
-     * Create many AccountRoles.
-     *     @param {AccountRoleCreateManyArgs} args - Arguments to create many AccountRoles.
-     *     @example
-     *     // Create many AccountRoles
-     *     const accountRole = await prisma.accountRole.createMany({
-     *       data: {
-     *         // ... provide data here
-     *       }
-     *     })
-     *     
-    **/
-    createMany<T extends AccountRoleCreateManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, AccountRoleCreateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Delete a AccountRole.
-     * @param {AccountRoleDeleteArgs} args - Arguments to delete one AccountRole.
-     * @example
-     * // Delete one AccountRole
-     * const AccountRole = await prisma.accountRole.delete({
-     *   where: {
-     *     // ... filter to delete one AccountRole
-     *   }
-     * })
-     * 
-    **/
-    delete<T extends AccountRoleDeleteArgs<ExtArgs>>(
-      args: SelectSubset<T, AccountRoleDeleteArgs<ExtArgs>>
-    ): Prisma__AccountRoleClient<$Result.GetResult<Prisma.$AccountRolePayload<ExtArgs>, T, 'delete'>, never, ExtArgs>
-
-    /**
-     * Update one AccountRole.
-     * @param {AccountRoleUpdateArgs} args - Arguments to update one AccountRole.
-     * @example
-     * // Update one AccountRole
-     * const accountRole = await prisma.accountRole.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    update<T extends AccountRoleUpdateArgs<ExtArgs>>(
-      args: SelectSubset<T, AccountRoleUpdateArgs<ExtArgs>>
-    ): Prisma__AccountRoleClient<$Result.GetResult<Prisma.$AccountRolePayload<ExtArgs>, T, 'update'>, never, ExtArgs>
-
-    /**
-     * Delete zero or more AccountRoles.
-     * @param {AccountRoleDeleteManyArgs} args - Arguments to filter AccountRoles to delete.
-     * @example
-     * // Delete a few AccountRoles
-     * const { count } = await prisma.accountRole.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-    **/
-    deleteMany<T extends AccountRoleDeleteManyArgs<ExtArgs>>(
-      args?: SelectSubset<T, AccountRoleDeleteManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more AccountRoles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountRoleUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many AccountRoles
-     * const accountRole = await prisma.accountRole.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-    **/
-    updateMany<T extends AccountRoleUpdateManyArgs<ExtArgs>>(
-      args: SelectSubset<T, AccountRoleUpdateManyArgs<ExtArgs>>
-    ): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create or update one AccountRole.
-     * @param {AccountRoleUpsertArgs} args - Arguments to update or create a AccountRole.
-     * @example
-     * // Update or create a AccountRole
-     * const accountRole = await prisma.accountRole.upsert({
-     *   create: {
-     *     // ... data to create a AccountRole
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the AccountRole we want to update
-     *   }
-     * })
-    **/
-    upsert<T extends AccountRoleUpsertArgs<ExtArgs>>(
-      args: SelectSubset<T, AccountRoleUpsertArgs<ExtArgs>>
-    ): Prisma__AccountRoleClient<$Result.GetResult<Prisma.$AccountRolePayload<ExtArgs>, T, 'upsert'>, never, ExtArgs>
-
-    /**
-     * Count the number of AccountRoles.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountRoleCountArgs} args - Arguments to filter AccountRoles to count.
-     * @example
-     * // Count the number of AccountRoles
-     * const count = await prisma.accountRole.count({
-     *   where: {
-     *     // ... the filter for the AccountRoles we want to count
-     *   }
-     * })
-    **/
-    count<T extends AccountRoleCountArgs>(
-      args?: Subset<T, AccountRoleCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], AccountRoleCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a AccountRole.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountRoleAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends AccountRoleAggregateArgs>(args: Subset<T, AccountRoleAggregateArgs>): Prisma.PrismaPromise<GetAccountRoleAggregateType<T>>
-
-    /**
-     * Group by AccountRole.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {AccountRoleGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends AccountRoleGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: AccountRoleGroupByArgs['orderBy'] }
-        : { orderBy?: AccountRoleGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, AccountRoleGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAccountRoleGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the AccountRole model
-   */
-  readonly fields: AccountRoleFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for AccountRole.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__AccountRoleClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: 'PrismaPromise';
-
-    Account<T extends AccountDefaultArgs<ExtArgs> = {}>(args?: Subset<T, AccountDefaultArgs<ExtArgs>>): Prisma__AccountClient<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, 'findUniqueOrThrow'> | Null, Null, ExtArgs>;
-
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>;
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>;
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>;
-  }
-
-
-
-  /**
-   * Fields of the AccountRole model
-   */ 
-  interface AccountRoleFieldRefs {
-    readonly id: FieldRef<"AccountRole", 'Int'>
-    readonly accountId: FieldRef<"AccountRole", 'Int'>
-    readonly role: FieldRef<"AccountRole", 'Role'>
-  }
-    
-
-  // Custom InputTypes
-
-  /**
-   * AccountRole findUnique
-   */
-  export type AccountRoleFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountRole
-     */
-    select?: AccountRoleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: AccountRoleInclude<ExtArgs> | null
-    /**
-     * Filter, which AccountRole to fetch.
-     */
-    where: AccountRoleWhereUniqueInput
-  }
-
-
-  /**
-   * AccountRole findUniqueOrThrow
-   */
-  export type AccountRoleFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountRole
-     */
-    select?: AccountRoleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: AccountRoleInclude<ExtArgs> | null
-    /**
-     * Filter, which AccountRole to fetch.
-     */
-    where: AccountRoleWhereUniqueInput
-  }
-
-
-  /**
-   * AccountRole findFirst
-   */
-  export type AccountRoleFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountRole
-     */
-    select?: AccountRoleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: AccountRoleInclude<ExtArgs> | null
-    /**
-     * Filter, which AccountRole to fetch.
-     */
-    where?: AccountRoleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AccountRoles to fetch.
-     */
-    orderBy?: AccountRoleOrderByWithRelationInput | AccountRoleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AccountRoles.
-     */
-    cursor?: AccountRoleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AccountRoles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AccountRoles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AccountRoles.
-     */
-    distinct?: AccountRoleScalarFieldEnum | AccountRoleScalarFieldEnum[]
-  }
-
-
-  /**
-   * AccountRole findFirstOrThrow
-   */
-  export type AccountRoleFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountRole
-     */
-    select?: AccountRoleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: AccountRoleInclude<ExtArgs> | null
-    /**
-     * Filter, which AccountRole to fetch.
-     */
-    where?: AccountRoleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AccountRoles to fetch.
-     */
-    orderBy?: AccountRoleOrderByWithRelationInput | AccountRoleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for AccountRoles.
-     */
-    cursor?: AccountRoleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AccountRoles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AccountRoles.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of AccountRoles.
-     */
-    distinct?: AccountRoleScalarFieldEnum | AccountRoleScalarFieldEnum[]
-  }
-
-
-  /**
-   * AccountRole findMany
-   */
-  export type AccountRoleFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountRole
-     */
-    select?: AccountRoleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: AccountRoleInclude<ExtArgs> | null
-    /**
-     * Filter, which AccountRoles to fetch.
-     */
-    where?: AccountRoleWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of AccountRoles to fetch.
-     */
-    orderBy?: AccountRoleOrderByWithRelationInput | AccountRoleOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing AccountRoles.
-     */
-    cursor?: AccountRoleWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` AccountRoles from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` AccountRoles.
-     */
-    skip?: number
-    distinct?: AccountRoleScalarFieldEnum | AccountRoleScalarFieldEnum[]
-  }
-
-
-  /**
-   * AccountRole create
-   */
-  export type AccountRoleCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountRole
-     */
-    select?: AccountRoleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: AccountRoleInclude<ExtArgs> | null
-    /**
-     * The data needed to create a AccountRole.
-     */
-    data: XOR<AccountRoleCreateInput, AccountRoleUncheckedCreateInput>
-  }
-
-
-  /**
-   * AccountRole createMany
-   */
-  export type AccountRoleCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many AccountRoles.
-     */
-    data: AccountRoleCreateManyInput | AccountRoleCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-
-  /**
-   * AccountRole update
-   */
-  export type AccountRoleUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountRole
-     */
-    select?: AccountRoleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: AccountRoleInclude<ExtArgs> | null
-    /**
-     * The data needed to update a AccountRole.
-     */
-    data: XOR<AccountRoleUpdateInput, AccountRoleUncheckedUpdateInput>
-    /**
-     * Choose, which AccountRole to update.
-     */
-    where: AccountRoleWhereUniqueInput
-  }
-
-
-  /**
-   * AccountRole updateMany
-   */
-  export type AccountRoleUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update AccountRoles.
-     */
-    data: XOR<AccountRoleUpdateManyMutationInput, AccountRoleUncheckedUpdateManyInput>
-    /**
-     * Filter which AccountRoles to update
-     */
-    where?: AccountRoleWhereInput
-  }
-
-
-  /**
-   * AccountRole upsert
-   */
-  export type AccountRoleUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountRole
-     */
-    select?: AccountRoleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: AccountRoleInclude<ExtArgs> | null
-    /**
-     * The filter to search for the AccountRole to update in case it exists.
-     */
-    where: AccountRoleWhereUniqueInput
-    /**
-     * In case the AccountRole found by the `where` argument doesn't exist, create a new AccountRole with this data.
-     */
-    create: XOR<AccountRoleCreateInput, AccountRoleUncheckedCreateInput>
-    /**
-     * In case the AccountRole was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<AccountRoleUpdateInput, AccountRoleUncheckedUpdateInput>
-  }
-
-
-  /**
-   * AccountRole delete
-   */
-  export type AccountRoleDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountRole
-     */
-    select?: AccountRoleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: AccountRoleInclude<ExtArgs> | null
-    /**
-     * Filter which AccountRole to delete.
-     */
-    where: AccountRoleWhereUniqueInput
-  }
-
-
-  /**
-   * AccountRole deleteMany
-   */
-  export type AccountRoleDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which AccountRoles to delete
-     */
-    where?: AccountRoleWhereInput
-  }
-
-
-  /**
-   * AccountRole without action
-   */
-  export type AccountRoleDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the AccountRole
-     */
-    select?: AccountRoleSelect<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well.
-     */
-    include?: AccountRoleInclude<ExtArgs> | null
   }
 
 
@@ -33889,19 +32829,11 @@ export namespace Prisma {
     firstName: 'firstName',
     lastName: 'lastName',
     email: 'email',
-    preferences: 'preferences'
+    preferences: 'preferences',
+    roles: 'roles'
   };
 
   export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
-
-
-  export const AccountRoleScalarFieldEnum: {
-    id: 'id',
-    accountId: 'accountId',
-    role: 'role'
-  };
-
-  export type AccountRoleScalarFieldEnum = (typeof AccountRoleScalarFieldEnum)[keyof typeof AccountRoleScalarFieldEnum]
 
 
   export const AccountNotificationScalarFieldEnum: {
@@ -34379,13 +33311,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Role'
-   */
-  export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
-    
-
-
-  /**
    * Reference to a field of type 'Boolean'
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
@@ -34456,7 +33381,7 @@ export namespace Prisma {
     lastName?: StringNullableFilter<"Account"> | string | null
     email?: StringFilter<"Account"> | string
     preferences?: JsonNullableFilter<"Account">
-    AccountRole?: AccountRoleListRelationFilter
+    roles?: JsonNullableFilter<"Account">
     AccountNotification?: AccountNotificationListRelationFilter
     AccountPassword?: AccountPasswordListRelationFilter
     Character?: CharacterListRelationFilter
@@ -34491,7 +33416,7 @@ export namespace Prisma {
     lastName?: SortOrderInput | SortOrder
     email?: SortOrder
     preferences?: SortOrderInput | SortOrder
-    AccountRole?: AccountRoleOrderByRelationAggregateInput
+    roles?: SortOrderInput | SortOrder
     AccountNotification?: AccountNotificationOrderByRelationAggregateInput
     AccountPassword?: AccountPasswordOrderByRelationAggregateInput
     Character?: CharacterOrderByRelationAggregateInput
@@ -34529,7 +33454,7 @@ export namespace Prisma {
     firstName?: StringNullableFilter<"Account"> | string | null
     lastName?: StringNullableFilter<"Account"> | string | null
     preferences?: JsonNullableFilter<"Account">
-    AccountRole?: AccountRoleListRelationFilter
+    roles?: JsonNullableFilter<"Account">
     AccountNotification?: AccountNotificationListRelationFilter
     AccountPassword?: AccountPasswordListRelationFilter
     Character?: CharacterListRelationFilter
@@ -34564,6 +33489,7 @@ export namespace Prisma {
     lastName?: SortOrderInput | SortOrder
     email?: SortOrder
     preferences?: SortOrderInput | SortOrder
+    roles?: SortOrderInput | SortOrder
     _count?: AccountCountOrderByAggregateInput
     _avg?: AccountAvgOrderByAggregateInput
     _max?: AccountMaxOrderByAggregateInput
@@ -34583,53 +33509,7 @@ export namespace Prisma {
     lastName?: StringNullableWithAggregatesFilter<"Account"> | string | null
     email?: StringWithAggregatesFilter<"Account"> | string
     preferences?: JsonNullableWithAggregatesFilter<"Account">
-  }
-
-  export type AccountRoleWhereInput = {
-    AND?: AccountRoleWhereInput | AccountRoleWhereInput[]
-    OR?: AccountRoleWhereInput[]
-    NOT?: AccountRoleWhereInput | AccountRoleWhereInput[]
-    id?: IntFilter<"AccountRole"> | number
-    accountId?: IntFilter<"AccountRole"> | number
-    role?: EnumRoleFilter<"AccountRole"> | $Enums.Role
-    Account?: XOR<AccountRelationFilter, AccountWhereInput>
-  }
-
-  export type AccountRoleOrderByWithRelationInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    role?: SortOrder
-    Account?: AccountOrderByWithRelationInput
-  }
-
-  export type AccountRoleWhereUniqueInput = Prisma.AtLeast<{
-    id?: number
-    AND?: AccountRoleWhereInput | AccountRoleWhereInput[]
-    OR?: AccountRoleWhereInput[]
-    NOT?: AccountRoleWhereInput | AccountRoleWhereInput[]
-    accountId?: IntFilter<"AccountRole"> | number
-    role?: EnumRoleFilter<"AccountRole"> | $Enums.Role
-    Account?: XOR<AccountRelationFilter, AccountWhereInput>
-  }, "id">
-
-  export type AccountRoleOrderByWithAggregationInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    role?: SortOrder
-    _count?: AccountRoleCountOrderByAggregateInput
-    _avg?: AccountRoleAvgOrderByAggregateInput
-    _max?: AccountRoleMaxOrderByAggregateInput
-    _min?: AccountRoleMinOrderByAggregateInput
-    _sum?: AccountRoleSumOrderByAggregateInput
-  }
-
-  export type AccountRoleScalarWhereWithAggregatesInput = {
-    AND?: AccountRoleScalarWhereWithAggregatesInput | AccountRoleScalarWhereWithAggregatesInput[]
-    OR?: AccountRoleScalarWhereWithAggregatesInput[]
-    NOT?: AccountRoleScalarWhereWithAggregatesInput | AccountRoleScalarWhereWithAggregatesInput[]
-    id?: IntWithAggregatesFilter<"AccountRole"> | number
-    accountId?: IntWithAggregatesFilter<"AccountRole"> | number
-    role?: EnumRoleWithAggregatesFilter<"AccountRole"> | $Enums.Role
+    roles?: JsonNullableWithAggregatesFilter<"Account">
   }
 
   export type AccountNotificationWhereInput = {
@@ -36861,7 +35741,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -36896,7 +35776,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -36930,7 +35810,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -36965,7 +35845,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -37000,6 +35880,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    roles?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AccountUpdateManyMutationInput = {
@@ -37010,6 +35891,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
+    roles?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AccountUncheckedUpdateManyInput = {
@@ -37021,44 +35903,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-  }
-
-  export type AccountRoleCreateInput = {
-    role?: $Enums.Role
-    Account: AccountCreateNestedOneWithoutAccountRoleInput
-  }
-
-  export type AccountRoleUncheckedCreateInput = {
-    id?: number
-    accountId: number
-    role?: $Enums.Role
-  }
-
-  export type AccountRoleUpdateInput = {
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    Account?: AccountUpdateOneRequiredWithoutAccountRoleNestedInput
-  }
-
-  export type AccountRoleUncheckedUpdateInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    accountId?: IntFieldUpdateOperationsInput | number
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  }
-
-  export type AccountRoleCreateManyInput = {
-    id?: number
-    accountId: number
-    role?: $Enums.Role
-  }
-
-  export type AccountRoleUpdateManyMutationInput = {
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  }
-
-  export type AccountRoleUncheckedUpdateManyInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    accountId?: IntFieldUpdateOperationsInput | number
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
+    roles?: NullableJsonNullValueInput | InputJsonValue
   }
 
   export type AccountNotificationCreateInput = {
@@ -39437,12 +38282,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type AccountRoleListRelationFilter = {
-    every?: AccountRoleWhereInput
-    some?: AccountRoleWhereInput
-    none?: AccountRoleWhereInput
-  }
-
   export type AccountNotificationListRelationFilter = {
     every?: AccountNotificationWhereInput
     some?: AccountNotificationWhereInput
@@ -39550,10 +38389,6 @@ export namespace Prisma {
     nulls?: NullsOrder
   }
 
-  export type AccountRoleOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type AccountNotificationOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -39631,6 +38466,7 @@ export namespace Prisma {
     lastName?: SortOrder
     email?: SortOrder
     preferences?: SortOrder
+    roles?: SortOrder
   }
 
   export type AccountAvgOrderByAggregateInput = {
@@ -39750,56 +38586,6 @@ export namespace Prisma {
     _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
-  export type EnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[]
-    notIn?: $Enums.Role[]
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
-  }
-
-  export type AccountRelationFilter = {
-    is?: AccountWhereInput
-    isNot?: AccountWhereInput
-  }
-
-  export type AccountRoleCountOrderByAggregateInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    role?: SortOrder
-  }
-
-  export type AccountRoleAvgOrderByAggregateInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-  }
-
-  export type AccountRoleMaxOrderByAggregateInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    role?: SortOrder
-  }
-
-  export type AccountRoleMinOrderByAggregateInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-    role?: SortOrder
-  }
-
-  export type AccountRoleSumOrderByAggregateInput = {
-    id?: SortOrder
-    accountId?: SortOrder
-  }
-
-  export type EnumRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[]
-    notIn?: $Enums.Role[]
-    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleFilter<$PrismaModel>
-    _max?: NestedEnumRoleFilter<$PrismaModel>
-  }
-
   export type BoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
@@ -39814,6 +38600,11 @@ export namespace Prisma {
     gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
     not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
+  export type AccountRelationFilter = {
+    is?: AccountWhereInput
+    isNot?: AccountWhereInput
   }
 
   export type AccountNotificationCountOrderByAggregateInput = {
@@ -41652,13 +40443,6 @@ export namespace Prisma {
     createdBy?: SortOrder
   }
 
-  export type AccountRoleCreateNestedManyWithoutAccountInput = {
-    create?: XOR<AccountRoleCreateWithoutAccountInput, AccountRoleUncheckedCreateWithoutAccountInput> | AccountRoleCreateWithoutAccountInput[] | AccountRoleUncheckedCreateWithoutAccountInput[]
-    connectOrCreate?: AccountRoleCreateOrConnectWithoutAccountInput | AccountRoleCreateOrConnectWithoutAccountInput[]
-    createMany?: AccountRoleCreateManyAccountInputEnvelope
-    connect?: AccountRoleWhereUniqueInput | AccountRoleWhereUniqueInput[]
-  }
-
   export type AccountNotificationCreateNestedManyWithoutAccountInput = {
     create?: XOR<AccountNotificationCreateWithoutAccountInput, AccountNotificationUncheckedCreateWithoutAccountInput> | AccountNotificationCreateWithoutAccountInput[] | AccountNotificationUncheckedCreateWithoutAccountInput[]
     connectOrCreate?: AccountNotificationCreateOrConnectWithoutAccountInput | AccountNotificationCreateOrConnectWithoutAccountInput[]
@@ -41818,13 +40602,6 @@ export namespace Prisma {
     connectOrCreate?: ChangeLogCreateOrConnectWithoutCreatorInput | ChangeLogCreateOrConnectWithoutCreatorInput[]
     createMany?: ChangeLogCreateManyCreatorInputEnvelope
     connect?: ChangeLogWhereUniqueInput | ChangeLogWhereUniqueInput[]
-  }
-
-  export type AccountRoleUncheckedCreateNestedManyWithoutAccountInput = {
-    create?: XOR<AccountRoleCreateWithoutAccountInput, AccountRoleUncheckedCreateWithoutAccountInput> | AccountRoleCreateWithoutAccountInput[] | AccountRoleUncheckedCreateWithoutAccountInput[]
-    connectOrCreate?: AccountRoleCreateOrConnectWithoutAccountInput | AccountRoleCreateOrConnectWithoutAccountInput[]
-    createMany?: AccountRoleCreateManyAccountInputEnvelope
-    connect?: AccountRoleWhereUniqueInput | AccountRoleWhereUniqueInput[]
   }
 
   export type AccountNotificationUncheckedCreateNestedManyWithoutAccountInput = {
@@ -41998,20 +40775,6 @@ export namespace Prisma {
 
   export type StringFieldUpdateOperationsInput = {
     set?: string
-  }
-
-  export type AccountRoleUpdateManyWithoutAccountNestedInput = {
-    create?: XOR<AccountRoleCreateWithoutAccountInput, AccountRoleUncheckedCreateWithoutAccountInput> | AccountRoleCreateWithoutAccountInput[] | AccountRoleUncheckedCreateWithoutAccountInput[]
-    connectOrCreate?: AccountRoleCreateOrConnectWithoutAccountInput | AccountRoleCreateOrConnectWithoutAccountInput[]
-    upsert?: AccountRoleUpsertWithWhereUniqueWithoutAccountInput | AccountRoleUpsertWithWhereUniqueWithoutAccountInput[]
-    createMany?: AccountRoleCreateManyAccountInputEnvelope
-    set?: AccountRoleWhereUniqueInput | AccountRoleWhereUniqueInput[]
-    disconnect?: AccountRoleWhereUniqueInput | AccountRoleWhereUniqueInput[]
-    delete?: AccountRoleWhereUniqueInput | AccountRoleWhereUniqueInput[]
-    connect?: AccountRoleWhereUniqueInput | AccountRoleWhereUniqueInput[]
-    update?: AccountRoleUpdateWithWhereUniqueWithoutAccountInput | AccountRoleUpdateWithWhereUniqueWithoutAccountInput[]
-    updateMany?: AccountRoleUpdateManyWithWhereWithoutAccountInput | AccountRoleUpdateManyWithWhereWithoutAccountInput[]
-    deleteMany?: AccountRoleScalarWhereInput | AccountRoleScalarWhereInput[]
   }
 
   export type AccountNotificationUpdateManyWithoutAccountNestedInput = {
@@ -42344,20 +41107,6 @@ export namespace Prisma {
     divide?: number
   }
 
-  export type AccountRoleUncheckedUpdateManyWithoutAccountNestedInput = {
-    create?: XOR<AccountRoleCreateWithoutAccountInput, AccountRoleUncheckedCreateWithoutAccountInput> | AccountRoleCreateWithoutAccountInput[] | AccountRoleUncheckedCreateWithoutAccountInput[]
-    connectOrCreate?: AccountRoleCreateOrConnectWithoutAccountInput | AccountRoleCreateOrConnectWithoutAccountInput[]
-    upsert?: AccountRoleUpsertWithWhereUniqueWithoutAccountInput | AccountRoleUpsertWithWhereUniqueWithoutAccountInput[]
-    createMany?: AccountRoleCreateManyAccountInputEnvelope
-    set?: AccountRoleWhereUniqueInput | AccountRoleWhereUniqueInput[]
-    disconnect?: AccountRoleWhereUniqueInput | AccountRoleWhereUniqueInput[]
-    delete?: AccountRoleWhereUniqueInput | AccountRoleWhereUniqueInput[]
-    connect?: AccountRoleWhereUniqueInput | AccountRoleWhereUniqueInput[]
-    update?: AccountRoleUpdateWithWhereUniqueWithoutAccountInput | AccountRoleUpdateWithWhereUniqueWithoutAccountInput[]
-    updateMany?: AccountRoleUpdateManyWithWhereWithoutAccountInput | AccountRoleUpdateManyWithWhereWithoutAccountInput[]
-    deleteMany?: AccountRoleScalarWhereInput | AccountRoleScalarWhereInput[]
-  }
-
   export type AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput = {
     create?: XOR<AccountNotificationCreateWithoutAccountInput, AccountNotificationUncheckedCreateWithoutAccountInput> | AccountNotificationCreateWithoutAccountInput[] | AccountNotificationUncheckedCreateWithoutAccountInput[]
     connectOrCreate?: AccountNotificationCreateOrConnectWithoutAccountInput | AccountNotificationCreateOrConnectWithoutAccountInput[]
@@ -42678,24 +41427,6 @@ export namespace Prisma {
     update?: ChangeLogUpdateWithWhereUniqueWithoutCreatorInput | ChangeLogUpdateWithWhereUniqueWithoutCreatorInput[]
     updateMany?: ChangeLogUpdateManyWithWhereWithoutCreatorInput | ChangeLogUpdateManyWithWhereWithoutCreatorInput[]
     deleteMany?: ChangeLogScalarWhereInput | ChangeLogScalarWhereInput[]
-  }
-
-  export type AccountCreateNestedOneWithoutAccountRoleInput = {
-    create?: XOR<AccountCreateWithoutAccountRoleInput, AccountUncheckedCreateWithoutAccountRoleInput>
-    connectOrCreate?: AccountCreateOrConnectWithoutAccountRoleInput
-    connect?: AccountWhereUniqueInput
-  }
-
-  export type EnumRoleFieldUpdateOperationsInput = {
-    set?: $Enums.Role
-  }
-
-  export type AccountUpdateOneRequiredWithoutAccountRoleNestedInput = {
-    create?: XOR<AccountCreateWithoutAccountRoleInput, AccountUncheckedCreateWithoutAccountRoleInput>
-    connectOrCreate?: AccountCreateOrConnectWithoutAccountRoleInput
-    upsert?: AccountUpsertWithoutAccountRoleInput
-    connect?: AccountWhereUniqueInput
-    update?: XOR<XOR<AccountUpdateToOneWithWhereWithoutAccountRoleInput, AccountUpdateWithoutAccountRoleInput>, AccountUncheckedUpdateWithoutAccountRoleInput>
   }
 
   export type AccountCreateNestedOneWithoutAccountNotificationInput = {
@@ -44428,23 +43159,6 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
-  export type NestedEnumRoleFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[]
-    notIn?: $Enums.Role[]
-    not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
-  }
-
-  export type NestedEnumRoleWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
-    in?: $Enums.Role[]
-    notIn?: $Enums.Role[]
-    not?: NestedEnumRoleWithAggregatesFilter<$PrismaModel> | $Enums.Role
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedEnumRoleFilter<$PrismaModel>
-    _max?: NestedEnumRoleFilter<$PrismaModel>
-  }
-
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
@@ -44639,25 +43353,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumTagTypeFilter<$PrismaModel>
     _max?: NestedEnumTagTypeFilter<$PrismaModel>
-  }
-
-  export type AccountRoleCreateWithoutAccountInput = {
-    role?: $Enums.Role
-  }
-
-  export type AccountRoleUncheckedCreateWithoutAccountInput = {
-    id?: number
-    role?: $Enums.Role
-  }
-
-  export type AccountRoleCreateOrConnectWithoutAccountInput = {
-    where: AccountRoleWhereUniqueInput
-    create: XOR<AccountRoleCreateWithoutAccountInput, AccountRoleUncheckedCreateWithoutAccountInput>
-  }
-
-  export type AccountRoleCreateManyAccountInputEnvelope = {
-    data: AccountRoleCreateManyAccountInput | AccountRoleCreateManyAccountInput[]
-    skipDuplicates?: boolean
   }
 
   export type AccountNotificationCreateWithoutAccountInput = {
@@ -45453,31 +44148,6 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type AccountRoleUpsertWithWhereUniqueWithoutAccountInput = {
-    where: AccountRoleWhereUniqueInput
-    update: XOR<AccountRoleUpdateWithoutAccountInput, AccountRoleUncheckedUpdateWithoutAccountInput>
-    create: XOR<AccountRoleCreateWithoutAccountInput, AccountRoleUncheckedCreateWithoutAccountInput>
-  }
-
-  export type AccountRoleUpdateWithWhereUniqueWithoutAccountInput = {
-    where: AccountRoleWhereUniqueInput
-    data: XOR<AccountRoleUpdateWithoutAccountInput, AccountRoleUncheckedUpdateWithoutAccountInput>
-  }
-
-  export type AccountRoleUpdateManyWithWhereWithoutAccountInput = {
-    where: AccountRoleScalarWhereInput
-    data: XOR<AccountRoleUpdateManyMutationInput, AccountRoleUncheckedUpdateManyWithoutAccountInput>
-  }
-
-  export type AccountRoleScalarWhereInput = {
-    AND?: AccountRoleScalarWhereInput | AccountRoleScalarWhereInput[]
-    OR?: AccountRoleScalarWhereInput[]
-    NOT?: AccountRoleScalarWhereInput | AccountRoleScalarWhereInput[]
-    id?: IntFilter<"AccountRole"> | number
-    accountId?: IntFilter<"AccountRole"> | number
-    role?: EnumRoleFilter<"AccountRole"> | $Enums.Role
-  }
-
   export type AccountNotificationUpsertWithWhereUniqueWithoutAccountInput = {
     where: AccountNotificationWhereUniqueInput
     update: XOR<AccountNotificationUpdateWithoutAccountInput, AccountNotificationUncheckedUpdateWithoutAccountInput>
@@ -46085,156 +44755,6 @@ export namespace Prisma {
     releaseDate?: DateTimeNullableFilter<"ChangeLog"> | Date | string | null
   }
 
-  export type AccountCreateWithoutAccountRoleInput = {
-    mudId?: string | null
-    createdDate?: Date | string
-    modifiedDate?: Date | string
-    firstName?: string | null
-    lastName?: string | null
-    email: string
-    preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
-    AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
-    Character?: CharacterCreateNestedManyWithoutAccountInput
-    NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
-    NetworkBlacklist?: NetworkBlacklistCreateNestedManyWithoutAccountInput
-    Notification?: NotificationCreateNestedManyWithoutAccountInput
-    CreatedItems?: ItemCreateNestedManyWithoutCreatedItemsInput
-    ModifiedItems?: ItemCreateNestedManyWithoutModifiedItemsInput
-    CreatedSpells?: SpellCreateNestedManyWithoutCreatedSpellsInput
-    ModifiedSpells?: SpellCreateNestedManyWithoutModifiedSpellsInput
-    CreatedPotions?: PotionCreateNestedManyWithoutCreatedPotionsInput
-    ModifiedPotions?: PotionCreateNestedManyWithoutModifiedPotionsInput
-    CreatedSkills?: SkillCreateNestedManyWithoutCreatedSkillsInput
-    ModifiedSkills?: SkillCreateNestedManyWithoutModifiedSkillsInput
-    CreatedAbilities?: AbilityCreateNestedManyWithoutCreatedAbilitiesInput
-    ModifiedAbilities?: AbilityCreateNestedManyWithoutModifiedAbilitiesInput
-    CreatedQuests?: QuestCreateNestedManyWithoutCreatedQuestsInput
-    ModifiedQuests?: QuestCreateNestedManyWithoutModifiedQuestsInput
-    Article?: ArticleCreateNestedManyWithoutAuthorInput
-    ArticleVersion?: ArticleVersionCreateNestedManyWithoutEditorInput
-    Tag?: TagCreateNestedManyWithoutCreatorInput
-    Area?: AreaCreateNestedManyWithoutAuthorInput
-    ChangeLog?: ChangeLogCreateNestedManyWithoutCreatorInput
-  }
-
-  export type AccountUncheckedCreateWithoutAccountRoleInput = {
-    id?: number
-    mudId?: string | null
-    createdDate?: Date | string
-    modifiedDate?: Date | string
-    firstName?: string | null
-    lastName?: string | null
-    email: string
-    preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
-    AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
-    Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
-    NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
-    NetworkBlacklist?: NetworkBlacklistUncheckedCreateNestedManyWithoutAccountInput
-    Notification?: NotificationUncheckedCreateNestedManyWithoutAccountInput
-    CreatedItems?: ItemUncheckedCreateNestedManyWithoutCreatedItemsInput
-    ModifiedItems?: ItemUncheckedCreateNestedManyWithoutModifiedItemsInput
-    CreatedSpells?: SpellUncheckedCreateNestedManyWithoutCreatedSpellsInput
-    ModifiedSpells?: SpellUncheckedCreateNestedManyWithoutModifiedSpellsInput
-    CreatedPotions?: PotionUncheckedCreateNestedManyWithoutCreatedPotionsInput
-    ModifiedPotions?: PotionUncheckedCreateNestedManyWithoutModifiedPotionsInput
-    CreatedSkills?: SkillUncheckedCreateNestedManyWithoutCreatedSkillsInput
-    ModifiedSkills?: SkillUncheckedCreateNestedManyWithoutModifiedSkillsInput
-    CreatedAbilities?: AbilityUncheckedCreateNestedManyWithoutCreatedAbilitiesInput
-    ModifiedAbilities?: AbilityUncheckedCreateNestedManyWithoutModifiedAbilitiesInput
-    CreatedQuests?: QuestUncheckedCreateNestedManyWithoutCreatedQuestsInput
-    ModifiedQuests?: QuestUncheckedCreateNestedManyWithoutModifiedQuestsInput
-    Article?: ArticleUncheckedCreateNestedManyWithoutAuthorInput
-    ArticleVersion?: ArticleVersionUncheckedCreateNestedManyWithoutEditorInput
-    Tag?: TagUncheckedCreateNestedManyWithoutCreatorInput
-    Area?: AreaUncheckedCreateNestedManyWithoutAuthorInput
-    ChangeLog?: ChangeLogUncheckedCreateNestedManyWithoutCreatorInput
-  }
-
-  export type AccountCreateOrConnectWithoutAccountRoleInput = {
-    where: AccountWhereUniqueInput
-    create: XOR<AccountCreateWithoutAccountRoleInput, AccountUncheckedCreateWithoutAccountRoleInput>
-  }
-
-  export type AccountUpsertWithoutAccountRoleInput = {
-    update: XOR<AccountUpdateWithoutAccountRoleInput, AccountUncheckedUpdateWithoutAccountRoleInput>
-    create: XOR<AccountCreateWithoutAccountRoleInput, AccountUncheckedCreateWithoutAccountRoleInput>
-    where?: AccountWhereInput
-  }
-
-  export type AccountUpdateToOneWithWhereWithoutAccountRoleInput = {
-    where?: AccountWhereInput
-    data: XOR<AccountUpdateWithoutAccountRoleInput, AccountUncheckedUpdateWithoutAccountRoleInput>
-  }
-
-  export type AccountUpdateWithoutAccountRoleInput = {
-    mudId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    modifiedDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
-    AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
-    Character?: CharacterUpdateManyWithoutAccountNestedInput
-    NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
-    NetworkBlacklist?: NetworkBlacklistUpdateManyWithoutAccountNestedInput
-    Notification?: NotificationUpdateManyWithoutAccountNestedInput
-    CreatedItems?: ItemUpdateManyWithoutCreatedItemsNestedInput
-    ModifiedItems?: ItemUpdateManyWithoutModifiedItemsNestedInput
-    CreatedSpells?: SpellUpdateManyWithoutCreatedSpellsNestedInput
-    ModifiedSpells?: SpellUpdateManyWithoutModifiedSpellsNestedInput
-    CreatedPotions?: PotionUpdateManyWithoutCreatedPotionsNestedInput
-    ModifiedPotions?: PotionUpdateManyWithoutModifiedPotionsNestedInput
-    CreatedSkills?: SkillUpdateManyWithoutCreatedSkillsNestedInput
-    ModifiedSkills?: SkillUpdateManyWithoutModifiedSkillsNestedInput
-    CreatedAbilities?: AbilityUpdateManyWithoutCreatedAbilitiesNestedInput
-    ModifiedAbilities?: AbilityUpdateManyWithoutModifiedAbilitiesNestedInput
-    CreatedQuests?: QuestUpdateManyWithoutCreatedQuestsNestedInput
-    ModifiedQuests?: QuestUpdateManyWithoutModifiedQuestsNestedInput
-    Article?: ArticleUpdateManyWithoutAuthorNestedInput
-    ArticleVersion?: ArticleVersionUpdateManyWithoutEditorNestedInput
-    Tag?: TagUpdateManyWithoutCreatorNestedInput
-    Area?: AreaUpdateManyWithoutAuthorNestedInput
-    ChangeLog?: ChangeLogUpdateManyWithoutCreatorNestedInput
-  }
-
-  export type AccountUncheckedUpdateWithoutAccountRoleInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    mudId?: NullableStringFieldUpdateOperationsInput | string | null
-    createdDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    modifiedDate?: DateTimeFieldUpdateOperationsInput | Date | string
-    firstName?: NullableStringFieldUpdateOperationsInput | string | null
-    lastName?: NullableStringFieldUpdateOperationsInput | string | null
-    email?: StringFieldUpdateOperationsInput | string
-    preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
-    AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
-    Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
-    NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
-    NetworkBlacklist?: NetworkBlacklistUncheckedUpdateManyWithoutAccountNestedInput
-    Notification?: NotificationUncheckedUpdateManyWithoutAccountNestedInput
-    CreatedItems?: ItemUncheckedUpdateManyWithoutCreatedItemsNestedInput
-    ModifiedItems?: ItemUncheckedUpdateManyWithoutModifiedItemsNestedInput
-    CreatedSpells?: SpellUncheckedUpdateManyWithoutCreatedSpellsNestedInput
-    ModifiedSpells?: SpellUncheckedUpdateManyWithoutModifiedSpellsNestedInput
-    CreatedPotions?: PotionUncheckedUpdateManyWithoutCreatedPotionsNestedInput
-    ModifiedPotions?: PotionUncheckedUpdateManyWithoutModifiedPotionsNestedInput
-    CreatedSkills?: SkillUncheckedUpdateManyWithoutCreatedSkillsNestedInput
-    ModifiedSkills?: SkillUncheckedUpdateManyWithoutModifiedSkillsNestedInput
-    CreatedAbilities?: AbilityUncheckedUpdateManyWithoutCreatedAbilitiesNestedInput
-    ModifiedAbilities?: AbilityUncheckedUpdateManyWithoutModifiedAbilitiesNestedInput
-    CreatedQuests?: QuestUncheckedUpdateManyWithoutCreatedQuestsNestedInput
-    ModifiedQuests?: QuestUncheckedUpdateManyWithoutModifiedQuestsNestedInput
-    Article?: ArticleUncheckedUpdateManyWithoutAuthorNestedInput
-    ArticleVersion?: ArticleVersionUncheckedUpdateManyWithoutEditorNestedInput
-    Tag?: TagUncheckedUpdateManyWithoutCreatorNestedInput
-    Area?: AreaUncheckedUpdateManyWithoutAuthorNestedInput
-    ChangeLog?: ChangeLogUncheckedUpdateManyWithoutCreatorNestedInput
-  }
-
   export type AccountCreateWithoutAccountNotificationInput = {
     mudId?: string | null
     createdDate?: Date | string
@@ -46243,7 +44763,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
@@ -46277,7 +44797,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
@@ -46326,7 +44846,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
@@ -46360,7 +44880,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
@@ -46393,7 +44913,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
@@ -46427,7 +44947,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
@@ -46476,7 +44996,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
@@ -46510,7 +45030,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
@@ -46543,7 +45063,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -46577,7 +45097,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -46649,7 +45169,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -46683,7 +45203,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -46752,7 +45272,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -46786,7 +45306,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -46861,7 +45381,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -46895,7 +45415,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -46928,7 +45448,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -46962,7 +45482,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -47011,7 +45531,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -47045,7 +45565,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -47078,7 +45598,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryCreateNestedManyWithoutAccountInput
@@ -47112,7 +45632,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     NetworkHistory?: NetworkHistoryUncheckedCreateNestedManyWithoutAccountInput
@@ -47196,7 +45716,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUpdateManyWithoutAccountNestedInput
@@ -47230,7 +45750,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     NetworkHistory?: NetworkHistoryUncheckedUpdateManyWithoutAccountNestedInput
@@ -47869,7 +46389,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -47903,7 +46423,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -47941,7 +46461,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -47975,7 +46495,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -48218,7 +46738,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -48252,7 +46772,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -48296,7 +46816,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -48330,7 +46850,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -49067,7 +47587,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -49101,7 +47621,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -49139,7 +47659,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -49173,7 +47693,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -49317,7 +47837,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -49351,7 +47871,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -49395,7 +47915,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -49429,7 +47949,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -49547,7 +48067,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -49581,7 +48101,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -49619,7 +48139,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -49653,7 +48173,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -49781,7 +48301,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -49815,7 +48335,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -49859,7 +48379,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -49893,7 +48413,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -50011,7 +48531,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -50045,7 +48565,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -50083,7 +48603,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -50117,7 +48637,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -50245,7 +48765,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -50279,7 +48799,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -50323,7 +48843,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -50357,7 +48877,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -50475,7 +48995,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -50509,7 +49029,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -50547,7 +49067,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -50581,7 +49101,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -50709,7 +49229,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -50743,7 +49263,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -50787,7 +49307,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -50821,7 +49341,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -50939,7 +49459,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -50973,7 +49493,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -51011,7 +49531,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -51045,7 +49565,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -51211,7 +49731,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -51245,7 +49765,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -51289,7 +49809,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -51323,7 +49843,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -51978,7 +50498,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -52012,7 +50532,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -52107,7 +50627,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -52141,7 +50661,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -52215,7 +50735,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -52249,7 +50769,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -52318,7 +50838,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -52352,7 +50872,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -52411,7 +50931,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -52445,7 +50965,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -52518,7 +51038,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -52552,7 +51072,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -53067,7 +51587,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -53101,7 +51621,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -53183,7 +51703,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -53217,7 +51737,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -53281,7 +51801,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordCreateNestedManyWithoutAccountInput
     Character?: CharacterCreateNestedManyWithoutAccountInput
@@ -53315,7 +51835,7 @@ export namespace Prisma {
     lastName?: string | null
     email: string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedCreateNestedManyWithoutAccountInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedCreateNestedManyWithoutAccountInput
     AccountPassword?: AccountPasswordUncheckedCreateNestedManyWithoutAccountInput
     Character?: CharacterUncheckedCreateNestedManyWithoutAccountInput
@@ -53364,7 +51884,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUpdateManyWithoutAccountNestedInput
     Character?: CharacterUpdateManyWithoutAccountNestedInput
@@ -53398,7 +51918,7 @@ export namespace Prisma {
     lastName?: NullableStringFieldUpdateOperationsInput | string | null
     email?: StringFieldUpdateOperationsInput | string
     preferences?: NullableJsonNullValueInput | InputJsonValue
-    AccountRole?: AccountRoleUncheckedUpdateManyWithoutAccountNestedInput
+    roles?: NullableJsonNullValueInput | InputJsonValue
     AccountNotification?: AccountNotificationUncheckedUpdateManyWithoutAccountNestedInput
     AccountPassword?: AccountPasswordUncheckedUpdateManyWithoutAccountNestedInput
     Character?: CharacterUncheckedUpdateManyWithoutAccountNestedInput
@@ -53421,11 +51941,6 @@ export namespace Prisma {
     ArticleVersion?: ArticleVersionUncheckedUpdateManyWithoutEditorNestedInput
     Tag?: TagUncheckedUpdateManyWithoutCreatorNestedInput
     Area?: AreaUncheckedUpdateManyWithoutAuthorNestedInput
-  }
-
-  export type AccountRoleCreateManyAccountInput = {
-    id?: number
-    role?: $Enums.Role
   }
 
   export type AccountNotificationCreateManyAccountInput = {
@@ -53687,20 +52202,6 @@ export namespace Prisma {
     content?: string | null
     version?: string | null
     releaseDate?: Date | string | null
-  }
-
-  export type AccountRoleUpdateWithoutAccountInput = {
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  }
-
-  export type AccountRoleUncheckedUpdateWithoutAccountInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  }
-
-  export type AccountRoleUncheckedUpdateManyWithoutAccountInput = {
-    id?: IntFieldUpdateOperationsInput | number
-    role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
   }
 
   export type AccountNotificationUpdateWithoutAccountInput = {
@@ -54946,10 +53447,6 @@ export namespace Prisma {
      * @deprecated Use AccountDefaultArgs instead
      */
     export type AccountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AccountDefaultArgs<ExtArgs>
-    /**
-     * @deprecated Use AccountRoleDefaultArgs instead
-     */
-    export type AccountRoleArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = AccountRoleDefaultArgs<ExtArgs>
     /**
      * @deprecated Use AccountNotificationDefaultArgs instead
      */

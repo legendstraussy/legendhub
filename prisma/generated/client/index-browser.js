@@ -115,13 +115,8 @@ exports.Prisma.AccountScalarFieldEnum = {
   firstName: 'firstName',
   lastName: 'lastName',
   email: 'email',
-  preferences: 'preferences'
-};
-
-exports.Prisma.AccountRoleScalarFieldEnum = {
-  id: 'id',
-  accountId: 'accountId',
-  role: 'role'
+  preferences: 'preferences',
+  roles: 'roles'
 };
 
 exports.Prisma.AccountNotificationScalarFieldEnum = {
@@ -474,14 +469,6 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.Role = exports.$Enums.Role = {
-  PLAYER: 'PLAYER',
-  EXPLORER: 'EXPLORER',
-  SCRIBE: 'SCRIBE',
-  ADMIN: 'ADMIN',
-  DEV: 'DEV'
-};
-
 exports.NotificationType = exports.$Enums.NotificationType = {
   NEW_ITEM: 'NEW_ITEM',
   NEW_QUEST: 'NEW_QUEST',
@@ -534,7 +521,6 @@ exports.TagType = exports.$Enums.TagType = {
 
 exports.Prisma.ModelName = {
   Account: 'Account',
-  AccountRole: 'AccountRole',
   AccountNotification: 'AccountNotification',
   AccountPassword: 'AccountPassword',
   NetworkHistory: 'NetworkHistory',

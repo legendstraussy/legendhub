@@ -2,12 +2,21 @@ import NextAuth, { AuthOptions } from 'next-auth'
 import { compare } from 'bcrypt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import prisma from '@/app/_lib/prisma'
-import { Account } from '@/app/_types/account'
+import { ROUTES } from '@/app/_lib/constants'
 
 declare module 'next-auth' {
-  interface User extends Account {
+  interface User {
     id: number
     email: string
+  }
+
+  interface Session {
+    user: {
+      id?: number
+      email?: string
+      firstName?: string
+      role?: string
+    }
   }
 }
 
@@ -59,17 +68,18 @@ export const authOptions: AuthOptions = {
       return token
     },
     async session({ session, token }) {
+      // console.log('bingo token.user', token.user)
       session.user = token.user
       return session
     }
   },
   session: { 
     strategy: 'jwt',
-    // maxAge: 10, // test
+    // maxAge: 5, // test
     maxAge: 3 * 24 * 60 * 60
   },
   pages: {
-    signIn: '/login'
+    signIn: ROUTES.LOGIN
   }
 }
 
