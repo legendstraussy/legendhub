@@ -1,18 +1,17 @@
-version: "3.7"
+version: '2.2'
 
 services:
   web:
     container_name: hub_web
     ports:
       - 3000:3000
-    build:
-      dockerfile: Dockerfile
+    build: .
+    depends_on:
+      - db
     env_file:
       - .env.production
     networks:
       - network
-    depends_on:
-      - db
     restart: always
 
   db:
@@ -26,17 +25,21 @@ services:
       - 3306:3306
     volumes:
       - db:/var/lib/mysql
-
+    networks:
+      - network
+      
   myphpadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: hub_phpmyadmin
     restart: always
-    depends_on:
-      - db
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 8080:80
+    depends_on:
+      - db
+    networks:
+      - network
 
 networks:
   network:

@@ -10,9 +10,9 @@ type status = {
 const inputStyles = `border border-solid border-red`
 
 export default function RegisterForm() {
-  const [email, setEmail] = useState<string>('')
-  const [password, setPassword] = useState<string>('')
-  const [confirmPassword, setConfirmPassword] = useState<string>('')
+  const [email, setEmail] = useState<string>('straussy@legendmud.org')
+  const [password, setPassword] = useState<string>('test')
+  const [confirmPassword, setConfirmPassword] = useState<string>('test')
   const [status, setStatus] = useState<status | null>({ message: '', isSuccess: false })
 
   const handleOnSubmit = async (event) => {
