@@ -1,3 +1,9 @@
+STARTING SERVICES
+-docker-compose down -v
+-docker system prune -a
+-docker-compose up --build -d
+-npx prisma migrate dev ./prisma/schema.prisma --name init
+
 TODO
 [] create backup of hub db into sql file
 [] run sql to make sure it seeds db
