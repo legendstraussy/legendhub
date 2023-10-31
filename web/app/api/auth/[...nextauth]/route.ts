@@ -2,7 +2,7 @@ import NextAuth, { AuthOptions } from 'next-auth'
 import { compare } from 'bcrypt'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import prisma from '@/app/_lib/prisma'
-import { ERRORS, ROUTES } from '@/app/_lib/constants'
+import { ERROR_MESSAGES, ROUTES } from '@/app/_lib/constants'
 
 declare module 'next-auth' {
   interface User {
@@ -39,7 +39,7 @@ export const authOptions: AuthOptions = {
           })
 
           if (!existingAccount) {
-            throw new Error(ERRORS.INVALID_LOGIN)
+            throw new Error(ERROR_MESSAGES.INVALID_LOGIN)
           }
 
           const existingAccountPassword = await prisma.accountPassword.findFirst({
@@ -54,12 +54,12 @@ export const authOptions: AuthOptions = {
           const passwordMatch = await compare(existingPassword, existingHash)
 
           if (!passwordMatch) {
-            throw new Error(ERRORS.INVALID_LOGIN)
+            throw new Error(ERROR_MESSAGES.INVALID_LOGIN)
           }
 
           return existingAccount
         } catch {
-          throw new Error(ERRORS.INVALID_LOGIN)
+          throw new Error(ERROR_MESSAGES.INVALID_LOGIN)
         }
       }
     })

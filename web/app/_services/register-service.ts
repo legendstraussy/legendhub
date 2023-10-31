@@ -2,7 +2,7 @@ import { hash } from 'bcrypt'
 import prisma from '@/app/_lib/prisma'
 import { ServiceResponse } from '@/app/_types/service_response'
 import { Account } from '@/app/_types/account'
-import { SERVICE_ERRORS } from '@/app/_lib/constants'
+import { ERROR_MESSAGES, SUCCESS_MESSAGES } from '@/app/_lib/constants'
 
 export async function registerUser(registrant: Account): Promise<ServiceResponse> {
   const { email, firstName = 'Brian', lastName = 'Selvaggio', password } = registrant
@@ -16,8 +16,7 @@ export async function registerUser(registrant: Account): Promise<ServiceResponse
   
     if (existingAccount) {
       return Promise.resolve({ 
-        error: 'This email has already been registered to an account.', 
-        errorType: SERVICE_ERRORS.ALREADY_EXISTS
+        error: ERROR_MESSAGES.ALREADY_EXISTS
       })
     }
   
@@ -45,11 +44,12 @@ export async function registerUser(registrant: Account): Promise<ServiceResponse
       }
     })
 
-    return Promise.resolve({ success: 'The account has successfully been created!' })
-  } catch(error) {
+    return Promise.resolve({ 
+      success: SUCCESS_MESSAGES.ACCOUNT_CREATED
+    })
+  } catch {
     return Promise.reject({ 
-      error: 'There was as issue with registration. Please see your administrator.',
-      errorType: SERVICE_ERRORS.GENERIC_ERROR
+      error: ERROR_MESSAGES.GENERIC_ERROR
     })
   }
 }

@@ -12,12 +12,12 @@ export const ROUTES = {
   DASHBOARD: '/dashboard'
 }
 
-export const ERRORS = {
+export const ERROR_MESSAGES = {
+  ALREADY_EXISTS: 'this email has already been registered to an account',
+  GENERIC_ERROR: 'there was as issue with registration',
   INVALID_LOGIN: 'invalid password or account email'
 }
 
-export const SERVICE_ERRORS = {
-  ALREADY_EXISTS: 'ALREADY_EXISTS',
-  FAILED_SAVE: 'FAILED_SAVE',
-  GENERIC_ERROR: 'GENERIC_ERROR'
+export const SUCCESS_MESSAGES = {
+  ACCOUNT_CREATED: 'the account has successfully been created'
 }
