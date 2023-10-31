@@ -1,19 +1,19 @@
 version: '2.2'
 
 services:
-  web:
-    container_name: hub_web
-    ports:
-      - 3000:3000
-    build: .
-    depends_on:
-      db:
-        condition: service_started
-    env_file:
-      - .env.production
-    networks:
-      - network
-    restart: always
+  # web:
+  #   container_name: hub_web
+  #   ports:
+  #     - 3000:3000
+  #   build: .
+  #   depends_on:
+  #     db:
+  #       condition: service_started
+  #   env_file:
+  #     - .env.production
+  #   networks:
+  #     - network
+  #   restart: always
 
   db:
     image: mysql:latest
