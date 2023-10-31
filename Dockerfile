@@ -1,7 +1,5 @@
 FROM node:18.18.2
 
-RUN npm install -g npm@latest
-
 # Create app directory
 RUN mkdir -p /app
 WORKDIR /app

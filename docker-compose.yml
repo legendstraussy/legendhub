@@ -7,7 +7,8 @@ services:
       - 3000:3000
     build: .
     depends_on:
-      - db
+      db:
+        condition: service_started
     env_file:
       - .env.production
     networks:
@@ -37,7 +38,8 @@ services:
     ports:
       - 8080:80
     depends_on:
-      - db
+      db:
+        condition: service_started
     networks:
       - network
 
