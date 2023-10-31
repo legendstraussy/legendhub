@@ -54,8 +54,8 @@ export const authOptions: AuthOptions = {
           }
 
           throw new Error('invalid password or account email.')
-        } catch(e) {
-          throw new Error(`invalid password or account email. ${e}`)
+        } catch {
+          throw new Error('invalid password or account email.')
         }
       }
     })
