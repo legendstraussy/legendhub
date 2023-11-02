@@ -1,12 +1,10 @@
 'use client'
 
 import { ROUTES } from '@/app/_lib/constants'
-import { signOut, useSession } from 'next-auth/react'
+import { signOut } from 'next-auth/react'
 import Link from 'next/link'
 
 export default function LoginButton({ session }) {
-  // const session = useSession()
-
   return (
     <>
       {session?.user

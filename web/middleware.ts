@@ -4,7 +4,13 @@ import { NextResponse } from 'next/server'
 const LIMITED_ROUTES = ['/login', '/register']
 
 export default withAuth((req) => {
-  const { pathname } = req.nextUrl
+  const { pathname, searchParams } = req.nextUrl
+  const callbackUrl = new URLSearchParams(searchParams).get('callbackUrl')
+
+  if (req.nextauth.token) {
+    if (callbackUrl) return NextResponse.redirect(callbackUrl)
+  }
+
   if (LIMITED_ROUTES.includes(pathname)) {
     if (req.nextauth.token) {
       return NextResponse.redirect(new URL('/', req.url))

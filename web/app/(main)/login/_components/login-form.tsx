@@ -22,18 +22,16 @@ export default function LoginForm() {
     
     if (!email || !password) return setStatus({ message: 'please provide required fields.' })
 
-    const { error } = await signIn('credentials', {
-      email,
-      password,
-      redirect: false
-    })
+    const { error, url } = await signIn('credentials', { email, password, redirect: false })
 
-    if (!error) {
-      router.push('/')
-      router.refresh()
+    if (error) {
+      setStatus({ message: error })
     }
 
-    return setStatus({ message: error })
+    if (url) {
+      router.push(url)
+      router.refresh()
+    }
   }
 
   return (
