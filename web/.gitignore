@@ -38,4 +38,4 @@ next-env.d.ts
 /db
 
 # prisma
-prisma/generated/client/schema.prisma
+prisma/generated/
