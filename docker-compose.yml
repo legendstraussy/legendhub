@@ -1,4 +1,4 @@
-version: '2.2'
+version: "2.2"
 
 services:
   # web:
@@ -28,7 +28,7 @@ services:
       - db:/var/lib/mysql
     networks:
       - network
-      
+
   myphpadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: hub_phpmyadmin
@@ -38,8 +38,7 @@ services:
     ports:
       - 8080:80
     depends_on:
-      db:
-        condition: service_started
+      - db
     networks:
       - network
 
