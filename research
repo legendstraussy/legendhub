@@ -1,6 +1,9 @@
 STARTING CRON
 docker build -t <image_name> .
-docker run -d --rm --name <image_name> <image_name> 
+docker run -d --rm --name <image_name> <image_name>
+
+CONNECT TO CONTAINER SHELL
+docker exec -it <image_name> bash
 
 TEST CRON
 docker container cp hub_cron:/opt .
