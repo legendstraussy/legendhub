@@ -1,4 +1,4 @@
-version: '2.2'
+version: '3.7'
 
 services:
   # web:
@@ -18,7 +18,6 @@ services:
   db:
     image: mysql:latest
     container_name: hub_mysql
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: hub
@@ -28,20 +27,25 @@ services:
       - db:/var/lib/mysql
     networks:
       - network
+    restart: always
       
   myphpadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: hub_phpmyadmin
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 8080:80
     depends_on:
-      db:
-        condition: service_started
+      - db
     networks:
       - network
+    restart: always
+
+  cron-run:
+    container_name: hub_cron
+    build:
+      context: ./cron
 
 networks:
   network:
