@@ -23,6 +23,8 @@ services:
       MYSQL_DATABASE: hub
     ports:
       - 3306:3306
+    expose:
+      - 3306
     volumes:
       - db:/var/lib/mysql
     networks:
@@ -46,6 +48,10 @@ services:
     container_name: hub_cron
     build:
       context: ./cron
+    depends_on:
+      - db
+    networks:
+      - network
 
 networks:
   network:

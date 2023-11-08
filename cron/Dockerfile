@@ -15,19 +15,20 @@ RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
 RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 
-RUN node --version
-RUN npm --version
+# RUN node --version
+# RUN npm --version
 
-RUN npm install mysql dotenv
+RUN npm install mysql2 dotenv
 
 RUN mkdir /logs
-
 
 COPY crontab.txt /opt
 COPY init.sh /app
 COPY backup.sh /app
 COPY test.py /app
 COPY test.js /app
+COPY package.json /app
+COPY .env /app
 
 RUN ["chmod", "+x", "/app/init.sh"]
 RUN ["chmod", "+x", "/app/backup.sh"]
