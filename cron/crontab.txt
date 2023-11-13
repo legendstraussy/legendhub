@@ -1,3 +1,1 @@
-* * * * * date >> /opt/dates.txt
-* * * * * /app/init.sh >> /opt/out.txt  2>&1
 * * * * * /app/backup.sh >> /app/backup.txt  2>&1

@@ -1,5 +1,16 @@
 import mysql from 'mysql2'
+import dump from 'mysqldump'
 import 'dotenv/config'
+
+const myDump = dump({
+  connection: {
+    host: process.env.MYSQL_HOST || 'localhost',
+    user: process.env.MYSQL_USER || 'root',
+    password: process.env.MYSQL_PASSWORD || 'root',
+    database: process.env.MYSQL_DATABASE || 'hub'
+  },
+  dumpToFile: './dump.sql'
+})
 
 const database = mysql.createConnection({
   host: process.env.MYSQL_HOST || 'localhost',
@@ -9,15 +20,18 @@ const database = mysql.createConnection({
   port: process.env.MYSQL_PORT || 3306    
 })
 
-database.connect()
+try {
+  database.connect()
 
-const sqlQuery = 'SELECT * FROM accounts'
+  const sqlQuery = 'SELECT * FROM accounts'
 
-database.query(sqlQuery, (err, result) => {
-  if (err) throw err;
+  database.query(sqlQuery, (err, result) => {
+    if (err) return null
 
-  console.log('ACCOUNTS: ', JSON.stringify(result))
-  database.destroy()
-})
-
-console.log('bingo from JavaScript!')
+    console.log('ACCOUNTS: ', JSON.stringify(result))
+    
+    database.destroy()
+  })
+} catch {
+  
+}

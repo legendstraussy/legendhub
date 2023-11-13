@@ -13,7 +13,9 @@ CONNECT TO CONTAINER SHELL
 docker exec -it <container> bash
 
 TEST CRON
-docker container cp hub_cron:/opt .
+crontab.txt
+* * * * * date >> /opt/dates.txt
+* * * * * /app/init.sh >> /opt/out.txt  2>&1
 
 STARTING SERVICES
 -docker-compose down -v
