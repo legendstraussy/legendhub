@@ -24,7 +24,7 @@ function ExpirationCheck({ children }: NextAuthProviderProps ) {
       if (isSiteSessionExpired) {
         signOut()
       }
-    }, AUTH_EXPIRATION_LOOP_CHECK_SECONDS)
+    }, 5000)
 
     return () => clearInterval(expireCheck)
   }, [data, expires, pathname]);

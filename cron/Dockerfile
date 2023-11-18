@@ -19,13 +19,17 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 
 RUN npm install mysql2 dotenv mysqldump
 
+RUN mkdir /app/logs
+
 COPY crontab.txt /app
-# COPY init.sh /app
 COPY backup.sh /app
-# COPY test.py /app
-COPY test.js /app
+COPY backup.js /app
 COPY package.json /app
 COPY .env /app
+
+# COPY init.sh /app
+# COPY test.py /app
+# COPY test.js /app
 
 # RUN ["chmod", "+x", "/app/init.sh"]
 RUN ["chmod", "+x", "/app/backup.sh"]
