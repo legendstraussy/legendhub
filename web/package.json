@@ -9,6 +9,9 @@
     "start:prod": "dotenv -e .env.production -- prisma migrate dev --name init ./prisma/schema.prisma && next start",
     "lint": "next lint"
   },
+  "prisma": {
+    "seed": "sh prisma/seed.sh"
+  },
   "dependencies": {
     "@prisma/client": "^5.5.2",
     "next": "^14.0.0",
