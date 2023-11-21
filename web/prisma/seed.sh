@@ -2,4 +2,6 @@
 
 set -ex
 
-/usr/bin/mysql /mysql/backups/backup.sql
+service mysql start
+
+/usr/bin/mysql -h db -u root --password=root hub < /../backups/backup.sql
