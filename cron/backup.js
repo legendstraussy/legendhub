@@ -1,17 +1,13 @@
 import fs from 'fs'
-import dump from 'mysqldump'
+import { execSync } from 'child_process'
 import 'dotenv/config'
 
 const FREQ = process.env.FREQ
 const BASE_PATH = 'backups'
 const MAX_BACKUPS = 3
-
-const connection = {
-  host: process.env.MYSQL_HOST,
-  user: process.env.MYSQL_USER,
-  password: process.env.MYSQL_PASSWORD,
-  database: process.env.MYSQL_DATABASE
-}
+const HOST = process.env.MYSQL_HOST
+const USER = process.env.MYSQL_USER
+const DATABASE = process.env.MYSQL_DATABASE
 
 function getDateTimeString() {
   const today = new Date()
@@ -26,18 +22,17 @@ function getDateTimeString() {
   return `${YYYY}${MM}${DD}T${hh}${mm}${ss}${ms}`
 }
 
-function save({ dumpToFile }) {
-  if (!dumpToFile) return
-
-  dump({
-    connection,
-    dumpToFile
-  })
+function save({ filePath }) {
+  try {
+    execSync(`mysqldump -h ${HOST} -u ${USER} ${DATABASE} > ${filePath}`)
+  } catch (e) {
+    console.log(`could not run save mysqldump file: ${e}`)
+  }
 }
 
 try {
   // current backup
-  save({ dumpToFile: `/${BASE_PATH}/backup.sql` })
+  save({ filePath: `/${BASE_PATH}/backup.sql` })
 
   if (FREQ !== 'current') {
     const DIR_PATH = `/${BASE_PATH}/${FREQ}`
@@ -62,7 +57,7 @@ try {
 
     // recurring backup
     const fileName = getDateTimeString()
-    save({ dumpToFile: `${DIR_PATH}/${fileName}.sql` })
+    save({ filePath: `${DIR_PATH}/${fileName}.sql` })
   }
 } catch (e) {
   console.log(`could not run mysqldump: ${e}`)

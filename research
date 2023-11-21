@@ -1,3 +1,23 @@
+TODO
+[] abstract .env files out to root folder
+[x] create backup of hub db into sql file
+[x] run sql to make sure it seeds db
+[x] create a seed script to run seed file on start
+[x] create initial seed file that ports old hub db into new hub db
+[x] add cron job container to docker compose, run cron job for various sql maintenance
+
+MYSQLDUMP
+dockerfile
+-add RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server
+
+mysql sql
+-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+
+cron container
+-service mysql start
+-mysqldump -h hub_mysql --password=root -u root hub > test.sql
+
 BUILD/RUN IMAGE
 docker build -t <image_name> .
 docker run -d --rm --name <image_name> <image_name>
@@ -18,14 +38,6 @@ STARTING SERVICES
 -docker system prune -a
 -docker-compose up --build -d
 -cd /web, run npx prisma migrate dev ./prisma/schema.prisma --name init
-
-TODO
-[] create backup of hub db into sql file
-[] run sql to make sure it seeds db
-[] create a seed script to run seed file on start
-[] create initial seed file that ports old hub db into new hub db
-[] add cron job container to docker compose, run cron job for various sql maintenance
-
 
 App routes
 /

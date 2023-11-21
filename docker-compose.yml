@@ -1,19 +1,22 @@
 version: '3.7'
 
 services:
-  # web:
-  #   container_name: hub_web
-  #   ports:
-  #     - 3000:3000
-  #   build: .
-  #   depends_on:
-  #     db:
-  #       condition: service_started
-  #   env_file:
-  #     - .env.production
-  #   networks:
-  #     - network
-  #   restart: always
+  web:
+    container_name: hub_web
+    ports:
+      - 3000:3000
+    build: ./web
+    depends_on:
+      - db
+      - myphpadmin
+      - cron-run
+    env_file:
+      - ./web/.env.production
+    volumes:
+      - ./mysql/backups:/backups
+    networks:
+      - network
+    restart: always
 
   db:
     image: mysql:latest
@@ -23,8 +26,6 @@ services:
       MYSQL_DATABASE: hub
     ports:
       - 3306:3306
-    expose:
-      - 3306
     volumes:
       - database:/var/lib/mysql
     networks:
