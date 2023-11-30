@@ -4,6 +4,7 @@ import 'dotenv/config'
 
 const FREQ = process.env.FREQ
 const BASE_PATH = 'backups'
+const _BACKUP_PATH = `/${BASE_PATH}/_backup.sql`
 const MAX_BACKUPS = 3
 const HOST = process.env.MYSQL_HOST
 const USER = process.env.MYSQL_USER
@@ -24,9 +25,15 @@ function getDateTimeString() {
 
 async function save({ filePath }) {
   try {
-    execSync(`mysqldump -h ${HOST} -u ${USER} ${DATABASE} > ${filePath}`)
-    // const stat = await fs.stat(filePath)
-    // console.log('bingo stat', stat)
+    execSync(`mysqldump -h ${HOST} -u ${USER} ${DATABASE} > ${_BACKUP_PATH}`)
+    await fs.stat(_BACKUP_PATH, (error, stats) => {
+      if (error) throw error
+
+      if (stats.size > 0) {
+        execSync(`mysqldump -h ${HOST} -u ${USER} ${DATABASE} > ${filePath}`)
+      }
+    })
+    fs.unlinkSync(_BACKUP_PATH)
   } catch (e) {
     console.log(`could not run save mysqldump file: ${e}`)
   }
