@@ -28,8 +28,11 @@ export const authOptions: AuthOptions = {
         email: {},
         password: {}
       },
-      async authorize (credentials, _req) {
+      async authorize (credentials, req) {
         const { email, password = '' } = credentials
+        const ip = req.headers['x-forwarded-for']
+        const formattedIP = ip.replace('::ffff:', '')
+        const ipAddress = formattedIP === '::1' ? '127.0.0.1' : formattedIP
 
         try {
           const existingAccount = await prisma.account.findUnique({
@@ -42,9 +45,10 @@ export const authOptions: AuthOptions = {
             throw new Error(ERROR_MESSAGES.INVALID_LOGIN)
           }
 
+          const { id: accountId } = existingAccount
           const existingAccountPassword = await prisma.accountPassword.findFirst({
             where: {
-              accountId: existingAccount?.id
+              accountId
             }
           })
 
@@ -56,6 +60,13 @@ export const authOptions: AuthOptions = {
           if (!passwordMatch) {
             throw new Error(ERROR_MESSAGES.INVALID_LOGIN)
           }
+
+          await prisma.networkHistory.create({
+            data: {
+              accountId,
+              ipAddress
+            }
+          })
 
           return existingAccount
         } catch {

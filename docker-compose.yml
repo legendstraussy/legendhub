@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.9'
 
 services:
   web:
@@ -7,9 +7,12 @@ services:
       - 3000:3000
     build: ./web
     depends_on:
-      - db
-      - myphpadmin
-      - cron-run
+      db:
+        condition: service_healthy
+      cron-run:
+        condition: service_started
+      myphpadmin: 
+        condition: service_started
     env_file:
       - ./web/.env.production
     volumes:
@@ -26,6 +29,12 @@ services:
       MYSQL_DATABASE: hub
     ports:
       - 3306:3306
+    healthcheck:
+      test: mysql --user=root --password=root
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
     volumes:
       - database:/var/lib/mysql
     networks:

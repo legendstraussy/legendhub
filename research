@@ -1,12 +1,24 @@
+DB CHANGE
+-backup database
+-mod prisma schema from local
+-rerun containers
+
 TODO
-[] abstract .env files out to root folder
+[x] don't seed db if there is an existing volume
+[] only backup db if db has data
+[x] implement docker healthcheck for web service
+[-] abstract .env files out to root folder
 [x] create backup of hub db into sql file
 [x] run sql to make sure it seeds db
 [x] create a seed script to run seed file on start
 [x] create initial seed file that ports old hub db into new hub db
 [x] add cron job container to docker compose, run cron job for various sql maintenance
 
+prisma migrate dev --name init ./prisma/schema.prisma && prisma db seed && 
+
 MYSQLDUMP
+mysqldump -h db -u root --password=root hub > ../backups/backup.sql 
+
 dockerfile
 -add RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server

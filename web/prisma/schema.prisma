@@ -76,7 +76,6 @@ model Account {
   AccountNotification AccountNotification[]
   AccountPassword     AccountPassword[]
   Character           Character[]
-  NetworkHistory      NetworkHistory[]
   NetworkBlacklist    NetworkBlacklist[]
   Notification        Notification[]
   CreatedItems        Item[]                @relation("CreatedItems")
@@ -123,10 +122,8 @@ model AccountPassword {
 model NetworkHistory {
   id               Int                @id @default(autoincrement())
   accountId        Int                @map("account_id")
-  createdDate      DateTime           @default(now()) @map("created_date")
-  loginDate        DateTime           @updatedAt @map("login_date")
+  loginDate        DateTime           @default(now()) @map("login_date")
   ipAddress        String             @map("ip_address")
-  Account          Account            @relation(fields: [accountId], references: [id])
   NetworkBlacklist NetworkBlacklist[]
 
   @@map("network_history")

@@ -22,9 +22,11 @@ function getDateTimeString() {
   return `${YYYY}${MM}${DD}T${hh}${mm}${ss}${ms}`
 }
 
-function save({ filePath }) {
+async function save({ filePath }) {
   try {
     execSync(`mysqldump -h ${HOST} -u ${USER} ${DATABASE} > ${filePath}`)
+    // const stat = await fs.stat(filePath)
+    // console.log('bingo stat', stat)
   } catch (e) {
     console.log(`could not run save mysqldump file: ${e}`)
   }
