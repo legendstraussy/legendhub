@@ -1,3 +1,56 @@
+TODO
+[x] don't seed db if there is an existing volume
+[x] only backup db if db has data
+[x] implement docker healthcheck for web service
+[-] abstract .env files out to root folder
+[x] create backup of hub db into sql file
+[x] run sql to make sure it seeds db
+[x] create a seed script to run seed file on start
+[x] create initial seed file that ports old hub db into new hub db
+[x] add cron job container to docker compose, run cron job for various sql maintenance
+
+DB CHANGE
+-backup database
+-mod prisma schema from local
+-rerun containers
+
+prisma migrate dev --name init ./prisma/schema.prisma && prisma db seed && 
+
+MYSQLDUMP
+mysqldump -h db -u root --password=root hub > ../backups/backup.sql 
+
+dockerfile
+-add RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-server
+
+mysql sql
+-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'root';
+
+cron container
+-service mysql start
+-mysqldump -h hub_mysql --password=root -u root hub > test.sql
+
+BUILD/RUN IMAGE
+docker build -t <image_name> .
+docker run -d --rm --name <image_name> <image_name>
+
+CONNECT TO MYSQL FROM CONTAINER
+docker exec -it <container> bash
+
+CONNECT TO CONTAINER SHELL
+docker exec -it <container> bash
+
+TEST CRON
+crontab.txt
+* * * * * date >> /opt/dates.txt
+* * * * * /app/init.sh >> /opt/out.txt  2>&1
+
+STARTING SERVICES
+-docker-compose down -v
+-docker system prune -a
+-docker-compose up --build -d
+-cd /web, run npx prisma migrate dev ./prisma/schema.prisma --name init
+
 App routes
 /
 /builder

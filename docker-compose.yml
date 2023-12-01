@@ -1,33 +1,76 @@
-version: "3.7"
+version: '3.9'
 
 services:
+  web:
+    container_name: hub_web
+    ports:
+      - 3000:3000
+    build: ./web
+    depends_on:
+      db:
+        condition: service_healthy
+      cron-run:
+        condition: service_started
+      myphpadmin: 
+        condition: service_started
+    env_file:
+      - ./web/.env.production
+    volumes:
+      - ./mysql/backups:/backups
+    networks:
+      - network
+    restart: always
+
   db:
     image: mysql:latest
     container_name: hub_mysql
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: hub
     ports:
       - 3306:3306
+    healthcheck:
+      test: mysql --user=root --password=root
+      interval: 10s
+      timeout: 10s
+      retries: 10
+      start_period: 10s
     volumes:
-      - './db:/var/lib/mysql'
-
+      - database:/var/lib/mysql
+    networks:
+      - network
+    restart: always
+      
   myphpadmin:
     image: phpmyadmin/phpmyadmin:latest
     container_name: hub_phpmyadmin
-    restart: always
-    links:
-      - db
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
       - 8080:80
+    depends_on:
+      - db
+    networks:
+      - network
+    restart: always
+
+  cron-run:
+    container_name: hub_cron
+    build:
+      context: ./cron
+    volumes:
+      - ./mysql/backups:/backups
+    depends_on:
+      - db
+    networks:
+      - network
 
 networks:
   network:
     driver: bridge
 
 volumes:
-  db:
+  database:
+    driver: local
+  backups:
     driver: local
