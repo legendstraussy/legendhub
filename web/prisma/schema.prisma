@@ -90,11 +90,11 @@ model Account {
   ModifiedAbilities   Ability[]             @relation("ModifiedAbilities")
   CreatedQuests       Quest[]               @relation("CreatedQuests")
   ModifiedQuests      Quest[]               @relation("ModifiedQuests")
-  Article             Article[]
-  ArticleVersion      ArticleVersion[]
   Tag                 Tag[]
   Area                Area[]
   ChangeLog           ChangeLog[]
+  AuthorAccount       Article[]             @relation("AuthorAccount")
+  EditorAccount       Article[]             @relation("EditorAccount")
 
   @@map("accounts")
 }
@@ -155,96 +155,85 @@ model Notification {
 }
 
 model Character {
-  id               Int                @id @default(autoincrement())
-  mudId            Int?               @map("mud_id")
-  accountId        Int                @map("account_id")
-  createdDate      DateTime           @default(now()) @map("created_date")
-  modifiedDate     DateTime           @updatedAt @map("modified_date")
-  name             String
-  description      String?
-  level            Int?               @default(50)
-  Account          Account            @relation(fields: [accountId], references: [id])
-  CharacterVersion CharacterVersion[]
+  id                 Int                  @id @default(autoincrement())
+  mudId              Int?                 @map("mud_id")
+  accountId          Int                  @map("account_id")
+  createdDate        DateTime             @default(now()) @map("created_date")
+  modifiedDate       DateTime             @updatedAt @map("modified_date")
+  name               String
+  description        String?
+  level              Int?                 @default(50)
+  Account            Account              @relation(fields: [accountId], references: [id])
+  equipmentId        Int                  @map("equipment_id")
+  statsId            Int                  @map("stats_id")
+  version            String
+  hometown           String?
+  CharacterStat      CharacterStat?
+  CharacterQuest     CharacterQuest[]
+  CharacterEquipment CharacterEquipment[]
 
   @@map("characters")
 }
 
-model CharacterVersion {
-  id                   Int                 @id @default(autoincrement())
-  characterId          Int                 @map("character_id")
-  equipmentId          Int                 @map("equipment_id")
-  statsId              Int                 @map("stats_id")
-  createdDate          DateTime            @default(now()) @map("created_date")
-  modifiedDate         DateTime            @updatedAt @map("modified_date")
-  version              String
-  hometown             String?
-  Character            Character           @relation(fields: [characterId], references: [id])
-  CharacterStat        CharacterStat?
-  CharacterQuest       CharacterQuest[]
-  CharacterEquipment   CharacterEquipment? @relation(fields: [characterEquipmentId], references: [id])
-  characterEquipmentId Int?
-
-  @@map("character_versions")
-}
-
 model CharacterStat {
-  id                 Int              @id @default(autoincrement())
-  characterVersionId Int              @unique @map("character_version_id")
-  str                Int?             @default(50)
-  min                Int?             @default(50)
-  dex                Int?             @default(50)
-  con                Int?             @default(16)
-  per                Int?             @default(16)
-  spi                Int?             @default(16)
-  strSwap            Int?             @default(0) @map("str_swap")
-  minSwap            Int?             @default(0) @map("min_swap")
-  dexSwap            Int?             @default(0) @map("dex_swap")
-  conSwap            Int?             @default(0) @map("con_swap")
-  perSwap            Int?             @default(0) @map("per_swap")
-  spiSwap            Int?             @default(0) @map("spi_swap")
-  CharacterVersion   CharacterVersion @relation(fields: [characterVersionId], references: [id])
+  id          Int       @id @default(autoincrement())
+  characterId Int       @unique @map("character_id")
+  str         Int?      @default(50)
+  min         Int?      @default(50)
+  dex         Int?      @default(50)
+  con         Int?      @default(16)
+  per         Int?      @default(16)
+  spi         Int?      @default(16)
+  strSwap     Int?      @default(0) @map("str_swap")
+  minSwap     Int?      @default(0) @map("min_swap")
+  dexSwap     Int?      @default(0) @map("dex_swap")
+  conSwap     Int?      @default(0) @map("con_swap")
+  perSwap     Int?      @default(0) @map("per_swap")
+  spiSwap     Int?      @default(0) @map("spi_swap")
+  Character   Character @relation(fields: [characterId], references: [id])
 
   @@map("character_stats")
 }
 
 model CharacterQuest {
-  id                 Int              @id @default(autoincrement())
-  characterVersionId Int              @map("character_version_id")
-  questId            Int              @map("quest_id")
-  CharacterVersion   CharacterVersion @relation(fields: [characterVersionId], references: [id])
-  Quest              Quest            @relation(fields: [questId], references: [id])
+  id          Int       @id @default(autoincrement())
+  characterId Int       @map("character_id")
+  questId     Int       @map("quest_id")
+  Character   Character @relation(fields: [characterId], references: [id])
+  Quest       Quest     @relation(fields: [questId], references: [id])
 
   @@map("character_quests")
 }
 
 model CharacterEquipment {
-  id               Int                @id @default(autoincrement())
-  light            Int?
-  finger1          Int?               @map("finger_1")
-  finger2          Int?               @map("finger_2")
-  neck1            Int?               @map("neck_1")
-  neck2            Int?               @map("neck_2")
-  body             Int?
-  head             Int?
-  hands            Int?
-  feet             Int?
-  face             Int?
-  arms             Int?
-  legs             Int?
-  about            Int?
-  waist            Int?
-  wrist1           Int?               @map("wrist_1")
-  wrist2           Int?               @map("wrist_2")
-  wield            Int?
-  hold1            Int?               @map("hold_1")
-  hold2            Int?               @map("hold_2")
-  hold3            Int?               @map("hold_3")
-  ear1             Int?               @map("ear_1")
-  ear2             Int?               @map("ear_2")
-  arm              Int?
-  amulet           Int?
-  aux              Int?
-  CharacterVersion CharacterVersion[]
+  id          Int       @id @default(autoincrement())
+  characterId Int       @map("character_id")
+  light       Int?
+  finger1     Int?      @map("finger_1")
+  finger2     Int?      @map("finger_2")
+  neck1       Int?      @map("neck_1")
+  neck2       Int?      @map("neck_2")
+  body        Int?
+  head        Int?
+  hands       Int?
+  feet        Int?
+  face        Int?
+  arms        Int?
+  legs        Int?
+  about       Int?
+  waist       Int?
+  wrist1      Int?      @map("wrist_1")
+  wrist2      Int?      @map("wrist_2")
+  wield       Int?
+  hold1       Int?      @map("hold_1")
+  hold2       Int?      @map("hold_2")
+  hold3       Int?      @map("hold_3")
+  ear1        Int?      @map("ear_1")
+  ear2        Int?      @map("ear_2")
+  arm         Int?
+  amulet      Int?
+  aux         Int?
+  Character   Character @relation(fields: [characterId], references: [id])
 
   @@map("character_equipment")
 }
@@ -459,29 +448,20 @@ model StatModifer {
 }
 
 model Article {
-  id               Int              @id @default(autoincrement())
-  createdDate      DateTime         @default(now()) @map("created_date")
-  authorId         Int              @map("author_id")
-  isProtected      Boolean          @default(false) @map("is_protected")
-  Author           Account          @relation(fields: [authorId], references: [id])
-  ArticleContent   ArticleVersion[]
-  ArticleTagSource AppliedTag?      @relation("ArticleTagSource")
+  id               Int         @id @default(autoincrement())
+  createdDate      DateTime    @default(now()) @map("created_date")
+  modifiedDate     DateTime    @default(now()) @map("modified_date")
+  authorId         Int         @map("author_id")
+  editorId         Int         @map("editor_id")
+  content          String      @db.Text
+  isProtected      Boolean     @default(false) @map("is_protected")
+  isCurrent        Boolean     @map("is_current")
+  version          String?
+  ArticleTagSource AppliedTag? @relation("ArticleTagSource")
+  AuthorAccount    Account     @relation("AuthorAccount", fields: [authorId], references: [id])
+  EditorAccount    Account     @relation("EditorAccount", fields: [editorId], references: [id])
 
   @@map("articles")
-}
-
-model ArticleVersion {
-  id           Int      @id @default(autoincrement())
-  articleId    Int      @map("article_id")
-  modifiedDate DateTime @default(now()) @map("modified_date")
-  editorId     Int      @map("editor_id")
-  content      String   @db.Text
-  isCurrent    Boolean  @map("is_current")
-  version      String?
-  Editor       Account  @relation(fields: [editorId], references: [id])
-  Article      Article  @relation(fields: [articleId], references: [id])
-
-  @@map("article_versions")
 }
 
 model Tag {
