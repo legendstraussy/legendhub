@@ -17,28 +17,17 @@ RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
 RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 
-# RUN node --version
-# RUN npm --version
-
 RUN npm install dotenv
 
-RUN mkdir /app/logs
-
-# Installing dependencies
 COPY package*.json ./
 COPY prisma ./prisma/
 
-# Copying source files
 COPY . .
 
-RUN npx prisma generate
-
 RUN npm install
-
-# Building app
 RUN npm run build
+RUN npx prisma generate
 
 EXPOSE 3000
 
-# Running the app
 CMD ["npm", "run", "start:prod"]
