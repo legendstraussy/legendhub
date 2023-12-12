@@ -1,4 +1,5 @@
 TODO
+[] reset password
 [x] don't seed db if there is an existing volume
 [x] only backup db if db has data
 [x] implement docker healthcheck for web service
@@ -10,9 +11,7 @@ TODO
 [x] add cron job container to docker compose, run cron job for various sql maintenance
 
 DB CHANGE
--backup database
--mod prisma schema from local
--rerun containers
+-follow data migration steps (ref: https://www.prisma.io/docs/guides/migrate/data-migration)
 
 prisma migrate dev --name init ./prisma/schema.prisma && prisma db seed && 
 

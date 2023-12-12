@@ -1,7 +1,7 @@
 import { withAuth } from 'next-auth/middleware'
 import { NextResponse } from 'next/server'
 
-const LIMITED_ROUTES = ['/login', '/register']
+const LIMITED_ROUTES = ['/login', '/register', '/reset']
 
 export default withAuth((req) => {
   const { pathname, searchParams } = req.nextUrl
@@ -30,5 +30,5 @@ export default withAuth((req) => {
 })
 
 export const config = {
-  matcher: ['/dashboard', '/register', '/login']
+  matcher: ['/dashboard', '/register', '/login', '/reset']
 }
