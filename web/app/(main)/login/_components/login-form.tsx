@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { signIn } from 'next-auth/react'
 import { useState } from 'react'
+import { SUCCESS_MESSAGES } from '@/app/_lib/constants'
 
 type status = {
   message: string,
@@ -43,7 +44,7 @@ export default function LoginForm() {
       body: JSON.stringify({ email }),
     }).then(response => Promise.resolve(response.json()))
 
-    setStatus({ message: <Link href={success}>Reset</Link> ?? error })
+    setStatus({ message: error ?? <Link href={success}>{SUCCESS_MESSAGES.ACCOUNT_RESET}</Link> })
   }
 
   return (

@@ -53,9 +53,9 @@ export async function registerUser(registrant: Account): Promise<ServiceResponse
     return Promise.resolve({ 
       success: SUCCESS_MESSAGES.ACCOUNT_CREATED
     })
-  } catch {
+  } catch (e) {
     return Promise.reject({ 
-      error: ERROR_MESSAGES.GENERIC_ERROR
+      error: `${ERROR_MESSAGES.GENERIC_ERROR}: ${e}`
     })
   }
 }
@@ -72,7 +72,7 @@ export async function resetPasswordRequest(registrant: Account): Promise<Service
 
     if (!existingAccount) {
       return Promise.resolve({ 
-        error: ERROR_MESSAGES.ACCOUNT_NOT_EXIST
+        error: ERROR_MESSAGES.ACCOUNT_RESET
       })
     }
 

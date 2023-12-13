@@ -114,9 +114,10 @@ model AccountNotification {
 }
 
 model AccountPassword {
-  id           Int    @id @default(autoincrement())
-  accountId    Int    @map("account_id")
-  passwordHash String @map("password_hash")
+  id           Int       @id @default(autoincrement())
+  accountId    Int       @map("account_id")
+  createdDate  DateTime? @updatedAt @map("created_date")
+  passwordHash String    @map("password_hash")
 
   Account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
 
