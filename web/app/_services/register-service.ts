@@ -137,12 +137,19 @@ export async function resetPassword({ password, token }) {
       }
     })
 
-    const passwordHash = await hash(password, 10)
-    const updatedPassword = prisma.accountPassword.updateMany({
+    const currentPassword = await prisma.accountPassword.findFirst({
       where: {
         accountId
+      }
+    })
+
+    const passwordHash = await hash(password, 10)
+    const updatedPassword = prisma.accountPassword.update({
+      where: {
+        id: currentPassword.id
       },
       data: {
+        createdDate: new Date(),
         passwordHash
       }
     })

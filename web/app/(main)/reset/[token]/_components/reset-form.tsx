@@ -29,6 +29,7 @@ export default function ResetForm({ token }) {
     }).then(response => response.json())
 
     if (success) {
+      // setStatus({ message: error ?? success, isSuccess: success })
       router.push(ROUTES.LOGIN)
     }
   }
