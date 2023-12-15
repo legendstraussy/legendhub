@@ -77,9 +77,9 @@ model Account {
   AccountNotification  AccountNotification[]
   AccountPassword      AccountPassword[]
   AccountPasswordReset AccountPasswordReset[]
-  Character            Character[]
   NetworkBlacklist     NetworkBlacklist[]
   Notification         Notification[]
+  Character            Character[]
   Tag                  Tag[]
   Area                 Area[]
   ChangeLog            ChangeLog[]
@@ -148,6 +148,7 @@ model NetworkHistory {
 model NetworkBlacklist {
   id               Int      @id @default(autoincrement())
   networkHistoryId Int      @map("network_history_id")
+  ipAddress        String   @unique @map("ip_address")
   issueDate        DateTime @map("issue_date")
   termDate         DateTime @map("term_date")
   issuer           Int
