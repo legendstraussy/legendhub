@@ -1,5 +1,5 @@
 TODO
-[] reset password
+[x] reset password
 [x] don't seed db if there is an existing volume
 [x] only backup db if db has data
 [x] implement docker healthcheck for web service
@@ -17,6 +17,9 @@ prisma migrate dev --name init ./prisma/schema.prisma && prisma db seed &&
 
 MYSQLDUMP
 mysqldump -h db -u root --password=root hub > ../backups/backup.sql 
+
+RESTORE
+mysql -h db -u root --password=root hub > ../backups/backup.sql 
 
 dockerfile
 -add RUN apt-get update && \

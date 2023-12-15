@@ -18,7 +18,8 @@ export const ERROR_MESSAGES = {
   INVALID_LOGIN: 'invalid password or account email',
   ACCOUNT_RESET: 'if the account exists, an email will be sent with a link to reset your password',
   RESET_TOKEN_EXPIRED: 'your reset token has expired',
-  RESET_TOKEN_INVALID: 'reset token is not valid'
+  RESET_TOKEN_INVALID: 'reset token is not valid',
+  NETWORK_IP_BANNED: 'this IP address has been banned'
 }
 
 export const SUCCESS_MESSAGES = {

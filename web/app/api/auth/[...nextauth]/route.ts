@@ -35,6 +35,19 @@ export const authOptions: NextAuthOptions = {
         const ipAddress = formattedIP === '::1' ? '127.0.0.1' : formattedIP
 
         try {
+          const blackListedNetwork = await prisma.networkBlacklist.findFirst({
+            select: {
+              ipAddress: true
+            },
+            where: {
+              ipAddress
+            }
+          })
+
+          if (blackListedNetwork?.ipAddress) {
+            throw new Error(ERROR_MESSAGES.NETWORK_IP_BANNED)
+          }
+          
           const existingAccount = await prisma.account.findUnique({
             where: {
               email
@@ -46,6 +59,7 @@ export const authOptions: NextAuthOptions = {
           }
 
           const { id: accountId } = existingAccount
+
           const existingAccountPassword = await prisma.accountPassword.findFirst({
             where: {
               accountId
@@ -60,17 +74,25 @@ export const authOptions: NextAuthOptions = {
           if (!passwordMatch) {
             throw new Error(ERROR_MESSAGES.INVALID_LOGIN)
           }
+          
+          const deleteNeworkHistory = prisma.networkHistory.deleteMany({
+            where: {
+              accountId
+            }
+          })
 
-          await prisma.networkHistory.create({
+          const createNetworkHistory = prisma.networkHistory.create({
             data: {
               accountId,
               ipAddress
             }
           })
+        
+          await prisma.$transaction([deleteNeworkHistory, createNetworkHistory])
 
           return existingAccount
-        } catch {
-          throw new Error(ERROR_MESSAGES.INVALID_LOGIN)
+        } catch (e) {
+          throw new Error(e)
         }
       }
     })
