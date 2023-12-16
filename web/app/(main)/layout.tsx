@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { ROUTES } from '@/app/_lib/constants'
 import { getServerSession } from 'next-auth'
-import { authOptions } from '@/app/api/auth/[...nextauth]/route'
+import { authOptions } from '@/app/api/auth/[...nextauth]/auth'
 import LoginButton from '@/app/(main)/_components/login-button'
 
 type HeaderLayoutProps = {

@@ -1,3 +1,4 @@
+* * * * *     /app/banned.sh          >> /app/logs/banned     2>&1
 * */12 * * *  /app/backup.sh current  >> /app/logs/current    2>&1
 1 13-23 * * * /app/backup.sh hourly   >> /app/logs/hourly     2>&1
 30 4 1,15 * * /app/backup.sh biweekly >> /app/logs/biweekly   2>&1
