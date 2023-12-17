@@ -24,16 +24,7 @@ export default function LoginForm() {
     
     if (!email || !password) return setStatus({ message: 'please provide required fields.' })
 
-    const { error, url } = await signIn('credentials', { email, password, redirect: false })
-
-    if (error) {
-      setStatus({ message: error })
-    }
-
-    if (url) {
-      router.push(url)
-      router.refresh()
-    }
+    signIn('credentials', { email, password })
   }
 
   const handleResetPassword = async (event: React.MouseEvent) => {

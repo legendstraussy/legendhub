@@ -3,13 +3,13 @@
 import { SessionProvider, signOut, useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
 import { useEffect } from 'react'
-import { AUTH_EXPIRATION_LOOP_CHECK_SECONDS, ROUTES } from '@/app/_lib/constants'
+import { SESSION_CHECK_TIME_MS, ROUTES } from '@/app/_lib/constants'
 
 type NextAuthProviderProps = {
   children?: React.ReactNode
 }
 
-function ExpirationCheck({ children }: NextAuthProviderProps ) {
+function SessionCheck({ children }: NextAuthProviderProps ) {
   const pathname = usePathname()
   const { data } = useSession()
   const { expires = null } = data ?? {}
@@ -24,10 +24,10 @@ function ExpirationCheck({ children }: NextAuthProviderProps ) {
       if (isSiteSessionExpired) {
         signOut()
       }
-    }, AUTH_EXPIRATION_LOOP_CHECK_SECONDS)
+    }, SESSION_CHECK_TIME_MS)
 
     return () => clearInterval(expireCheck)
-  }, [data, expires, pathname]);
+  }, [expires, pathname])
   
   return (
     <>
@@ -39,9 +39,9 @@ function ExpirationCheck({ children }: NextAuthProviderProps ) {
 export const NextAuthProvider = ({ children }: NextAuthProviderProps) => {
   return (
     <SessionProvider>
-      <ExpirationCheck>
+      <SessionCheck>
         {children}
-      </ExpirationCheck>
+      </SessionCheck>
     </SessionProvider>
   )
 }

@@ -33,7 +33,7 @@ export const authOptions: NextAuthOptions = {
         const ip = req.headers['x-forwarded-for']
         const formattedIP = ip.replace('::ffff:', '')
         const ipAddress = formattedIP === '::1' ? '127.0.0.1' : formattedIP
-        console.log('bingo ip', ipAddress)
+
         try {
           const blackListedNetwork = await prisma.networkBlacklist.findFirst({
             select: {
@@ -111,7 +111,7 @@ export const authOptions: NextAuthOptions = {
   },
   session: { 
     strategy: 'jwt',
-    maxAge: 3 * 24 * 60 * 60
+    maxAge: 4 * 24 * 60 * 60 // 4 hours
   },
   pages: {
     signIn: ROUTES.LOGIN

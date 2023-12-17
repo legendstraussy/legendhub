@@ -1,4 +1,4 @@
-export const AUTH_EXPIRATION_LOOP_CHECK_SECONDS = 1
+export const SESSION_CHECK_TIME_MS = 5000
 
 export const ROUTES = {
   HOME: '/',
