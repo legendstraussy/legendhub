@@ -108,7 +108,8 @@ model AccountNotification {
   read           Boolean?  @default(false)
   readDate       DateTime? @map("read_date")
 
-  Account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  Account      Account      @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  Notification Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)
 
   @@map("account_notifications")
 }
@@ -168,7 +169,8 @@ model Notification {
   description String?
   content     String?          @db.Text
 
-  Account Account @relation(fields: [createdBy], references: [id])
+  Account             Account               @relation(fields: [createdBy], references: [id])
+  AccountNotification AccountNotification[]
 
   @@map("notifications")
 }
