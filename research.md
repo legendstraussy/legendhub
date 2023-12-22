@@ -10,8 +10,25 @@ TODO
 [x] create initial seed file that ports old hub db into new hub db
 [x] add cron job container to docker compose, run cron job for various sql maintenance
 
+QUERY TAGS
+SELECT t.tag FROM mobs m
+JOIN tags t ON t.id Member of(m.tags)
+WHERE m.id = 1
+
 DB CHANGE
 -follow data migration steps (ref: https://www.prisma.io/docs/guides/migrate/data-migration)
+
+OR
+-git checkout feature branch
+-make changes to schema
+-npx prisma migrate dev --name <migration_name>
+-npx prisma migrate deploy
+
+IF ABOVE ERROR
+-wipe out prisma migrations from /web/prisma and from DB prisma table
+-npx prisma db push
+-rebuild hub_web image
+-rerun containers
 
 prisma migrate dev --name init ./prisma/schema.prisma && prisma db seed && 
 
